@@ -32,6 +32,7 @@ dependencies {
     implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.5.1'
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.12'
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.5.1'
+    implementation 'org.postgresql:postgresql'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
