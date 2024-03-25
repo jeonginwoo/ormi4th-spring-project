@@ -7,13 +7,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.estsoft.springproject.domain.dto.BoardRequest;
 import com.estsoft.springproject.domain.dto.BoardResponse;
 import com.estsoft.springproject.domain.entity.Board;
 import com.estsoft.springproject.service.BoardService;
 
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -42,5 +46,13 @@ public class BoardPageController {
 	public String deleteBoard(@PathVariable Long id){
 		boardService.deleteById(id);
 		return "redirect:/boardList";
+	}
+
+	@Transactional
+	@PutMapping("/board/{id}")
+	public String updateBoard(@PathVariable Long id,@RequestBody BoardRequest boardRequest){
+		Board board = boardService.findById(id);
+		board.update(boardRequest.getTitle(),boardRequest.getContent());
+		return "redirect:/board/" + id;
 	}
 }
