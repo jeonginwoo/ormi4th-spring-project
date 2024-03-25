@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,5 +36,11 @@ public class BoardPageController {
 		Board board = boardService.findById(id);
 		model.addAttribute("board",new BoardResponse(board));
 		return "board";
+	}
+
+	@DeleteMapping("/board/{id}")
+	public String deleteBoard(@PathVariable Long id){
+		boardService.deleteById(id);
+		return "redirect:/boardList";
 	}
 }
