@@ -37,7 +37,6 @@ public class Comment {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Builder
     public Comment(String content, User user, Board board){
         this.content = content;
         this.user = user;

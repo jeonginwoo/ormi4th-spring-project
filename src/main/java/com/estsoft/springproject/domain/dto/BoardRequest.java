@@ -1,12 +1,11 @@
 package com.estsoft.springproject.domain.dto;
 
 import com.estsoft.springproject.domain.entity.Board;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class BoardRequest {
     private String title;

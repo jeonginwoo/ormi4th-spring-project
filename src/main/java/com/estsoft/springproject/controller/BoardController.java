@@ -7,6 +7,7 @@ import com.estsoft.springproject.domain.dto.BoardRequest;
 import com.estsoft.springproject.domain.dto.BoardResponse;
 import com.estsoft.springproject.service.BoardService;
 import com.estsoft.springproject.service.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,35 +16,32 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/boards")
 @Slf4j
 public class BoardController {
     private final BoardService boardService;
     private final UserService userService;      // TODO: 테스트용. 나중에 지울 것!
 
-    public BoardController(BoardService boardService, UserService userService) {
-        this.boardService = boardService;
-        this.userService = userService;
-    }
-
-    @PostMapping("/api/boards")
+    @PostMapping
     public ResponseEntity<BoardResponse> addBoard(
             @RequestBody BoardRequest request
             /*@AuthenticationPrincipal User user    // TODO: 로그인한 사람만 게시글 생성 가능*/
     ) {
-        User user = userService.findById(1L);
+        User user = userService.findById(1L);       // TODO: 테스트용. 나중에 지울 것!
         Board board = boardService.save(request, user);
         BoardResponse response = new BoardResponse(board);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("/api/boards")
+    @GetMapping
     public ResponseEntity<List<BoardResponse>> showBoards() {
         List<Board> boardList = boardService.findAll();
         List<BoardResponse> resopnseList = boardList.stream().map(BoardResponse::new).toList();
         return ResponseEntity.ok(resopnseList);
     }
 
-    @GetMapping("/api/boards/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<BoardResponse> showBoard(
             @PathVariable Long id
     ) {
@@ -52,7 +50,7 @@ public class BoardController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/api/boards/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBoard(
             @PathVariable Long id
             /*@AuthenticationPrincipal User user  // TODO: 인증자만 삭제 가능하도록 만들기*/
@@ -61,7 +59,7 @@ public class BoardController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/api/boards/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<BoardResponse> updateBoard(
             @PathVariable Long id,
             @RequestBody BoardRequest request
