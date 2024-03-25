@@ -1,17 +1,18 @@
 package com.estsoft.springproject.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Entity
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +38,6 @@ public class Comment {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Builder
     public Comment(String content, User user, Board board){
         this.content = content;
         this.user = user;
