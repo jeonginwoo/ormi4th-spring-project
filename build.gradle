@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.2.3'
+    id 'org.springframework.boot' version '3.2.1'
     id 'io.spring.dependency-management' version '1.1.4'
 }
 
@@ -33,10 +33,10 @@ dependencies {
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.12'
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.5.1'
     implementation 'org.postgresql:postgresql'
+    runtimeOnly("com.mysql:mysql-connector-j")
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
-    runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

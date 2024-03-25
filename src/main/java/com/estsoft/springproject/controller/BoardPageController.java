@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.estsoft.springproject.domain.dto.BoardRequest;
 import com.estsoft.springproject.domain.dto.BoardResponse;
 import com.estsoft.springproject.domain.entity.Board;
+import com.estsoft.springproject.domain.entity.User;
 import com.estsoft.springproject.service.BoardService;
 
 import jakarta.transaction.Transactional;
@@ -54,5 +56,11 @@ public class BoardPageController {
 		Board board = boardService.findById(id);
 		board.update(boardRequest.getTitle(),boardRequest.getContent());
 		return "redirect:/board/" + id;
+	}
+
+	@PostMapping("/board")
+	public String addBoard(@RequestBody BoardRequest boardRequest, User user){
+		boardService.save(boardRequest,user);
+		return "redirect:/boardList";
 	}
 }
