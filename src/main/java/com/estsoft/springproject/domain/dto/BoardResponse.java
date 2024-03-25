@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class BoardResponse {
     private Long id;
+    private String type;    // 일반글/공지글
+    private String team;    // 응원 팀
     private String title;
     private String content;
     private String nickname;    // 작성자
@@ -19,6 +21,8 @@ public class BoardResponse {
 
     public BoardResponse(Board board) {
         this.id = board.getId();
+        this.type = board.getType();
+        this.team = board.getTeam();
         this.title = board.getTitle();
         this.content = board.getContent();
         this.nickname = board.getUser().getNickname();
