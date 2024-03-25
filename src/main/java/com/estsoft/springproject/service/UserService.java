@@ -1,6 +1,6 @@
 package com.estsoft.springproject.service;
 
-import com.estsoft.springproject.domain.User;
+import com.estsoft.springproject.domain.entity.User;
 import com.estsoft.springproject.repository.UserRepository;
 import org.springframework.stereotype.Service;
 

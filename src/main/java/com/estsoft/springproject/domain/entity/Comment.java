@@ -1,4 +1,4 @@
-package com.estsoft.springproject.domain;
+package com.estsoft.springproject.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Builder;

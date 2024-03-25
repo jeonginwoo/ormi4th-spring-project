@@ -1,4 +1,4 @@
-package com.estsoft.springproject.domain;
+package com.estsoft.springproject.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Table(name = "users")

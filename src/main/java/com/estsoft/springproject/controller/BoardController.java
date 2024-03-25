@@ -1,10 +1,10 @@
 package com.estsoft.springproject.controller;
 
 
-import com.estsoft.springproject.domain.Board;
-import com.estsoft.springproject.domain.User;
-import com.estsoft.springproject.dto.BoardRequest;
-import com.estsoft.springproject.dto.BoardResponse;
+import com.estsoft.springproject.domain.entity.Board;
+import com.estsoft.springproject.domain.entity.User;
+import com.estsoft.springproject.domain.dto.BoardRequest;
+import com.estsoft.springproject.domain.dto.BoardResponse;
 import com.estsoft.springproject.service.BoardService;
 import com.estsoft.springproject.service.UserService;
 import lombok.extern.slf4j.Slf4j;

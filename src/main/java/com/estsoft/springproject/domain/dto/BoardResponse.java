@@ -1,6 +1,6 @@
-package com.estsoft.springproject.dto;
+package com.estsoft.springproject.domain.dto;
 
-import com.estsoft.springproject.domain.Board;
+import com.estsoft.springproject.domain.entity.Board;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -1,6 +1,8 @@
-package com.estsoft.springproject.domain;
+package com.estsoft.springproject.domain.entity;
 
-import com.estsoft.springproject.dto.BoardRequest;
+import com.estsoft.springproject.domain.dto.BoardRequest;
+import com.estsoft.springproject.domain.entity.Comment;
+import com.estsoft.springproject.domain.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

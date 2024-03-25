@@ -1,8 +1,8 @@
 package com.estsoft.springproject.service;
 
-import com.estsoft.springproject.domain.Board;
-import com.estsoft.springproject.domain.User;
-import com.estsoft.springproject.dto.BoardRequest;
+import com.estsoft.springproject.domain.entity.Board;
+import com.estsoft.springproject.domain.entity.User;
+import com.estsoft.springproject.domain.dto.BoardRequest;
 import com.estsoft.springproject.repository.BoardRepository;
 import org.springframework.stereotype.Service;
 
