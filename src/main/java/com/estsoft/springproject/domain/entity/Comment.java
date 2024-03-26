@@ -1,5 +1,6 @@
 package com.estsoft.springproject.domain.entity;
 
+import com.estsoft.springproject.domain.dto.CommentRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,7 @@ public class Comment {
     private String content;
 
     @CreatedDate
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
@@ -38,8 +39,8 @@ public class Comment {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Comment(String content, User user, Board board){
-        this.content = content;
+    public Comment(CommentRequest request, User user, Board board){
+        this.content = request.getContent();
         this.user = user;
         this.board = board;
         this.createdAt = LocalDateTime.now();
@@ -48,6 +49,5 @@ public class Comment {
 
     public void update(String content){
         this.content = content;
-        this.modifiedAt = LocalDateTime.now();
     }
 }
