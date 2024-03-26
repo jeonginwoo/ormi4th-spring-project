@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.estsoft.springproject.repository.TeamMapper">
+    <select id="findById" resultType="com.estsoft.springproject.domain.dto.Team">
+        select id, name, location, stadium, foundation_year as foundationYear, emblem_path as emblemPath, team_color as teamColor
+        from team t
+        where id = #{teamId}
+    </select>
+</mapper>
