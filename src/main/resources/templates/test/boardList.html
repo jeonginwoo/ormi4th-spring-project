@@ -8,11 +8,11 @@
     <title>BoardList</title>
     <style>
         :root {
-            --main_color: #90ad26;
+            --main_color: #90ad26;  /* 메인 */
 
-            --gray3: #7e7e7e;
-            --gray2: #e7e7e7;
-            --gray1: #f5f5f5;
+            --gray3: #7e7e7e;   /* 비활성 */
+            --gray2: #e7e7e7;   /* 버튼 테두리 */
+            --gray1: #f5f5f5;   /* 호버링 */
             --white: white;
             --black: black;
         }
@@ -109,7 +109,7 @@
                 <a th:href="@{/boards/{id}(id=${item.id})}" th:text="${item.title}"></a>
             </td>
             <td th:text="${item.user.nickname}"></td>
-            <td th:text="${item.createdAt}"></td>
+            <td th:text="${#dates.format(item.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
             <td></td>
         </tr>
         </tbody>
@@ -119,19 +119,18 @@
     <div th:if="${!paging.isEmpty()}">
         <ul class="pagination">
             <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-                <a class="page-link"
-                   th:href="@{|?page=${paging.number-1}|}">
+                <a class="page-link" th:href="@{|?page=${paging.number}|}">
                     <span>이전</span>
                 </a>
             </li>
-            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
-                th:if="${paging.number-5 <= page and page <= paging.number+5}"
-                th:classappend="${page == paging.number} ? 'active'"
+            <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
+                th:if="${paging.number-4 <= page and page <= paging.number+6}"
+                th:classappend="${page == paging.number+1} ? 'active'"
                 class="page-item">
                 <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
             </li>
             <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                <a class="page-link" th:href="@{|?page=${paging.number+2}|}">
                     <span>다음</span>
                 </a>
             </li>

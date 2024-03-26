@@ -3,6 +3,7 @@ package com.estsoft.springproject.domain.dto;
 import com.estsoft.springproject.domain.entity.Board;
 import lombok.*;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Data
@@ -16,8 +17,8 @@ public class BoardResponse {
     private String title;
     private String content;
     private String nickname;    // 작성자
-    private LocalDateTime created_at;
-    private LocalDateTime modified_at;
+    private Timestamp created_at;
+    private Timestamp modified_at;
 
     public BoardResponse(Board board) {
         this.id = board.getId();

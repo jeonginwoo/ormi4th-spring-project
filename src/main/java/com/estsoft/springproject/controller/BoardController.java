@@ -59,14 +59,14 @@ public class BoardController {
     @GetMapping
     public ModelAndView showBoards(
             Model model,
-            @RequestParam(value="page", defaultValue="0") int page
+            @RequestParam(value="page", defaultValue="1") int page
     ) {
         Page<Board> paging = this.boardService.findAll(page);
         model.addAttribute("paging", paging);
 
-        List<Board> boardList = boardService.findAll();
+        /*List<Board> boardList = boardService.findAll();
         List<BoardResponse> responseList = boardList.stream().map(BoardResponse::new).toList();
-        model.addAttribute("boards", responseList);
+        model.addAttribute("boards", responseList);*/
 
 //        return new ModelAndView("boardList");
         return new ModelAndView("test/boardList");  // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기

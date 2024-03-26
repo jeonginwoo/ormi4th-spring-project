@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,11 +24,13 @@ public class BoardService {
     }
 
     public List<Board> findAll() {
-        return boardRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        return boardRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
     }
 
     public Page<Board> findAll(int page) {
-        Pageable pageable = PageRequest.of(page, 10);
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("createdAt"));
+        Pageable pageable = PageRequest.of(page - 1, 10, Sort.by(sorts));
         return this.boardRepository.findAll(pageable);
     }
 
