@@ -9,6 +9,7 @@ import com.estsoft.springproject.service.BoardService;
 import com.estsoft.springproject.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -56,10 +57,17 @@ public class BoardController {
     }
 
     @GetMapping
-    public ModelAndView showBoards(Model model) {
+    public ModelAndView showBoards(
+            Model model,
+            @RequestParam(value="page", defaultValue="0") int page
+    ) {
+        Page<Board> paging = this.boardService.findAll(page);
+        model.addAttribute("paging", paging);
+
         List<Board> boardList = boardService.findAll();
         List<BoardResponse> responseList = boardList.stream().map(BoardResponse::new).toList();
         model.addAttribute("boards", responseList);
+
 //        return new ModelAndView("boardList");
         return new ModelAndView("test/boardList");  // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
     }
