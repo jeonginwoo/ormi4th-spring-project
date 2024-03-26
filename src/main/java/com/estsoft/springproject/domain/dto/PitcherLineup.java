@@ -17,4 +17,5 @@ public class PitcherLineup {
     private Long playerId;
     private String playerName;
     private Long teamId;
+    private Long positionId;
 }

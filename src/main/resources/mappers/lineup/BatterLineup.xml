@@ -4,8 +4,10 @@
 
 <mapper namespace="com.estsoft.springproject.repository.BatterLineupMapper">
     <select id="getBatterLineup" resultType="com.estsoft.springproject.domain.dto.BatterLineup">
-        select id, match_info_id as matchInfoId, `order`, `position`, player_id as playerId, player_name as playerName, team_id as teamId
-        from batter_lineup
+        select bl.id, match_info_id as matchInfoId, `order`, p.name as position, position_id as positionId, player_id as playerId, player_name as playerName, team_id as teamId
+        from batter_lineup bl
+        inner join `position` p
+        on p.id = position_id
         where match_info_id = #{matchInfoId} and team_id = #{teamId}
     </select>
 </mapper>

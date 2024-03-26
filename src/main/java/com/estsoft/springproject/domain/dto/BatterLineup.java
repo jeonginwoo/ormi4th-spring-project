@@ -15,6 +15,7 @@ public class BatterLineup {
     private String matchInfoId;
     private int order;
     private String position;
+    private Long positionId;
     private Long playerId;
     private String playerName;
     private Long teamId;
