@@ -36,4 +36,11 @@ public class BoardService {
         boardRepository.save(updated);
         return updated;
     }
+    public List<Board> findByUserNickName(String nickname){
+        return boardRepository.findByUserNickname(nickname);
+    }
+
+    public List<Board> findByTitle(String title){
+        return boardRepository.findByTitle(title);
+    }
 }
