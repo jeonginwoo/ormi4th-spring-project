@@ -23,10 +23,6 @@ public class BoardService {
         return boardRepository.save(new Board(request, user));
     }
 
-    public List<Board> findAll() {
-        return boardRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
-    }
-
     public Page<Board> findAll(int page) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createdAt"));
