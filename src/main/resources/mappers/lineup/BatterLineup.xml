@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.estsoft.springproject.repository.BatterLineupMapper">
+    <select id="getBatterLineup" resultType="com.estsoft.springproject.domain.dto.BatterLineup">
+        select id, match_info_id as matchInfoId, `order`, `position`, player_id as playerId, player_name as playerName, team_id as teamId
+        from batter_lineup
+        where match_info_id = #{matchInfoId} and team_id = #{teamId}
+    </select>
+</mapper>
