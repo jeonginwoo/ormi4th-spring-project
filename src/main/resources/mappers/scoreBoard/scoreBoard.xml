@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.estsoft.springproject.repository.ScoreBoardMapper">
+    <select id="findById" resultType="com.estsoft.springproject.domain.dto.ScoreBoard">
+        select id, away_score as awayScore, away_runs as awayRuns, away_hits as awayHits, away_error as awayError, away_bb as awayBB,
+               home_score as homeScore, home_runs as homeRuns, home_hits as homeHits, home_error as homeError, home_bb as homeBB
+        from score_board
+        where id = #{id}
+    </select>
+</mapper>
