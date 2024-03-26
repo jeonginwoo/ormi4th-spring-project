@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>홈페이지 이름</title>
+    <style>
+        html{
+            width: 80vw;
+            margin-left: 10vw;
+        }
+
+        .teamboard-button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+        }
+
+        .teamboard-button-container button{
+            width: 100px;
+            height: 100px;
+            background-color: #f0f0f0;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+            margin: 5px;
+        }
+
+        .match-button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .match-button-container button {
+            width: 80vw;
+            height: 100px; /* 버튼 높이 조절 */
+            background-color: #f0f0f0;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+            margin-bottom: 10px; /* 버튼 간격 조절 */
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="left">
+        <!--        <img src="C:\Users\fhawn\Desktop\야구공 로고.png" alt="로고">-->
+        <h2>웹페이지 이름</h2>
+        <div class="menu">
+            <p>일정</p>
+            <p>게시판</p>
+            <p>기록</p>
+        </div>
+    </div>
+
+    <div class="right">
+        <button>로그인</button>
+        <button>회원가입</button>
+    </div>
+</header>
+
+<!--팀별 게시판 버튼-->
+<div class="teamboard-button-container">
+    <button onclick="goToURL('KT URL')"><img src="." alt="KT"></button>
+    <button onclick="goToURL('두산 URL')"><img src="." alt="두산"></button>
+    <button onclick="goToURL('삼성 URL')"><img src="." alt="삼성"></button>
+    <button onclick="goToURL('LG URL')"><img src="." alt="LG"></button>
+    <button onclick="goToURL('키움 URL')"><img src="." alt="키움"></button>
+    <button onclick="goToURL('롯데 URL')"><img src="." alt="롯데"></button>
+    <button onclick="goToURL('SSG URL')"><img src="." alt="SSG"></button>
+    <button onclick="goToURL('NC URL')"><img src="." alt="NC"></button>
+    <button onclick="goToURL('기아 URL')"><img src="." alt="기아"></button>
+    <button onclick="goToURL('한화 URL')"><img src="." alt="한화"></button>
+</div>
+
+<!-- 당일 경기 조회 버튼 -->
+<div class="match-button-container">
+    <button onclick="goToURL('URL_1')">match 1</button>
+    <button onclick="goToURL('URL_2')">match 2</button>
+    <button onclick="goToURL('URL_3')">match 3</button>
+    <button onclick="goToURL('URL_4')">match 4</button>
+    <button onclick="goToURL('URL_5')">match 5</button>
+</div>
+
+<script>
+</script>
+
+</body>
+</html>

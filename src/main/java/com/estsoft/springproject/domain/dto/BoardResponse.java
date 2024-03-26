@@ -26,4 +26,5 @@ public class BoardResponse {
         this.created_at = board.getCreatedAt();
         this.modified_at = board.getModifiedAt();
     }
+
 }
