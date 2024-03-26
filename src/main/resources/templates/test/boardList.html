@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BoardList</title>
+    <style>
+        body {
+            max-width: 1000px;
+            margin: auto;
+        }
+        th {
+            text-align: start;
+            padding: 10px 20px;
+        }
+        td {
+            padding: 2px 20px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div>
+        <button th:onclick="|location.href='@{/boards/new-board}'|">글쓰기</button>
+        <hr>
+        <table>
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>생성 일시</th>
+                <th>조회수</th>
+            </tr>
+            </thead>
+            <tbody id="items">
+            <tr th:each="item: ${boards}">
+                <td th:text="${item.id}"></td>
+                <td style="font-weight: bold;">
+                    <a th:href="@{/boards/{id}(id=${item.id})}" th:text="${item.title}"></a>
+                </td>
+                <td th:text="${item.nickname}"></td>
+                <td th:text="${item.created_at}"></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+        <!--/tab-content-->
+    </div>
+    <!--/row-->
+</div>
+<!--/container-->
+</body>
+</html>

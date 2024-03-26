@@ -9,13 +9,14 @@ import com.estsoft.springproject.service.BoardService;
 import com.estsoft.springproject.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/boards")
 @Slf4j
@@ -24,49 +25,68 @@ public class BoardController {
     private final UserService userService;      // TODO: 테스트용. 나중에 지울 것!
 
     @PostMapping
-    public ResponseEntity<BoardResponse> addBoard(
-            @RequestBody BoardRequest request
+    public ModelAndView addBoard(
+            @ModelAttribute("boardRequest") BoardRequest request,
+            Model model
             /*@AuthenticationPrincipal User user    // TODO: 로그인한 사람만 게시글 생성 가능*/
     ) {
         User user = userService.findById(1L);       // TODO: 테스트용. 나중에 지울 것!
         Board board = boardService.save(request, user);
-        BoardResponse response = new BoardResponse(board);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<BoardResponse>> showBoards() {
-        List<Board> boardList = boardService.findAll();
-        List<BoardResponse> resopnseList = boardList.stream().map(BoardResponse::new).toList();
-        return ResponseEntity.ok(resopnseList);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<BoardResponse> showBoard(
-            @PathVariable Long id
-    ) {
-        Board board = boardService.findById(id);
-        BoardResponse response = new BoardResponse(board);
-        return ResponseEntity.ok(response);
+        model.addAttribute("board", new BoardResponse(board));
+        return new ModelAndView("redirect:/boards");
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBoard(
+    public ModelAndView deleteBoard(
             @PathVariable Long id
             /*@AuthenticationPrincipal User user  // TODO: 인증자만 삭제 가능하도록 만들기*/
     ) {
         boardService.deleteById(id);
-        return ResponseEntity.ok().build();
+        return new ModelAndView("redirect:/boards");
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BoardResponse> updateBoard(
+    public ModelAndView updateBoard(
             @PathVariable Long id,
-            @RequestBody BoardRequest request
+            @ModelAttribute("boardRequest") BoardRequest request
             /*@AuthenticationPrincipal User user  // TODO: 인증자만 수정 가능하도록 만들기*/
     ) {
         Board board = boardService.update(id, request);
-        BoardResponse updated = new BoardResponse(board);
-        return ResponseEntity.ok(updated);
+        return new ModelAndView("redirect:/boards/" + id);
+    }
+
+    @GetMapping
+    public ModelAndView showBoards(Model model) {
+        List<Board> boardList = boardService.findAll();
+        List<BoardResponse> responseList = boardList.stream().map(BoardResponse::new).toList();
+        model.addAttribute("boards", responseList);
+//        return new ModelAndView("boardList");
+        return new ModelAndView("test/boardList");  // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
+    }
+
+    @GetMapping("/{id}")
+    public ModelAndView showBoard(
+            @PathVariable Long id,
+            Model model
+    ) {
+        Board board = boardService.findById(id);
+        model.addAttribute("board", new BoardResponse(board));
+//        return new ModelAndView("board");
+        return new ModelAndView("test/board");   // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
+    }
+
+    @GetMapping("/new-board")
+    public ModelAndView newBoard(
+            Model model,
+            @RequestParam(required = false) Long id
+    ) {
+        if (id == null) {  // 등록
+            model.addAttribute("board", new BoardResponse());
+        } else {  // 수정
+            Board board = boardService.findById(id);
+            model.addAttribute("board", new BoardResponse(board));
+        }
+//        return new ModelAndView("newBoard");
+        return new ModelAndView("test/newBoard");   // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
     }
 }
