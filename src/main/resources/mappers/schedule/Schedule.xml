@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.estsoft.springproject.repository.ScheduleMapper">
+    <select id="getSchedules" resultType="com.estsoft.springproject.domain.dto.Schedule">
+        select s.id, s.match_date as matchDate, awayteam.name as awayTeamName, awayteam.emblem_path as awayTeamEmblemPath,
+               hometeam.name as homeTeamName, hometeam.emblem_path as homeTeamEmblemPath, s.stadium, s.broadcast, s.status,
+               sb.away_runs as awayTeamRuns, sb.home_runs as homeTeamRuns
+        from `schedule` s
+        inner join
+            team awayteam on awayteam.id = s.away_team_id
+        inner join
+            team hometeam on hometeam.id = s.home_team_id
+        left join
+            score_board sb on sb.id = s.id
+        where month(s.match_date) = #{month}
+    </select>
+</mapper>
