@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.estsoft.springproject.repository.TeamRankingMapper">
+    <select id="findBySeason" parameterType="java.time.Year" resultType="com.estsoft.springproject.domain.dto.TeamRanking">
+        select r.id, r.season, r.rank, r.team_id as teamId, t.name as teamName, r.game, r.win, r.lose, r.draw, t.emblem_path as emblemPath
+        from team_ranking r
+        inner join
+            team t on t.id = r.team_id
+        where season = #{season}
+        order by r.rank
+    </select>
+</mapper>
