@@ -24,6 +24,15 @@
 <div>
     <div>
         <button th:onclick="|location.href='@{/boards/new-board}'|">글쓰기</button>
+        <form action="/boards/search" method="get">
+            <select name="searchType">
+                <option value="nickname">작성자 닉네임</option>
+                <option value="title">게시글 제목</option>
+            </select>
+            <input type="text" name="searchQuery" placeholder="검색어를 입력하세요">
+            <button type="submit">검색</button>
+        </form>
+
         <hr>
         <table>
             <thead>
