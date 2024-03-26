@@ -1,6 +1,7 @@
 package com.estsoft.springproject.controller;
 
 
+import ch.qos.logback.core.model.Model;
 import com.estsoft.springproject.domain.entity.Board;
 import com.estsoft.springproject.domain.entity.User;
 import com.estsoft.springproject.domain.dto.BoardRequest;
@@ -11,6 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+
 
 import java.util.List;
 
@@ -40,8 +44,7 @@ public class BoardController {
     public ResponseEntity<List<BoardResponse>> showBoards() {
         List<Board> boardList = boardService.findAll();
         List<BoardResponse> resopnseList = boardList.stream().map(BoardResponse::new).toList();
-        return ResponseEntity.ok(resopnseList);
-    }
+        return ResponseEntity.ok(resopnseList);}
 
     @GetMapping("/api/boards/{id}")
     public ResponseEntity<BoardResponse> showBoard(
@@ -71,4 +74,14 @@ public class BoardController {
         BoardResponse updated = new BoardResponse(board);
         return ResponseEntity.ok(updated);
     }
+
+    @GetMapping("/boards")
+    public ModelAndView showBoardHomePage() {
+        List<Board> boardList = boardService.findAll();
+        ModelAndView modelAndView = new ModelAndView("boardHome");
+        modelAndView.addObject("boards", boardList);
+        return modelAndView;
+    }
+
+
 }
