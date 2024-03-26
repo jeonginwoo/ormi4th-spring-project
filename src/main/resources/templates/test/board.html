@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>게시글 상세</title>
+    <style>
+        body {
+            max-width: 1000px;
+            margin: auto;
+        }
+        .area {
+            margin: 20px 0;
+            padding: 10px 20px;
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+        .content {
+            padding: 5px;
+            margin: 10px 0;
+            border: 1px solid #b2b2b2;
+            border-radius: 5px;
+            width: 100%;
+        }
+        .board {
+            min-height: 300px
+        }
+        textArea {
+            width: 85%;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<input type="hidden" id="board-id" th:value="${board.id}">
+<div>
+    <a th:href="@{/boards}" class="on">목록</a>
+    <button type="button" id="modify-btn"
+            th:onclick="|location.href='@{/boards/new-board?id={id}(id=${board.id})}'|"
+            class="btn btn-primary btn-sm">수정
+    </button>
+    <button id="delete-btn">삭제</button>
+</div>
+<div class="area">
+    <div class="title" th:text="${board.title}">글 제목이 들어갑니다.</div>
+    <hr>
+    <div class="content board" th:text="${board.content}">글 내용이 들어갑니다.</div>
+    <hr>
+    <div>
+        작성일: <span th:text="${board.created_at}"></span>
+    </div>
+    <div>
+        작성자: <span th:text="${board.nickname}"></span>
+    </div>
+</div>
+<form method="post">
+    <textarea placeholder="댓글을 입력하세요"></textarea>
+    <button type="submit" class="on">댓글 달기</button>
+</form>
+<div class="area">
+    <div>댓글 유저 정보</div>
+    <div class="content">댓글 내용이 들어갑니다.</div>
+    <form>
+        <button type="submit">삭제</button>
+    </form>
+</div>
+
+<script src="/js/board.js"></script>
+
+</body>
+</html>

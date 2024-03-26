@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>게시글 생성</title>
+    <style>
+        body {
+            max-width: 1000px;
+            margin: auto;
+        }
+        .area {
+            margin: 5px 0;
+            padding: 10px 20px;
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+        textarea {
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <strong th:if="${board.id} == null">글쓰기</strong>
+    <strong th:if="${board.id} != null">수정하기</strong>
+</div>
+<div class="area">
+    <div>
+        제목
+        <input type="text" placeholder="제목 입력" id="title" th:value="${board.title}"/>
+    </div>
+    <hr>
+    <div>
+        <label>
+            <textarea placeholder="내용 입력" id="content" th:text="${board.content}"></textarea>
+        </label>
+    </div>
+</div>
+<div>
+    <button th:if="${board.id} == null" id="create-btn" class="on" type="submit">등록</button>
+    <button th:if="${board.id} != null" id="modify-btn" class="on" type="submit">수정</button>
+    <a th:if="${board.id} == null" href="/boards">취소</a>
+    <a th:if="${board.id} != null" th:href="@{/boards/{id}(id=${board.id})}">취소</a>
+</div>
+
+<script src="/js/board.js"></script>
+
+</body>
+</html>
