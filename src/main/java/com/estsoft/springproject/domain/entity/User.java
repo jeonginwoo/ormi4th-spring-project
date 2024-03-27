@@ -44,9 +44,10 @@ public class User {
         this.password = password;
         this.nickname = nickname;
     }
-    public void update(String email,String nickname){
+    public void update(String email,String nickname,String password){
         this.email=email;
         this.nickname=nickname;
+        this.password=password;
     }
 
 //    @Override
