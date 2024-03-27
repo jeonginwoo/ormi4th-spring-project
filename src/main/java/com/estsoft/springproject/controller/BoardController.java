@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -92,5 +93,20 @@ public class BoardController {
         }
 //        return new ModelAndView("newBoard");
         return new ModelAndView("test/newBoard");   // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
+    }
+
+    @GetMapping("/search")
+    public String getBoardBySearchType(Model model,
+        @RequestParam("searchType") String searchType,
+        @RequestParam("searchQuery") String searchQuery
+    ) {
+        List<BoardResponse> boards = new ArrayList<>();
+        if("nickname".equals(searchType)){
+            boards = boardService.findByUserNickName(searchQuery).stream().map(BoardResponse::new).toList();
+        } else if("title".equals(searchType)){
+            boards = boardService.findByTitle(searchQuery).stream().map(BoardResponse::new).toList();
+        }
+        model.addAttribute("boards", boards);
+        return "/test/boardList";
     }
 }
