@@ -7,60 +7,143 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>BoardList</title>
     <style>
+        :root {
+            --main_color: #90ad26;  /* 메인 */
+
+            --gray3: #7e7e7e;   /* 비활성 */
+            --gray2: #e7e7e7;   /* 버튼 테두리 */
+            --gray1: #f5f5f5;   /* 호버링 */
+            --white: white;
+            --black: black;
+        }
+
         body {
             max-width: 1000px;
             margin: auto;
         }
+
         th {
             text-align: start;
             padding: 10px 20px;
         }
+
         td {
             padding: 2px 20px;
+        }
+
+        .title {
+            width: 420px;
+        }
+
+        .title a {
+            display: inline-block;
+            color: var(--main_color);
+            text-decoration: none;
+            font-weight: bold;
+            width: 100%;
+            height: 100%;
+        }
+
+        .title a:hover {
+            background-color: var(--gray1);
+        }
+
+        /* 페이징 스타일 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+        }
+
+        .page-item {
+            margin: 0 2px;
+            list-style: none;
+        }
+
+        .page-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--main_color);
+            background-color: transparent;
+            border: 1px solid var(--gray2);
+            border-radius: 0.25rem;
+            text-decoration: none;
+        }
+
+        .page-link:hover {
+            background-color: var(--gray1);
+        }
+
+        .page-item.active .page-link {
+            z-index: 1;
+            color: var(--white);
+            background-color: var(--main_color);
+            border-color: var(--main_color);
+        }
+
+        .page-item.disabled .page-link {
+            pointer-events: none;
+            color: var(--gray3);
+            background-color: var(--white);
+            border-color: var(--gray2);
         }
     </style>
 </head>
 <body>
 <div>
-    <div>
-        <button th:onclick="|location.href='@{/boards/new-board}'|">글쓰기</button>
-        <form action="/boards/search" method="get">
-            <select name="searchType">
-                <option value="nickname">작성자 닉네임</option>
-                <option value="title">게시글 제목</option>
-            </select>
-            <input type="text" name="searchQuery" placeholder="검색어를 입력하세요">
-            <button type="submit">검색</button>
-        </form>
-
-        <hr>
-        <table>
-            <thead>
-            <tr>
-                <th>번호</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>생성 일시</th>
-                <th>조회수</th>
-            </tr>
-            </thead>
-            <tbody id="items">
-            <tr th:each="item: ${boards}">
-                <td th:text="${item.id}"></td>
-                <td style="font-weight: bold;">
-                    <a th:href="@{/boards/{id}(id=${item.id})}" th:text="${item.title}"></a>
-                </td>
-                <td th:text="${item.nickname}"></td>
-                <td th:text="${item.created_at}"></td>
-                <td></td>
-            </tr>
-            </tbody>
-        </table>
-        <hr>
-        <!--/tab-content-->
+    <button class="ui-button" th:onclick="|location.href='@{/boards/new-board}'|">글쓰기</button>
+    <form action="/boards/search" method="get">
+        <select name="searchType">
+            <option value="nickname">작성자 닉네임</option>
+            <option value="title">게시글 제목</option>
+        </select>
+        <input type="text" name="searchQuery" placeholder="검색어를 입력하세요">
+        <button type="submit">검색</button>
+    </form>
+    <hr>
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>생성 일시</th>
+            <th>조회수</th>
+        </tr>
+        </thead>
+        <tbody id="items">
+        <tr th:each="item: ${paging}">
+            <td th:text="${item.id}"></td>
+            <td class="title">
+                <a th:href="@{/boards/{id}(id=${item.id})}" th:text="${item.title}"></a>
+            </td>
+            <td th:text="${item.user.nickname}"></td>
+            <td th:text="${#dates.format(item.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+    <!-- 페이징처리 -->
+    <div th:if="${!paging.isEmpty()}">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${paging.number}|}">
+                    <span>이전</span>
+                </a>
+            </li>
+            <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
+                th:if="${paging.number-4 <= page and page <= paging.number+6}"
+                th:classappend="${page == paging.number+1} ? 'active'"
+                class="page-item">
+                <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+            </li>
+            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${paging.number+2}|}">
+                    <span>다음</span>
+                </a>
+            </li>
+        </ul>
     </div>
-    <!--/row-->
 </div>
-<!--/container-->
 </body>
 </html>

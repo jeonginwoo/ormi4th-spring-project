@@ -5,8 +5,13 @@ import com.estsoft.springproject.domain.entity.User;
 import com.estsoft.springproject.domain.dto.BoardRequest;
 import com.estsoft.springproject.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,8 +23,11 @@ public class BoardService {
         return boardRepository.save(new Board(request, user));
     }
 
-    public List<Board> findAll() {
-        return boardRepository.findAll();
+    public Page<Board> findAll(int page) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("createdAt"));
+        Pageable pageable = PageRequest.of(page - 1, 10, Sort.by(sorts));
+        return this.boardRepository.findAll(pageable);
     }
 
     public Board findById(Long id) {
