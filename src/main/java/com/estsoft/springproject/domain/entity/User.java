@@ -44,6 +44,10 @@ public class User {
         this.password = password;
         this.nickname = nickname;
     }
+    public void update(String email,String nickname){
+        this.email=email;
+        this.nickname=nickname;
+    }
 
 //    @Override
 //    public Collection<? extends GrantedAuthority> getAuthorities() {
