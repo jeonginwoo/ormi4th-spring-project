@@ -1,0 +1,53 @@
+/* 공통 스타일 */
+.navigationBar {
+    width: auto;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    border: solid 1px #000;
+    background-color: #d9d9d9;
+    padding: 0 35px;
+}
+
+.navBarText {
+    font-size: 30px;
+    color: #000;
+    text-decoration: none;
+}
+
+.navBarText:hover {
+    text-decoration: none;
+}
+
+.dropBtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-content a {
+    color: black;
+    text-decoration: none;
+    display: block;
+    padding: 12px 16px;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.show {
+    display: block;
+}
