@@ -136,7 +136,6 @@ if (commentCreateButton) {
                 content: content
             }),
         }).then(() => {
-            alert('등록 완료되었습니다');
             location.reload();
         });
     });
