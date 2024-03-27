@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.estsoft.springproject.repository.PitcherRecordMapper">
+    <select id="findByPlayerId" resultType="com.estsoft.springproject.domain.dto.PitcherRecord">
+        select *, p_order as `order`, player_id as playerId, team_id as teamId, earned_run as earnedRun
+        from pitcher_record
+        where player_id = #{playerId}
+    </select>
+</mapper>
