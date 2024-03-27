@@ -29,6 +29,25 @@
             width: 85%;
             height: 40px;
         }
+        .modal-content {    /* 모달 컨텐츠 화면 가운데에 위치하기 */
+            border-radius: 30px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .display-none {
+            display: none;
+        }
+        #comment-update-modal {
+            position: fixed;
+            z-index: 10;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
     </style>
 </head>
 <body>
@@ -36,11 +55,13 @@
 <input type="hidden" id="board-id" th:value="${board.id}">
 <div>
     <a th:href="@{/boards}" class="on">목록</a>
-    <button type="button" id="modify-btn"
-            th:onclick="|location.href='@{/boards/new-board?id={id}(id=${board.id})}'|"
-            class="btn btn-primary btn-sm">수정
-    </button>
-    <button id="delete-btn">삭제</button>
+    <span th:if="${board.userId} == ${user.id}">
+        <button type="button" id="board-update-btn"
+                th:onclick="|location.href='@{/boards/new-board?id={id}(id=${board.id})}'|"
+                class="btn btn-primary btn-sm">수정
+        </button>
+        <button id="board-delete-btn">삭제</button>
+    </span>
 </div>
 <div class="area">
     <div class="title" th:text="${board.title}">글 제목이 들어갑니다.</div>
@@ -48,25 +69,38 @@
     <div class="content board" th:text="${board.content}">글 내용이 들어갑니다.</div>
     <hr>
     <div>
-        작성일: <span th:text="${board.created_at}"></span>
+        작성일: <span th:text="${#dates.format(board.created_at, 'yyyy.MM.dd HH:mm')}"></span>
     </div>
     <div>
         작성자: <span th:text="${board.nickname}"></span>
     </div>
 </div>
-<form method="post">
-    <textarea placeholder="댓글을 입력하세요"></textarea>
-    <button type="submit" class="on">댓글 달기</button>
-</form>
-<div class="area">
-    <div>댓글 유저 정보</div>
-    <div class="content">댓글 내용이 들어갑니다.</div>
-    <form>
-        <button type="submit">삭제</button>
-    </form>
+<div>
+    <textarea id="content" placeholder="댓글을 입력하세요"></textarea>
+    <button id="comment-create-btn" type="submit" class="on">댓글 달기</button>
+</div>
+<div th:each="comment: ${comments}" class="area">
+    <span th:text="${comment.nickname}">댓글 유저 정보</span>
+    <span th:if="${comment.userId} == ${user.id}" class="commentControl">
+        <input type="hidden" name="boardId" th:value="${board.id}">
+        <input type="hidden" name="commentId" th:value="${comment.commentId}" />
+        <button class="edit-comment-button">수정</button>
+        <button type="submit" onclick="deleteComment();">삭제</button>
+    </span>
+    <div class="content" th:text="${comment.content}">댓글 내용이 들어갑니다.</div>
 </div>
 
-<script src="/js/board.js"></script>
+<!-- 수정용 Dialog 창 -->
+<dialog id="editDialog">
+    <form id="editForm">
+        <input type="hidden" id="dialogBoardId">
+        <input type="hidden" id="dialogCommentId">
+        <textarea id="dialogCommentContent"></textarea>
+        <button type="button" onclick="updateComment()">저장</button>
+        <button type="button" onclick="closeEDialog()">취소</button>
+    </form>
+</dialog>
 
+<script src="/js/board.js"></script>
 </body>
 </html>
