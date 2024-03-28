@@ -1,6 +1,8 @@
 package com.estsoft.springproject.domain.entity;
 
 import com.estsoft.springproject.domain.dto.BoardRequest;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,10 +46,12 @@ public class Board {
     @Column(name = "modified_at")
     private Timestamp modifiedAt;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 

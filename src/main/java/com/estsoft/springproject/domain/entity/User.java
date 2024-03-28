@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Table(name = "users")
 @Getter
 @Entity
@@ -28,10 +30,12 @@ public class User {
     @Column(name = "nickname", nullable = false)
     private String nickname;
 
-    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Board> boards = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
     @Builder
@@ -39,6 +43,11 @@ public class User {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
+    }
+    public void update(String email,String nickname,String password){
+        this.email=email;
+        this.nickname=nickname;
+        this.password=password;
     }
 
 //    @Override
