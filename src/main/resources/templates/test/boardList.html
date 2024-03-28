@@ -91,6 +91,8 @@
 <body>
 <div>
     <button class="ui-button" th:onclick="|location.href='@{/boards/new-board}'|">글쓰기</button>
+    <button class="ui-button" th:onclick="|location.href='@{/mypage/1}'|">마이페이지</button>
+    <!-- 검색 폼 및 기타 내용 -->
     <form action="/boards/search" method="get">
         <select name="searchType">
             <option value="nickname">작성자 닉네임</option>
