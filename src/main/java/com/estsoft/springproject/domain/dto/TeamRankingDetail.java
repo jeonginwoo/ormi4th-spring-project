@@ -11,7 +11,7 @@ import java.time.Year;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TeamRanking {
+public class TeamRankingDetail {
 
     private Year season;
     private int rank;
@@ -25,4 +25,12 @@ public class TeamRanking {
 
     private double winPercent;
     private double winMargin;
+
+    private double teamAVG;
+    private double teamOBP;
+    private double teamSLG;
+    private double teamOPS;
+    private int teamHR;
+
+    private double teamERA;
 }

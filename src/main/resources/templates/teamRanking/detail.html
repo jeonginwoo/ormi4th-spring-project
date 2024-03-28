@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<th:block layout:fragment="head">
+    <title>팀 순위 상세</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet"/>
+    <link th:href="@{/css/team-ranking/detail.css}" rel="stylesheet"/>
+</th:block>
+
+<body>
+<header th:replace="~{/fragments/header}"></header>
+<article th:fragment="content">
+    <div class="wrap">
+        <section class="team-ranking-detail">
+            <div class="table-title" th:text="${season}+'시즌 KBO리그 팀 순위'"></div>
+            <div class="team-ranking-table">
+                <div class="year-selector">
+                    <button>&lt;</button>
+                    <span class="year" th:text="${season}"></span>
+                    <button>&gt;</button>
+                </div>
+                <li class="team-ranking-detail-table-head">
+                    <div class="rank">순위</div>
+                    <div class="team">팀</div>
+                    <div class="game">경기</div>
+                    <div class="win">승</div>
+                    <div class="lose">패</div>
+                    <div class="draw">무</div>
+                    <div class="win-percent">승률</div>
+                    <div class="win-margin">승차</div>
+                    <div class="team-avg">팀 타율</div>
+                    <div class="team-obp">팀 출루율</div>
+                    <div class="team-slg">팀 장타율</div>
+                    <div class="team-ops">팀 OPS</div>
+                    <div class="team-era">팀 방어율</div>
+                </li>
+                <ul th:each="detail:${details}">
+                    <li class="team-ranking-detail-table-body">
+                        <div class="rank" th:text="${detail.rank}">순위</div>
+                        <div class="team">
+                            <img class="emblem" th:src="${detail.emblemPath}">
+                            <span th:text="${detail.teamName}"></span>
+                        </div>
+                        <div class="game" th:text="${detail.game}">경기</div>
+                        <div class="win" th:text="${detail.win}">승</div>
+                        <div class="lose" th:text="${detail.lose}">패</div>
+                        <div class="draw" th:text="${detail.draw}">무</div>
+                        <div class="win-percent" th:text="${#numbers.formatDecimal(detail.winPercent, 1, 3)}">승률</div>
+                        <div class="win-margin" th:text="${detail.winMargin}">승차</div>
+                        <div class="team-avg" th:text="${#numbers.formatDecimal(detail.teamAVG, 1, 3)}">팀 타율</div>
+                        <div class="team-obp" th:text="${#numbers.formatDecimal(detail.teamOBP, 1, 3)}">팀 출루율</div>
+                        <div class="team-slg" th:text="${#numbers.formatDecimal(detail.teamSLG, 1, 3)}">팀 장타율</div>
+                        <div class="team-ops" th:text="${#numbers.formatDecimal(detail.teamOPS, 1, 3)}">팀 OPS</div>
+                        <div class="team-era" th:text="${#numbers.formatDecimal(detail.teamERA, 1, 2)}">팀 방어율</div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</article>
+</body>
