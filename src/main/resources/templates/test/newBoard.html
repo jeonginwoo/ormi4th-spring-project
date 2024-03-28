@@ -4,48 +4,53 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>게시글 생성</title>
-    <style>
-        body {
-            max-width: 1000px;
-            margin: auto;
-        }
-        .area {
-            margin: 5px 0;
-            padding: 10px 20px;
-            border: 1px solid black;
-            border-radius: 10px;
-        }
-        textarea {
-            width: 100%;
-            height: 400px;
-        }
-    </style>
+    <link rel="stylesheet" href="newBoardCSS.css">
 </head>
 <body>
-<div>
-    <strong th:if="${board.id} == null">글쓰기</strong>
-    <strong th:if="${board.id} != null">수정하기</strong>
+
+<header>
+    <div class="left">
+        <img src="C:\Users\fhawn\Desktop\야구공 로고.png" alt="로고">
+        <h2>웹페이지 이름</h2>
+        <div class="menu">
+            <button onclick="goToURL('일정 URL')">일정</button>
+            <button onclick="goToURL('게시판 URL')">게시판</button>
+            <button onclick="goToURL('기록 URL')">기록</button>
+        </div>
+    </div>
+
+    <div class="right">
+        <button onclick="goToURL('로그인 URL')">로그인</button>
+        <button onclick="goToURL('회원가입 URL')">회원가입</button>
+    </div>
+</header>
+
+<div class="board-title">
+    <strong class="board-concept" th:if="${board.id} == null">글쓰기</strong>
+    <strong class="board-concept" th:if="${board.id} != null">수정하기</strong>
 </div>
+
 <div class="area">
     <div>
-        제목
-        <input type="text" placeholder="제목 입력" id="title" th:value="${board.title}"/>
+        <input type="text" placeholder="제목 입력" id="title" th:value="${board.title}" required/>
     </div>
     <hr>
     <div>
         <label>
-            <textarea placeholder="내용 입력" id="content" th:text="${board.content}"></textarea>
+            <textarea placeholder="내용 입력" id="content" th:text="${board.content}" required></textarea>
         </label>
     </div>
 </div>
-<div>
-    <button th:if="${board.id} == null" id="create-btn" class="on" type="submit">등록</button>
-    <button th:if="${board.id} != null" id="modify-btn" class="on" type="submit">수정</button>
+
+<div class="action-buttons">
     <a th:if="${board.id} == null" href="/boards">취소</a>
     <a th:if="${board.id} != null" th:href="@{/boards/{id}(id=${board.id})}">취소</a>
+    <button th:if="${board.id} == null" id="create-btn" class="on" type="submit">등록</button>
+    <button th:if="${board.id} != null" id="modify-btn" class="on" type="submit">수정</button>
 </div>
 
 <script src="/js/board.js"></script>
+
 
 </body>
 </html>

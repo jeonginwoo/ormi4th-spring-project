@@ -4,37 +4,34 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>게시글 상세</title>
-    <style>
-        body {
-            max-width: 1000px;
-            margin: auto;
-        }
-        .area {
-            margin: 20px 0;
-            padding: 10px 20px;
-            border: 1px solid black;
-            border-radius: 10px;
-        }
-        .content {
-            padding: 5px;
-            margin: 10px 0;
-            border: 1px solid #b2b2b2;
-            border-radius: 5px;
-            width: 100%;
-        }
-        .board {
-            min-height: 300px
-        }
-        textArea {
-            width: 85%;
-            height: 40px;
-        }
-    </style>
+    <link rel="stylesheet" href="headerCSS.css">
+    <link rel="stylesheet" href="boardCSS.css">
 </head>
+
 <body>
+<header>
+    <div class="left">
+        <img src="C:\Users\fhawn\Desktop\야구공 로고.png" alt="로고">
+        <h2>웹페이지 이름</h2>
+        <div class="menu">
+            <button onclick="goToURL('일정 URL')">일정</button>
+            <button onclick="goToURL('게시판 URL')">게시판</button>
+            <button onclick="goToURL('기록 URL')">기록</button>
+        </div>
+    </div>
+
+    <div class="right">
+        <button onclick="goToURL('로그인 URL')">로그인</button>
+        <button onclick="goToURL('회원가입 URL')">회원가입</button>
+    </div>
+</header>
+
+<!--<div th:replace="header.html"></div>-->
+<!--<th:block th:replace="~{header.html :: header}"></th:block>-->
+
 
 <input type="hidden" id="board-id" th:value="${board.id}">
-<div>
+<div class="board-buttons">
     <a th:href="@{/boards}" class="on">목록</a>
     <button type="button" id="modify-btn"
             th:onclick="|location.href='@{/boards/new-board?id={id}(id=${board.id})}'|"
@@ -45,7 +42,7 @@
 <div class="area">
     <div class="title" th:text="${board.title}">글 제목이 들어갑니다.</div>
     <hr>
-    <div class="content board" th:text="${board.content}">글 내용이 들어갑니다.</div>
+    <div class="content-board" th:text="${board.content}">글 내용이 들어갑니다.</div>
     <hr>
     <div>
         작성일: <span th:text="${board.created_at}"></span>
@@ -54,8 +51,8 @@
         작성자: <span th:text="${board.nickname}"></span>
     </div>
 </div>
-<form method="post">
-    <textarea placeholder="댓글을 입력하세요"></textarea>
+<form method="post" class="comment-form">
+    <textarea placeholder="댓글을 입력하세요" required></textarea>
     <button type="submit" class="on">댓글 달기</button>
 </form>
 <div class="area">
