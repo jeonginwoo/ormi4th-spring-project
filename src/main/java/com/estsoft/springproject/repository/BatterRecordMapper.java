@@ -9,4 +9,5 @@ import java.util.List;
 public interface BatterRecordMapper {
 
     List<BatterRecord> findByPlayerId(Long playerId);
+    List<BatterRecord> getBatterRecordOrderByAVG(String season);
 }

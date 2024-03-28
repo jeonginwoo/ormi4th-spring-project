@@ -13,8 +13,13 @@ public class ScheduleService {
 
     private final ScheduleMapper scheduleMapper;
 
-    public List<Schedule> getSchedules(String month){
+    public List<Schedule> getMonthlySchedules(String month){
 
-        return scheduleMapper.getSchedules(month);
+        return scheduleMapper.getMonthlySchedules(month);
+    }
+
+    public List<Schedule> getDailySchedules(String date) {
+
+        return scheduleMapper.getDailySchedules(date);
     }
 }

@@ -23,4 +23,7 @@ public class TeamRanking {
     private int lose;
     private int draw;
     private String emblemPath;
+
+    private double winPercent;
+    private double winMargin;
 }
