@@ -17,8 +17,8 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @GetMapping("")
-    public List<Schedule> getSchedules(String month) {
+    public List<Schedule> getMonthlySchedules(String month) {
 
-        return scheduleService.getSchedules(month);
+        return scheduleService.getMonthlySchedules(month);
     }
 }

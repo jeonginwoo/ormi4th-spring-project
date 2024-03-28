@@ -7,11 +7,9 @@
 
 * {
     font-family: 'BMJUA';
-}
-
-body, html {
-    height: 100%;
-    width: auto;
+    margin:0;
+    pading:0;
+    box-sizing: border-box;
 }
 
 .header {
@@ -27,6 +25,6 @@ body, html {
 }
 
 ul,li {
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
 }

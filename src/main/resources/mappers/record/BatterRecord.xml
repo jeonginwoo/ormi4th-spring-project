@@ -8,4 +8,20 @@
         from batter_record
         where player_id = #{playerId}
     </select>
+
+    <select id="getBatterRecordOrderByAVG" resultType="com.estsoft.springproject.domain.dto.BatterRecord">
+        select p.id as playerId, p.name as playerName, t.name as teamName, t.emblem_path as emblemPath, sum(br.hits)/sum(br.ab) as `avg`
+        from batter_record br
+        inner join player p on p.id = br.player_id
+        inner join team t on t.id = br.team_id
+        where substring(br.id, 1, 4) = #{season}
+        group by player_id, br.team_id
+        having (
+                <![CDATA[
+                   select tr.game
+                   from team_ranking tr
+                   where tr.team_id = br.team_id) * 3 <= (sum(br.ab) + sum(br.bb) + sum(br.hbp) + sum(br.sc) + sum(br.sf))
+                ]]>
+        order by `avg` desc;
+    </select>
 </mapper>

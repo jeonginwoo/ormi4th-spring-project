@@ -8,5 +8,6 @@ import java.util.List;
 @Mapper
 public interface ScheduleMapper {
 
-    List<Schedule> getSchedules(String month);
+    List<Schedule> getMonthlySchedules(String month);
+    List<Schedule> getDailySchedules(String date);
 }
