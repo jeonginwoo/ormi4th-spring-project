@@ -4,13 +4,31 @@
 
 <mapper namespace="com.estsoft.springproject.repository.TeamRankingMapper">
     <select id="findBySeason" parameterType="java.time.Year" resultType="com.estsoft.springproject.domain.dto.TeamRanking">
-        select r.id, r.season, r.rank, r.team_id as teamId, t.name as teamName, r.game, r.win, r.lose, r.draw, t.emblem_path as emblemPath,
+        select r.season, r.rank, r.team_id as teamId, t.name as teamName, r.game, r.win, r.lose, r.draw, t.emblem_path as emblemPath,
                round(r.win/r.game, 3) as winPercent,
                round(((select (r.win - r.lose) from team_ranking r where season = #{season} and r.rank = 1) - (r.win - r.lose))/2, 1) as winMargin
+        from team_ranking r
+        inner join
+        team t on t.id = r.team_id
+        where season = #{season}
+        order by r.rank
+    </select>
+
+    <select id="findDetailBySeason" parameterType="java.time.Year" resultType="com.estsoft.springproject.domain.dto.TeamRankingDetail">
+        select r.season, r.rank, r.team_id as teamId, t.name as teamName, r.game, r.win, r.lose, r.draw, t.emblem_path as emblemPath,
+               round(r.win/r.game, 3) as winPercent,
+               round(((select (r.win - r.lose) from team_ranking r where season = #{season} and r.rank = 1) - (r.win - r.lose))/2, 1) as winMargin,
+               (select sum(br.homeruns) from batter_record br where br.team_id = r.team_id) as teamHR,
+               (select sum(br.hits)/sum(br.ab) from batter_record br where br.team_id = r.team_id) as teamAVG,
+               (select (sum(br.hits) + sum(br.bb) + sum(br.hbp))/(sum(br.ab) + sum(br.bb) + sum(br.hbp) + sum(br.sf)) from batter_record br where br.team_id = r.team_id) as teamOBP,
+               (select (sum(br.hits) + sum(br.doubles)*2 + sum(br.triples)*3 + sum(br.homeruns)*4)/sum(br.ab) from batter_record br where br.team_id = r.team_id) as teamSLG,
+               (select (sum(br.hits) + sum(br.bb) + sum(br.hbp))/(sum(br.ab) + sum(br.bb) + sum(br.hbp) + sum(br.sf)) from batter_record br where br.team_id = r.team_id) +
+               (select (sum(br.hits) + sum(br.doubles)*2 + sum(br.triples)*3 + sum(br.homeruns)*4)/sum(br.ab) from batter_record br where br.team_id = r.team_id) as teamOPS,
+               (SELECT round((sum(pr.earned_run) * 27)/sum((truncate(innings,0) * 3 + round(MOD(innings,1),1) * 10)), 2) FROM pitcher_record pr where pr.team_id = r.team_id) as teamERA
         from team_ranking r
                  inner join
              team t on t.id = r.team_id
         where season = #{season}
-        order by r.rank
+        order by r.rank;
     </select>
 </mapper>
