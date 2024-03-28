@@ -9,14 +9,13 @@ import com.estsoft.springproject.service.CommentService;
 import com.estsoft.springproject.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
-@RequestMapping("/comments/{boardId}")
+@RequestMapping("/boards/{boardId}/comments")
 public class CommentController {
     private final CommentService commentService;
     private final BoardService boardService;
@@ -24,9 +23,9 @@ public class CommentController {
 
     @PostMapping
     public ResponseEntity<CommentResponse> addComment(
+            /*@AuthenticationPrincipal User user,    // TODO: 로그인한 사람만 댓글 생성 가능*/
             @PathVariable Long boardId,
             @RequestBody CommentRequest request
-            /*@AuthenticationPrincipal User user    // TODO: 로그인한 사람만 댓글 생성 가능*/
     ) {
         User user = userService.findById(1L);   // TODO: 테스트용. 나중에 지울 것!
         Comment comment = commentService.save(request, user, boardService.findById(boardId));
