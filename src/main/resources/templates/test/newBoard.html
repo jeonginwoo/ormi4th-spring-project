@@ -20,32 +20,43 @@
             height: 400px;
         }
     </style>
+
+    <!-- TOAST UI Editor CDN URL(CSS)-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
+    <!--    <link rel="stylesheet" href="../../static/css/newBoardCSS.css">-->
+    <link rel="stylesheet" th:href="@{/css/headerCSS.css}" />
+    <link rel="stylesheet" th:href="@{/css/newBoardCSS.css}" />
 </head>
 <body>
-<div>
+<header th:replace="fragment/header"></header>
+
+<div class="board-title">
     <strong th:if="${board.id} == null">글쓰기</strong>
     <strong th:if="${board.id} != null">수정하기</strong>
 </div>
 <div class="area">
     <div>
-        제목
-        <input type="text" placeholder="제목 입력" id="title" th:value="${board.title}"/>
+        <input type="text" placeholder="제목 입력" id="title" th:value="${board.title}" required/>
     </div>
     <hr>
-    <div>
-        <label>
-            <textarea placeholder="내용 입력" id="content" th:text="${board.content}"></textarea>
-        </label>
-    </div>
-</div>
-<div>
-    <button th:if="${board.id} == null" id="board-create-btn" class="on" type="submit">등록</button>
-    <button th:if="${board.id} != null" id="board-modify-btn" class="on" type="submit">수정</button>
-    <a th:if="${board.id} == null" href="/boards">취소</a>
-    <a th:if="${board.id} != null" th:href="@{/boards/{id}(id=${board.id})}">취소</a>
+    <input type="hidden" id="boardContent" th:value="${board.content}">
+    <div id="editor"></div>
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <script>
+    </script>
 </div>
 
-<script src="/js/board.js"></script>
+<div class="action-buttons">
+    <a th:if="${board.id} == null" href="/boards">취소</a>
+    <a th:if="${board.id} != null" th:href="@{/boards/{id}(id=${board.id})}">취소</a>
+    <button th:if="${board.id} == null" id="create-btn" class="on" type="submit">등록</button>
+    <button th:if="${board.id} != null" id="modify-btn" class="on" type="submit">수정</button>
+</div>
+
+<script src="/js/boardEditor.js"></script>
+
 
 </body>
 </html>

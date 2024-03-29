@@ -13,10 +13,10 @@ import com.estsoft.springproject.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,50 +31,50 @@ public class BoardController {
     private final UserService userService;      // TODO: 테스트용. 나중에 지울 것!
 
     @PostMapping
-    public ModelAndView addBoard(
+    public ResponseEntity<BoardResponse> addBoard(
             /*@AuthenticationPrincipal User user,    // TODO: 로그인한 사람만 게시글 생성 가능*/
-            @ModelAttribute("boardRequest") BoardRequest request,
-            Model model
+            BoardRequest request
     ) {
         User user = userService.findById(1L);       // TODO: 테스트용. 나중에 지울 것!
         Board board = boardService.save(request, user);
-        model.addAttribute("board", new BoardResponse(board));
-        return new ModelAndView("redirect:/boards");
+        BoardResponse response = new BoardResponse(board);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ModelAndView deleteBoard(
+    public ResponseEntity<Void> deleteBoard(
             /*@AuthenticationPrincipal User user,  // TODO: 인증자만 삭제 가능하도록 만들기*/
             @PathVariable Long id
     ) {
         boardService.deleteById(id);
-        return new ModelAndView("redirect:/boards");
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
-    public ModelAndView updateBoard(
+    public ResponseEntity<BoardResponse> updateBoard(
             /*@AuthenticationPrincipal User user,  // TODO: 인증자만 수정 가능하도록 만들기*/
             @PathVariable Long id,
-            @ModelAttribute("boardRequest") BoardRequest request
+            BoardRequest request
     ) {
         Board board = boardService.update(id, request);
-        return new ModelAndView("redirect:/boards/" + id);
+        BoardResponse response = new BoardResponse(board);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping
-    public ModelAndView showBoards(
+    public String showBoards(
             Model model,
             @RequestParam(value="page", defaultValue="1") int page
     ) {
         Page<Board> paging = this.boardService.findAll(page);
         model.addAttribute("paging", paging);
 
-//        return new ModelAndView("boardList");
-        return new ModelAndView("test/boardList");  // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
+//        return "boardList";
+        return "test/boardList";  // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
     }
 
     @GetMapping("/{id}")
-    public ModelAndView showBoard(
+    public String showBoard(
             /*@AuthenticationPrincipal User user,  // TODO: 사용자 정보 넘기기*/
             @PathVariable Long id,
             Model model
@@ -89,12 +89,12 @@ public class BoardController {
         List<CommentResponse> responseList = comments.stream().map(CommentResponse::new).toList();
         model.addAttribute("comments", responseList);
 
-//        return new ModelAndView("board");
-        return new ModelAndView("test/board");   // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
+//        return "board";
+        return "test/board";   // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
     }
 
     @GetMapping("/new-board")
-    public ModelAndView newBoard(
+    public String newBoard(
             Model model,
             @RequestParam(required = false) Long id
     ) {
@@ -104,8 +104,8 @@ public class BoardController {
             Board board = boardService.findById(id);
             model.addAttribute("board", new BoardResponse(board));
         }
-//        return new ModelAndView("newBoard");
-        return new ModelAndView("test/newBoard");   // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
+//        return "newBoard";
+        return "test/newBoard";   // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
     }
 
     @GetMapping("/search")
