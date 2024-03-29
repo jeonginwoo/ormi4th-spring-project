@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>정보 수정</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type=email], input[type=text], input[type=password] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        span {
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>정보 수정</h2>
+    <form th:action="@{/mypage/update/{userId}(userId=${user.id})}" method="post">
+        <input type="hidden" name="_method" value="put" />
+        <div>
+            <label for="email">이메일:</label>
+            <input type="email" id="email" name="email" th:value="${user.email}" required/>
+        </div>
+        <div>
+            <label for="nickname">닉네임:</label>
+            <input type="text" id="nickname" name="nickname" th:value="${user.nickname}" required/>
+        </div>
+        <div>
+            <label for="password">새 비밀번호:</label>
+            <input type="password" id="password" name="password"/>
+            <span>(변경을 원치 않으면 비워 두세요)</span>
+        </div>
+        <button type="submit">저장</button>
+    </form>
+</div>
+</body>
+</html>

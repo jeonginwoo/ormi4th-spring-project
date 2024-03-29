@@ -6,6 +6,7 @@ import com.estsoft.springproject.domain.entity.User;
 import com.estsoft.springproject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
@@ -21,7 +22,7 @@ public class UserService {
         return new UserResponse(user);
     }
 
-    public void updateUserInfo(Long userId,@RequestBody UserRequest userRequest){
+    public void updateUserInfo(Long userId,UserRequest userRequest){
         User user = userRepository.findById(userId).orElseThrow(()-> new IllegalArgumentException("해당 사용자를 찾을 수 없습니다."));
         user.update(userRequest.getEmail(), userRequest.getNickname(), userRequest.getPassword());
         userRepository.save(user);
