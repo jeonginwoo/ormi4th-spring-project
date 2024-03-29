@@ -14,17 +14,20 @@
 <header th:replace="fragment/header"></header>
 
 <div>
-    <div class="board-controls">
-        <form action="/boards/search" method="get">
-            <select name="searchType">
-                <option value="nickname">작성자 닉네임</option>
-                <option value="title">게시글 제목</option>
-            </select>
-            <input type="text" name="searchQuery" placeholder="검색어를 입력하세요">
-            <button type="submit" class="search-button">검색</button>
-        </form>
-        <button class="ui-button" th:onclick="|location.href='@{/boards/new-board}'|">글쓰기</button>
-    </div>
+  <div class="board-controls">
+    <button class="ui-button" th:onclick="|location.href='@{/mypage/1}'|">마이페이지</button>
+    <!-- 검색 폼 및 기타 내용 -->
+    <form action="/boards/search" method="get">
+        <select name="searchType">
+            <option value="nickname">작성자 닉네임</option>
+            <option value="title">게시글 제목</option>
+        </select>
+        <input type="text" name="searchQuery" placeholder="검색어를 입력하세요">
+        <button type="submit">검색</button>
+    </form>
+    <button class="ui-button" th:onclick="|location.href='@{/boards/new-board}'|">글쓰기</button>
+  </div>
+
     <hr>
     <table>
         <thead>
