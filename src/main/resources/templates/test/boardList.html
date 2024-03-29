@@ -6,99 +6,25 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>BoardList</title>
-    <style>
-        :root {
-            --main_color: #90ad26;  /* 메인 */
+    <link rel="stylesheet" th:href="@{/css/headerCSS.css}" />
+    <link rel="stylesheet" th:href="@{/css/boardListCSS.css}" />
 
-            --gray3: #7e7e7e;   /* 비활성 */
-            --gray2: #e7e7e7;   /* 버튼 테두리 */
-            --gray1: #f5f5f5;   /* 호버링 */
-            --white: white;
-            --black: black;
-        }
-
-        body {
-            max-width: 1000px;
-            margin: auto;
-        }
-
-        th {
-            text-align: start;
-            padding: 10px 20px;
-        }
-
-        td {
-            padding: 2px 20px;
-        }
-
-        .title {
-            width: 420px;
-        }
-
-        .title a {
-            display: inline-block;
-            color: var(--main_color);
-            text-decoration: none;
-            font-weight: bold;
-            width: 100%;
-            height: 100%;
-        }
-
-        .title a:hover {
-            background-color: var(--gray1);
-        }
-
-        /* 페이징 스타일 */
-        .pagination {
-            display: flex;
-            justify-content: center;
-        }
-
-        .page-item {
-            margin: 0 2px;
-            list-style: none;
-        }
-
-        .page-link {
-            display: block;
-            padding: 0.5rem 0.75rem;
-            color: var(--main_color);
-            background-color: transparent;
-            border: 1px solid var(--gray2);
-            border-radius: 0.25rem;
-            text-decoration: none;
-        }
-
-        .page-link:hover {
-            background-color: var(--gray1);
-        }
-
-        .page-item.active .page-link {
-            z-index: 1;
-            color: var(--white);
-            background-color: var(--main_color);
-            border-color: var(--main_color);
-        }
-
-        .page-item.disabled .page-link {
-            pointer-events: none;
-            color: var(--gray3);
-            background-color: var(--white);
-            border-color: var(--gray2);
-        }
-    </style>
 </head>
 <body>
+<header th:replace="fragment/header"></header>
+
 <div>
-    <button class="ui-button" th:onclick="|location.href='@{/boards/new-board}'|">글쓰기</button>
-    <form action="/boards/search" method="get">
-        <select name="searchType">
-            <option value="nickname">작성자 닉네임</option>
-            <option value="title">게시글 제목</option>
-        </select>
-        <input type="text" name="searchQuery" placeholder="검색어를 입력하세요">
-        <button type="submit">검색</button>
-    </form>
+    <div class="board-controls">
+        <form action="/boards/search" method="get">
+            <select name="searchType">
+                <option value="nickname">작성자 닉네임</option>
+                <option value="title">게시글 제목</option>
+            </select>
+            <input type="text" name="searchQuery" placeholder="검색어를 입력하세요">
+            <button type="submit" class="search-button">검색</button>
+        </form>
+        <button class="ui-button" th:onclick="|location.href='@{/boards/new-board}'|">글쓰기</button>
+    </div>
     <hr>
     <table>
         <thead>
