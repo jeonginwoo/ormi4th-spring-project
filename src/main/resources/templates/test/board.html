@@ -4,69 +4,31 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>게시글 상세</title>
-    <style>
-        body {
-            max-width: 1000px;
-            margin: auto;
-        }
-        .area {
-            margin: 20px 0;
-            padding: 10px 20px;
-            border: 1px solid black;
-            border-radius: 10px;
-        }
-        .content {
-            padding: 5px;
-            margin: 10px 0;
-            border: 1px solid #b2b2b2;
-            border-radius: 5px;
-            width: 100%;
-        }
-        .board {
-            min-height: 300px
-        }
-        textArea {
-            width: 85%;
-            height: 40px;
-        }
-        .modal-content {    /* 모달 컨텐츠 화면 가운데에 위치하기 */
-            border-radius: 30px;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .display-none {
-            display: none;
-        }
-        #comment-update-modal {
-            position: fixed;
-            z-index: 10;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-    </style>
+    <link rel="stylesheet" href="../../static/css/headerCSS.css">
+    <link rel="stylesheet" href="../../static/css/boardCSS.css">
+    <link rel="stylesheet" th:href="@{/css/headerCSS.css}" />
+    <link rel="stylesheet" th:href="@{/css/boardCSS.css}" />
+
 </head>
+
 <body>
+<header th:replace="fragment/header"></header>
 
 <input type="hidden" id="board-id" th:value="${board.id}">
-<div>
+<div class="board-buttons">
     <a th:href="@{/boards}" class="on">목록</a>
     <span th:if="${board.userId} == ${user.id}">
-        <button type="button" id="board-update-btn"
-                th:onclick="|location.href='@{/boards/new-board?id={id}(id=${board.id})}'|"
-                class="btn btn-primary btn-sm">수정
-        </button>
-        <button id="board-delete-btn">삭제</button>
+    <button type="button" id="board-update-btn"
+            th:onclick="|location.href='@{/boards/new-board?id={id}(id=${board.id})}'|"
+            class="btn btn-primary btn-sm">수정
+    </button>
+    <button id="delete-btn">삭제</button>
     </span>
 </div>
 <div class="area">
     <div class="title" th:text="${board.title}">글 제목이 들어갑니다.</div>
     <hr>
-    <div class="content board" th:text="${board.content}">글 내용이 들어갑니다.</div>
+    <div class="content-board" th:text="${board.content}">글 내용이 들어갑니다.</div>
     <hr>
     <div>
         작성일: <span th:text="${#dates.format(board.created_at, 'yyyy.MM.dd HH:mm')}"></span>
@@ -75,7 +37,11 @@
         작성자: <span th:text="${board.nickname}"></span>
     </div>
 </div>
-<div>
+<!--<form method="post" class="comment-form">-->
+<!--    <textarea placeholder="댓글을 입력하세요" required></textarea>-->
+<!--    <button type="submit" class="on">댓글 달기</button>-->
+<!--</form>-->
+<div class="comment-container">
     <textarea id="content" placeholder="댓글을 입력하세요"></textarea>
     <button id="comment-create-btn" type="submit" class="on">댓글 달기</button>
 </div>
@@ -88,6 +54,9 @@
         <button type="submit" onclick="deleteComment();">삭제</button>
     </span>
     <div class="content" th:text="${comment.content}">댓글 내용이 들어갑니다.</div>
+    <div class="contentTime" th:text="${comment.createdAt}">댓글 시간 들어갑니다.</div>
+
+
 </div>
 
 <!-- 수정용 Dialog 창 -->
@@ -102,5 +71,6 @@
 </dialog>
 
 <script src="/js/board.js"></script>
+
 </body>
 </html>
