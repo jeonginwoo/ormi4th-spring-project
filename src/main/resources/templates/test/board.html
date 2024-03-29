@@ -55,14 +55,7 @@
     <input type="hidden" id="boardContent" th:value="${board.content}">
     <div id="viewer"></div>
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-    <script>
-        const boardContent = document.getElementById('boardContent').value;
-        const viewer = toastui.Editor.factory({
-            el: document.querySelector('#viewer'),
-            viewer: true,
-            initialValue: boardContent
-        });
-    </script>
+    <script src="/js/boardViewer.js"></script>
     <hr>
     <div>
         작성일: <span th:text="${#dates.format(board.created_at, 'yyyy.MM.dd HH:mm')}"></span>
