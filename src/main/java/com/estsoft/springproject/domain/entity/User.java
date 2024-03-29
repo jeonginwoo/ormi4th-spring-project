@@ -30,6 +30,9 @@ public class User {
     @Column(name = "nickname", nullable = false)
     private String nickname;
 
+    // @Column(name="role" ,nullable=false)
+    // private String role;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Board> boards = new ArrayList<>();
@@ -39,10 +42,11 @@ public class User {
     private List<Comment> comments = new ArrayList<>();
 
     @Builder
-    public User(String email, String password, String nickname, String auth) {
+    public User(String email, String password, String nickname, String role) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
+        // this.role=role;
     }
     public void update(String email,String nickname,String password){
         this.email=email;

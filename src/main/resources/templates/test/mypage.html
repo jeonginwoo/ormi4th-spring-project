@@ -110,9 +110,6 @@
     </form>
     <hr>
     <h3>내가 작성한 게시글</h3>
-    <!-- 마이페이지에서 게시글 리스트로 돌아가는 버튼 -->
-    <a href="/boards" class="ui-button">게시글 리스트로 돌아가기</a>
-
     <table>
         <thead>
         <tr>
@@ -131,6 +128,29 @@
         </tr>
         </tbody>
     </table>
+
+    <h3>내가 작성한 댓글</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>내용</th>
+            <th>게시글</th>
+            <th>생성 일시</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="comment : ${user.comments}">
+            <td th:text="${comment.id}"></td>
+            <td th:text="${comment.content}"></td>
+            <td>
+                <a th:href="@{/boards/{boardId}(boardId=${comment.board.id})}">게시글로 이동</a>
+            </td>
+            <td th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 </body>
 </html>

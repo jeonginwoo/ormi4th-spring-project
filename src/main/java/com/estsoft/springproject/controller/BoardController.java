@@ -13,6 +13,8 @@ import com.estsoft.springproject.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -111,15 +113,19 @@ public class BoardController {
     @GetMapping("/search")
     public String getBoardBySearchType(Model model,
         @RequestParam("searchType") String searchType,
-        @RequestParam("searchQuery") String searchQuery
+        @RequestParam("searchQuery") String searchQuery,
+        @RequestParam(value="page", defaultValue="1") int page
     ) {
-        List<BoardResponse> boards = new ArrayList<>();
+        Page<Board> boards = Page.empty();
+        Pageable pageable = PageRequest.of(page-1, 10);
         if("nickname".equals(searchType)){
-            boards = boardService.findByUserNickName(searchQuery).stream().map(BoardResponse::new).toList();
+            boards = boardService.findByUserNickName(searchQuery, page);
         } else if("title".equals(searchType)){
-            boards = boardService.findByTitle(searchQuery).stream().map(BoardResponse::new).toList();
+            boards = boardService.findByTitle(searchQuery, page);
         }
-        model.addAttribute("boards", boards);
-        return "/test/boardList";
+        model.addAttribute("paging", boards);
+        model.addAttribute("searchType",searchType);
+        model.addAttribute("searchQuery",searchQuery);
+        return "test/boardConditionList";
     }
 }
