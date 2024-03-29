@@ -20,6 +20,10 @@
             height: 400px;
         }
     </style>
+
+    <!-- TOAST UI Editor CDN URL(CSS)-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 </head>
 <body>
 <div>
@@ -32,20 +36,20 @@
         <input type="text" placeholder="제목 입력" id="title" th:value="${board.title}"/>
     </div>
     <hr>
-    <div>
-        <label>
-            <textarea placeholder="내용 입력" id="content" th:text="${board.content}"></textarea>
-        </label>
-    </div>
+    <input type="hidden" id="boardContent" th:value="${board.content}">
+    <div id="editor"></div>
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <script>
+    </script>
 </div>
 <div>
     <button th:if="${board.id} == null" id="board-create-btn" class="on" type="submit">등록</button>
-    <button th:if="${board.id} != null" id="board-modify-btn" class="on" type="submit">수정</button>
+    <button th:if="${board.id} != null" id="board-update-btn" class="on" type="submit">수정</button>
     <a th:if="${board.id} == null" href="/boards">취소</a>
     <a th:if="${board.id} != null" th:href="@{/boards/{id}(id=${board.id})}">취소</a>
 </div>
 
-<script src="/js/board.js"></script>
+<script src="/js/boardEditor.js"></script>
 
 </body>
 </html>

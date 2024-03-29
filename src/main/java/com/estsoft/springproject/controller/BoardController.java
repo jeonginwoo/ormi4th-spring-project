@@ -38,8 +38,9 @@ public class BoardController {
     ) {
         User user = userService.findById(1L);       // TODO: 테스트용. 나중에 지울 것!
         Board board = boardService.save(request, user);
-        model.addAttribute("board", new BoardResponse(board));
-        return new ModelAndView("redirect:/boards");
+        BoardResponse boardResponse = new BoardResponse(board);
+        model.addAttribute("board", boardResponse);
+        return new ModelAndView("redirect:/boards/" + boardResponse.getId());
     }
 
     @DeleteMapping("/{id}")
