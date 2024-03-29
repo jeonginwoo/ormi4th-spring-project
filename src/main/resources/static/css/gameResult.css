@@ -1,0 +1,181 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px;
+    margin: 80px;
+}
+
+.game-selector-group {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 1650px;
+    gap: 10px;
+}
+
+.game-selector {
+
+    width: 340px;
+    height: 200px;
+    padding: 24px;
+
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
+}
+
+.game-selector p {
+    font-size: 24px;
+}
+
+.away-div, .home-div {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px 10px;
+}
+
+.team {
+    width: 200px;
+
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+}
+
+.emblem {
+    width: 65px;
+    height: 50px;
+    background-color: #fff;
+}
+
+.red-text {
+    color: red;
+}
+
+.score-board {
+
+    margin: 120px 0;
+    padding: 50px;
+
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
+}
+
+.score-board-head {
+    width: 1650px;
+    padding: 50px 0;
+}
+
+.score-board-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.score-board-away, .score-board-home {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 720px;
+}
+
+.score-board-away  p, .score-board-home p {
+    font-size: 80px;
+}
+
+.team-name {
+    font-size: 40px;
+}
+
+.game-info {
+    text-align: center;
+}
+
+.game-info p {
+    font-size: 36px;
+}
+
+.score-board-head img {
+    width: 150px;
+    height: 120px;
+}
+
+.score-board-body p {
+    font-size: 64px;
+}
+
+.score-board-body-top {
+
+    border-bottom: solid 2px #000;
+    margin-bottom: 10px;
+}
+
+.score-board-body-top, .score-board-body-away, .score-board-body-home {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-left: 20px;
+}
+
+.score-board-body-top ul, .score-board-body-away ul, .score-board-body-home ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 15px;
+}
+
+.score-board-body-top li, .score-board-body-away li, .score-board-body-home li {
+
+    width: 80px;
+    text-align: center;
+}
+
+.lineup {
+    width: 1650px;
+}
+
+.lineup h1 {
+    font-size: 40px;
+}
+
+.lineup p {
+    font-size: 24px;
+}
+
+.batter-lineup, .pitcher-lineup {
+    display: flex;
+    justify-content: space-between;
+
+    margin: 30px 0px;
+}
+
+.lineup-header {
+    border-bottom: solid 3px black;
+    margin: 30px 30px 10px 30px;
+}
+.lineup-body {
+    margin: 0 30px 30px 30px;
+}
+
+.lineup-header,  .lineup-body li {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.away-batter-lineup, .away-pitcher-lineup, .home-pitcher-lineup, .home-batter-lineup {
+
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
+}

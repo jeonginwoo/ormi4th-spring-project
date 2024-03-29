@@ -4,10 +4,12 @@
 
 <mapper namespace="com.estsoft.springproject.repository.BatterLineupMapper">
     <select id="getBatterLineup" resultType="com.estsoft.springproject.domain.dto.BatterLineup">
-        select bl.id, match_info_id as matchInfoId, `order`, p.name as position, position_id as positionId, player_id as playerId, player_name as playerName, team_id as teamId
+        select bl.id, bl.match_info_id as matchInfoId, bl.order as `order`, p.name as position, bl.position_id as positionId, bl.player_id as playerId, bl.player_name as playerName, bl.team_id as teamId,
+        gs, ab, hits, runs, rbi, homeruns, so, bb,
+        (select sum(hits)/sum(ab) from batter_record where player_id = bl.player_id group by player_id) as `avg`
         from batter_lineup bl
-        inner join `position` p
-        on p.id = position_id
-        where match_info_id = #{matchInfoId} and team_id = #{teamId}
+        inner join `position` p on p.id = position_id
+        inner join batter_record br on br.id = bl.id
+        where bl.match_info_id = #{matchInfoId} and bl.team_id = #{teamId}
     </select>
 </mapper>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<th:block layout:fragment="head">
+    <title>경기 결과</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet"/>
+    <link th:href="@{/css/gameResult.css}" rel="stylesheet"/>
+</th:block>
+
+<body>
+<header th:replace="~{/fragments/header}"></header>
+<article th:fragment="content">
+    <div class="wrap">
+        <section class="game-selector-group">
+            <ul th:each="schedule : ${result.dailySchedules}">
+                <li th:value="${schedule.id}" onclick="goToGameResult(this.value)">
+                    <div class="game-selector">
+                        <span th:text="${schedule.status == 'vs'} ? '경기전' : ${schedule.status}"
+                              th:classappend="${schedule.status == '종료'} ? 'red-text'"></span>
+                        <div class="away-div">
+                            <div class="team">
+                                <img class="emblem" th:src="${schedule.awayTeamEmblemPath}">
+                                <p th:text="${schedule.awayTeamName}"></p>
+                            </div>
+                            <p th:text="${schedule.awayTeamRuns}"></p>
+                        </div>
+                        <div class="home-div">
+                            <div class="team">
+                                <img class="emblem" th:src="${schedule.homeTeamEmblemPath}">
+                                <p th:text="${schedule.homeTeamName}"></p>
+                            </div>
+                            <p th:text="${schedule.homeTeamRuns}"></p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <section class="score-board" th:if="${result.scoreBoard != null}">
+            <div class="score-board-head">
+                <div class="score-board-away">
+                    <p th:text="${result?.scoreBoard?.awayTeamName}"></p>
+                    <img th:src="${result?.scoreBoard?.awayEmblemPath}">
+                    <p th:text="${result?.scoreBoard?.awayRuns}"></p>
+                </div>
+                <div class="game-info">
+                    <p th:text="${result?.scoreBoard?.status}"
+                       th:classappend="${result?.scoreBoard?.status == '종료'} ? 'red-text'"></p>
+                    <p th:text="${result?.scoreBoard?.time}"></p>
+                    <p th:text="${result?.scoreBoard?.stadium}"></p>
+                </div>
+                <div class="score-board-home">
+                    <p th:text="${result?.scoreBoard?.homeRuns}"></p>
+                    <img th:src="${result?.scoreBoard?.homeEmblemPath}">
+                    <p th:text="${result?.scoreBoard?.homeTeamName}"></p>
+                </div>
+            </div>
+            <div class="score-board-body">
+                <div class="score-board-body-top">
+                    <li>
+                        <h2 class="team-name" th:text="팀"></h2>
+                    </li>
+                    <ul>
+                        <li th:each="inning: ${#numbers.sequence(1, 12)}">
+                            <p th:text="${inning}"></p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li th:each="value : ${#strings.arraySplit('R H E B',' ')}">
+                            <p th:text="${value}"></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="score-board-body-away">
+                    <ul>
+                        <li>
+                            <h2 class="team-name"
+                                th:text="${#strings.listSplit(result?.scoreBoard?.awayTeamName,' ')[0]}"></h2>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li th:each="score: ${#strings.arraySplit(result?.scoreBoard?.awayScore,',')}">
+                            <p th:text="${score}"></p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <p th:text="${result?.scoreBoard?.awayRuns}"></p>
+                        </li>
+                        <li th:each="stat: ${#strings.arraySplit(result?.scoreBoard?.awayStats,',')}">
+                            <p th:text="${stat}"></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="score-board-body-home">
+                    <ul>
+                        <li>
+                            <h2 class="team-name"
+                                th:text="${#strings.listSplit(result?.scoreBoard?.homeTeamName,' ')[0]}"></h2>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li th:each="score : ${#strings.arraySplit(result?.scoreBoard?.homeScore,',')}">
+                            <p th:text="${score}"></p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <p th:text="${result?.scoreBoard?.homeRuns}"></p>
+                        </li>
+                        <li th:each="stat : ${#strings.arraySplit(result?.scoreBoard?.homeStats,',')}">
+                            <p th:text="${stat}"></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="lineup" th:if="${result.scoreBoard != null}">
+            <h1>타자 기록</h1>
+            <div class="batter-lineup">
+                <div class="away-batter-lineup" th:if="${result.awayBatterLineup != null}">
+                    <ul class="lineup-header">
+                        <li>
+                            <div class="team">
+                                <img class="emblem" th:src="${result?.scoreBoard?.awayEmblemPath}">
+                                <p th:text="${result?.scoreBoard?.awayTeamName}"></p>
+                            </div>
+                        </li>
+                        <li th:each="value : ${#strings.arraySplit('타수 득점 안타 타점 홈런 볼넷 삼진 타율',' ')}">
+                            <p th:text="${value}"></p>
+                        </li>
+                    </ul>
+                    <ul class="lineup-body">
+                        <li th:each="batter : ${result?.awayBatterLineup}">
+                            <p th:text="${batter?.gs} != 1 ? '교' : ${batter?.order}"></p>
+                            <p th:text="${batter?.playerName}"></p>
+                            <p th:text="${#strings.substring(batter?.position,0,2)}"></p>
+                            <p th:text="${batter?.ab}"></p>
+                            <p th:text="${batter?.runs}"></p>
+                            <p th:text="${batter?.hits}"></p>
+                            <p th:text="${batter?.rbi}"></p>
+                            <p th:text="${batter?.homeruns}"></p>
+                            <p th:text="${batter?.bb}"></p>
+                            <p th:text="${batter?.so}"></p>
+                            <p th:text="${#numbers.formatDecimal(batter?.avg,1,3)}"></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="home-batter-lineup" th:if="${result.homeBatterLineup != null}">
+                    <ul class="lineup-header">
+                        <li>
+                            <div class="team">
+                                <img class="emblem" th:src="${result?.scoreBoard?.homeEmblemPath}">
+                                <p th:text="${result?.scoreBoard?.homeTeamName}"></p>
+                            </div>
+                        </li>
+                        <li th:each="value : ${#strings.arraySplit('타수 득점 안타 타점 홈런 볼넷 삼진 타율',' ')}">
+                            <p th:text="${value}"></p>
+                        </li>
+                    </ul>
+                    <ul class="lineup-body">
+                        <li th:each="batter : ${result?.homeBatterLineup}">
+                            <p th:text="${batter?.gs} != 1 ? '교' : ${batter?.order}"></p>
+                            <p th:text="${batter?.playerName}"></p>
+                            <p th:text="${#strings.substring(batter?.position,0,2)}"></p>
+                            <p th:text="${batter?.ab}"></p>
+                            <p th:text="${batter?.runs}"></p>
+                            <p th:text="${batter?.hits}"></p>
+                            <p th:text="${batter?.rbi}"></p>
+                            <p th:text="${batter?.homeruns}"></p>
+                            <p th:text="${batter?.bb}"></p>
+                            <p th:text="${batter?.so}"></p>
+                            <p th:text="${#numbers.formatDecimal(batter?.avg,1,3)}"></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <h1>투수 기록</h1>
+            <div class="pitcher-lineup">
+                <div class="away-pitcher-lineup" th:if="${result.awayPitcherLineup != null}">
+                    <ul class="lineup-header">
+                        <li>
+                            <div class="team">
+                                <img class="emblem" th:src="${result?.scoreBoard?.awayEmblemPath}">
+                                <p th:text="${result?.scoreBoard?.awayTeamName}"></p>
+                            </div>
+                        </li>
+                        <li th:each="value : ${#strings.arraySplit('이닝 피안타 실점 자책 4사구 삼진 피홈런 투구수 ERA',' ')}">
+                            <p th:text="${value}"></p>
+                        </li>
+                    </ul>
+                    <ul class="lineup-body">
+                        <li th:each="pitcher : ${result?.awayPitcherLineup}">
+                            <p th:text="${pitcher?.playerName}"></p>
+                            <p th:text="${pitcher?.decision}"></p>
+                            <p th:text="${pitcher?.innings}"></p>
+                            <p th:text="${pitcher?.runs}"></p>
+                            <p th:text="${pitcher?.earnedRun}"></p>
+                            <p th:text="${pitcher?.bb}"></p>
+                            <p th:text="${pitcher?.so}"></p>
+                            <p th:text="${pitcher?.homeruns}"></p>
+                            <p th:text="${pitcher?.np}"></p>
+                            <p th:text="${#numbers.formatDecimal(pitcher?.era,1,2)}"></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="home-pitcher-lineup" th:if="${result.homePitcherLineup != null}">
+                    <ul class="lineup-header">
+                        <li>
+                            <div class="team">
+                                <img class="emblem" th:src="${result?.scoreBoard?.homeEmblemPath}">
+                                <p th:text="${result?.scoreBoard?.homeTeamName}"></p>
+                            </div>
+                        </li>
+                        <li th:each="value : ${#strings.arraySplit('이닝 피안타 실점 자책 4사구 삼진 피홈런 투구수 ERA',' ')}">
+                            <p th:text="${value}"></p>
+                        </li>
+                    </ul>
+                    <ul class="lineup-body">
+                        <li th:each="pitcher : ${result?.homePitcherLineup}">
+                            <p th:text="${pitcher?.playerName}"></p>
+                            <p th:text="${pitcher?.decision}"></p>
+                            <p th:text="${pitcher?.innings}"></p>
+                            <p th:text="${pitcher?.runs}"></p>
+                            <p th:text="${pitcher?.earnedRun}"></p>
+                            <p th:text="${pitcher?.bb}"></p>
+                            <p th:text="${pitcher?.so}"></p>
+                            <p th:text="${pitcher?.homeruns}"></p>
+                            <p th:text="${pitcher?.np}"></p>
+                            <p th:text="${#numbers.formatDecimal(pitcher?.era,1,2)}"></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</article>
+</body>
+<script th:src="@{/js/divClick.js}"></script>
+</html>
