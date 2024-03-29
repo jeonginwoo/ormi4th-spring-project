@@ -34,24 +34,30 @@
     <!-- TOAST UI Editor CDN URL(CSS)-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
+    <link rel="stylesheet" href="../../static/css/headerCSS.css">
+    <link rel="stylesheet" href="../../static/css/boardCSS.css">
+    <link rel="stylesheet" th:href="@{/css/headerCSS.css}" />
+    <link rel="stylesheet" th:href="@{/css/boardCSS.css}" />
 </head>
+
 <body>
+<header th:replace="fragment/header"></header>
 
 <input type="hidden" id="board-id" th:value="${board.id}">
-<div>
+<div class="board-buttons">
     <a th:href="@{/boards}" class="on">목록</a>
     <span th:if="${board.userId} == ${user.id}">
-        <button type="button" id="board-update-btn"
-                th:onclick="|location.href='@{/boards/new-board?id={id}(id=${board.id})}'|"
-                class="btn btn-primary btn-sm">수정
-        </button>
-        <button id="board-delete-btn">삭제</button>
+    <button type="button" id="board-update-btn"
+            th:onclick="|location.href='@{/boards/new-board?id={id}(id=${board.id})}'|"
+            class="btn btn-primary btn-sm">수정
+    </button>
+    <button id="delete-btn">삭제</button>
     </span>
 </div>
 <div class="area">
     <div class="title" th:text="${board.title}">글 제목이 들어갑니다.</div>
     <hr>
-    <!--<div class="content board" th:text="${board.content}">글 내용이 들어갑니다.</div>-->
     <input type="hidden" id="boardContent" th:value="${board.content}">
     <div id="viewer"></div>
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
@@ -64,7 +70,11 @@
         작성자: <span th:text="${board.nickname}"></span>
     </div>
 </div>
-<div>
+<!--<form method="post" class="comment-form">-->
+<!--    <textarea placeholder="댓글을 입력하세요" required></textarea>-->
+<!--    <button type="submit" class="on">댓글 달기</button>-->
+<!--</form>-->
+<div class="comment-container">
     <textarea id="content" placeholder="댓글을 입력하세요"></textarea>
     <button id="comment-create-btn" onclick="createComment()">댓글 달기</button>
 </div>
@@ -77,6 +87,9 @@
         <button type="submit" onclick="deleteComment();">삭제</button>
     </span>
     <div class="content" th:text="${comment.content}">댓글 내용이 들어갑니다.</div>
+    <div class="contentTime" th:text="${comment.createdAt}">댓글 시간 들어갑니다.</div>
+
+
 </div>
 
 <!-- 수정용 Dialog 창 -->
@@ -91,5 +104,6 @@
 </dialog>
 
 <script src="/js/board.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,81 @@
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px;
+    margin: 80px;
+}
+
+.team-ranking-detail {
+
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
+}
+
+.team-ranking-detail {
+
+    padding: 30px 20px 30px 20px;
+}
+
+.team-ranking-detail-table-head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    background-color: #fff;
+    border-bottom: solid 1px black;
+}
+
+.year-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    background-color: #fff;
+}
+
+.year-selector button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+
+    width: 25px;
+    height: 25px;
+}
+
+.year {
+    font-size: 20px;
+    font-weight: normal;
+    text-align: center;
+}
+
+.team-ranking-detail-table-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    background-color: #fff;
+    border-bottom: solid 1px black;
+}
+
+.team {
+    width: 180px;
+
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+}
+
+.emblem {
+    width: 65px;
+    height: 50px;
+    background-color: #fff;
+}

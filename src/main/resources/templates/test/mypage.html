@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>마이페이지</title>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif; /* 한글 폰트 적용 */
+            background-color: #f7f8fa;
+            margin: 0;
+            padding: 20px;
+            color: #333; /* 기본 텍스트 색상 변경 */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto; /* 위아래 마진 추가 */
+            padding: 40px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 그림자 효과 강화 */
+            border-radius: 8px; /* 모서리 둥글게 */
+        }
+
+        h2, h3 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px; /* 제목 아래 마진 추가 */
+        }
+
+        label {
+            color: #666;
+            font-weight: bold; /* 라벨 글씨 굵게 */
+        }
+
+        .ui-button, button {
+            display: inline-block; /* 인라인 블록으로 변경 */
+            margin: 10px 5px; /* 버튼 사이의 간격 추가 */
+            background-color: #4CAF50; /* 버튼 색상 변경 */
+            color: white;
+            padding: 10px 20px; /* 패딩 조정 */
+            text-decoration: none;
+            border: none; /* 테두리 제거 */
+            border-radius: 25px; /* 둥근 버튼 */
+            cursor: pointer;
+            transition: background-color 0.3s; /* 호버 효과 부드럽게 */
+        }
+
+        .ui-button:hover, button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* 테이블에 그림자 추가 */
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333; /* 헤더 텍스트 색상 변경 */
+        }
+
+        td a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold; /* 링크 글씨 굵게 */
+        }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 20px;
+            }
+
+            .ui-button, button {
+                padding: 10px 15px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <h2>마이페이지</h2>
+
+    <div>
+        <label>이메일: </label><span th:text="${user.email}"></span>
+    </div>
+    <div>
+        <label>닉네임: </label><span th:text="${user.nickname}"></span>
+    </div>
+    <!-- 사용자 정보 수정 버튼 -->
+    <button class="ui-button" th:onclick="|location.href='@{/mypage/update/{userId}(userId=${user.id})}'|">정보 수정</button>
+    <!-- 계정 삭제 처리 -->
+    <form th:action="@{/mypage/{userId}(userId=${user.id})}" method="post">
+        <input type="hidden" name="_method" value="delete" />
+        <button type="submit">계정 삭제</button>
+    </form>
+    <hr>
+    <h3>내가 작성한 게시글</h3>
+    <!-- 마이페이지에서 게시글 리스트로 돌아가는 버튼 -->
+    <a href="/boards" class="ui-button">게시글 리스트로 돌아가기</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>생성 일시</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="board : ${user.boards}">
+            <td th:text="${board.id}"></td>
+            <td>
+                <a th:href="@{/boards/{id}(id=${board.id})}" th:text="${board.title}"></a>
+            </td>
+            <td th:text="${#dates.format(board.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

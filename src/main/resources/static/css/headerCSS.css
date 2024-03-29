@@ -1,0 +1,57 @@
+:root {
+    --main_color: #28a745;  /* 메인 */
+    --gray3: #7e7e7e;       /* 비활성 */
+    --gray2: #e7e7e7;       /* 버튼 테두리 */
+    --gray1: #f5f5f5;       /* 호버링 */
+    --white: white;
+    --black: black;
+}
+
+body {
+    max-width: 60vw;
+    margin: auto;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+}
+
+.left button {
+    font-size: 24px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.left img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.menu {
+    display: flex;
+    margin-left: 10px;
+}
+
+.menu button {
+    margin-right: 5px;
+    font-size: 16px;
+}
+
+.right button {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
