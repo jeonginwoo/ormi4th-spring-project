@@ -4,10 +4,30 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>게시글 생성</title>
+    <style>
+        body {
+            max-width: 1000px;
+            margin: auto;
+        }
+        .area {
+            margin: 5px 0;
+            padding: 10px 20px;
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+        textarea {
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+
+    <!-- TOAST UI Editor CDN URL(CSS)-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
     <!--    <link rel="stylesheet" href="../../static/css/newBoardCSS.css">-->
     <link rel="stylesheet" th:href="@{/css/headerCSS.css}" />
     <link rel="stylesheet" th:href="@{/css/newBoardCSS.css}" />
-
 </head>
 <body>
 <header th:replace="fragment/header"></header>
@@ -21,11 +41,11 @@
         <input type="text" placeholder="제목 입력" id="title" th:value="${board.title}" required/>
     </div>
     <hr>
-    <div>
-        <label>
-            <textarea placeholder="내용 입력" id="content" th:text="${board.content}" required></textarea>
-        </label>
-    </div>
+    <input type="hidden" id="boardContent" th:value="${board.content}">
+    <div id="editor"></div>
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <script>
+    </script>
 </div>
 
 <div class="action-buttons">
@@ -35,7 +55,7 @@
     <button th:if="${board.id} != null" id="modify-btn" class="on" type="submit">수정</button>
 </div>
 
-<script src="/js/board.js"></script>
+<script src="/js/boardEditor.js"></script>
 
 
 </body>
