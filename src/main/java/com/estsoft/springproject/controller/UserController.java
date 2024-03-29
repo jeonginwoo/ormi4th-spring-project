@@ -51,5 +51,6 @@ public class UserController {
 	@DeleteMapping("/mypage/{userId}")
 	public void deleteUserInfo(@PathVariable Long userId){
 		userService.deleteUserInfo(userId);
-	}
+	} //TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
+
 }
