@@ -34,16 +34,26 @@ const createButton = document.getElementById('board-create-btn');
 if (createButton) {
     createButton.addEventListener('click', event => {
         let formData = new FormData();
-        formData.append('title', document.getElementById('title').value);
-        formData.append('content', editor.getMarkdown());
+        let title = document.getElementById('title').value
+        let content = editor.getMarkdown();
+        formData.append('title', title);
+        formData.append('content', content);
 
-        fetch(`/boards`, {
-            method: 'POST',
-            body: formData,
-        }).then(response => response.json()
-        ).then((data) => {
-            alert('등록 완료되었습니다');
-            location.replace(`/boards/`+data.id);
-        });
+        if (title == "" && content == "") {
+            alert('내용을 적어주세요.');
+        } else if (title == "") {
+            alert('제목이 비었습니다.');
+        } else if (content == "") {
+            alert('내용이 비었습니다.');
+        } else {
+            fetch(`/boards`, {
+                method: 'POST',
+                body: formData,
+            }).then(response => response.json()
+            ).then((data) => {
+                alert('등록 완료되었습니다');
+                location.replace(`/boards/`+data.id);
+            });
+        }
     });
 }
