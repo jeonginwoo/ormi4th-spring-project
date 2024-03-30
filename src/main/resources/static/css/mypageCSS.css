@@ -1,0 +1,132 @@
+
+body {
+    font-family: 'Noto Sans KR', sans-serif; /* 한글 폰트 적용 */
+    background-color: #f7f8fa;
+    margin: 0;
+    padding: 20px;
+    color: #333; /* 기본 텍스트 색상 변경 */
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto; /* 위아래 마진 추가 */
+    padding: 40px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 그림자 효과 강화 */
+    border-radius: 8px; /* 모서리 둥글게 */
+}
+
+h2, h3 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px; /* 제목 아래 마진 추가 */
+}
+
+label {
+    color: #666;
+    font-weight: bold; /* 라벨 글씨 굵게 */
+}
+
+ui-button, button {
+    display: inline-block; /* 인라인 블록으로 변경 */
+    margin: 10px 5px; /* 버튼 사이의 간격 추가 */
+    background-color: #4CAF50; /* 버튼 색상 변경 */
+    color: white;
+    padding: 10px 20px; /* 패딩 조정 */
+    text-decoration: none;
+    border: none; /* 테두리 제거 */
+    border-radius: 25px; /* 둥근 버튼 */
+    cursor: pointer;
+    transition: background-color 0.3s; /* 호버 효과 부드럽게 */
+}
+.
+.ui-button:hover, button:hover {
+    background-color: #45a049;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* 테이블에 그림자 추가 */
+}
+
+th, td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    color: #333; /* 헤더 텍스트 색상 변경 */
+}
+
+td a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold; /* 링크 글씨 굵게 */
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .ui-button, button {
+        padding: 10px 15px;
+    }
+}
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination li {
+    margin-right: 5px;
+}
+
+.pagination li.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.pagination li a {
+    display: block;
+    padding: 5px 10px;
+    color: #4CAF50;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.pagination li a:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/*.pagination li.active a {*/
+/*    background-color: #007bff;*/
+/*    color: #fff;*/
+/*}*/
+.pagination li a page-number{
+    display: inline-block;
+    margin: 10px 5px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
