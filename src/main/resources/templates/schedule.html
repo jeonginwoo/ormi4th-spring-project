@@ -15,11 +15,14 @@
 <article th:fragment="content">
     <div class="wrap">
         <div class="month-selector">
-            <button>&lt;</button>
+            <a th:if="${team}" th:href="@{'/schedule?date='+${previous}+'&team='+${team}}">&lt;</a>
+            <a th:unless="${team}" th:href="@{'/schedule?date='+${previous}}">&lt;</a>
             <span class="year" th:text="${#temporals.format(date,'yyyy')}"></span>
             <span class="month" th:text="${#temporals.format(date,'MM')}"></span>
-            <button>&gt;</button>
+            <a th:if="${team}" th:href="@{'/schedule?date='+${next}+'&team='+${team}}">&gt;</a>
+            <a th:unless="${team}" th:href="@{'/schedule?date='+${next}}">&gt;</a>
         </div>
+
         <section class="team-selector-group">
             <li class="team-selector" th:classappend="${team == null} ? 'red-text':''">
                 <a th:href="@{'/schedule?date='+${date}}">

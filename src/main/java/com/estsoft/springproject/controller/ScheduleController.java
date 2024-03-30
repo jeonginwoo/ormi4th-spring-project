@@ -36,9 +36,21 @@ public class ScheduleController {
             schedules = scheduleService.getMonthlySchedules(date);
         }
 
+        model.addAttribute("previous", previous(date));
         model.addAttribute("date", date);
+        model.addAttribute("next",next(date));
         model.addAttribute("schedules", schedules);
 
         return "schedule";
+    }
+
+    private LocalDate previous(LocalDate date) {
+
+        return date.minusMonths(1).withDayOfMonth(1);
+    }
+
+    private LocalDate next(LocalDate date) {
+
+        return date.plusMonths(1).withDayOfMonth(1);
     }
 }
