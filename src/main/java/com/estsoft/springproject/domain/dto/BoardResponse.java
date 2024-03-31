@@ -20,6 +20,7 @@ public class BoardResponse {
     private Timestamp modified_at;
     private String nickname;    // 작성자
     private Long userId;
+    private Long hits;
 
     public BoardResponse(Board board) {
         this.id = board.getId();
@@ -31,5 +32,6 @@ public class BoardResponse {
         this.modified_at = board.getModifiedAt();
         this.nickname = board.getUser().getNickname();
         this.userId = board.getUser().getId();
+        this.hits = board.getHits();
     }
 }

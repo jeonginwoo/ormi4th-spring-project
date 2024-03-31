@@ -10,6 +10,9 @@ import com.estsoft.springproject.domain.dto.BoardResponse;
 import com.estsoft.springproject.service.BoardService;
 import com.estsoft.springproject.service.CommentService;
 import com.estsoft.springproject.service.UserService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -18,6 +21,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,11 +61,12 @@ public class BoardController {
     public ResponseEntity<BoardResponse> updateBoard(
             /*@AuthenticationPrincipal User user,  // TODO: 인증자만 수정 가능하도록 만들기*/
             @PathVariable Long id,
-            BoardRequest request
+            BoardRequest boardRequest
     ) {
-        Board board = boardService.update(id, request);
-        BoardResponse response = new BoardResponse(board);
-        return ResponseEntity.ok(response);
+        Board board = boardService.update(id, boardRequest);
+        BoardResponse boardResponse = new BoardResponse(board);
+
+        return ResponseEntity.ok(boardResponse);
     }
 
     @GetMapping
@@ -77,12 +85,15 @@ public class BoardController {
     public String showBoard(
             /*@AuthenticationPrincipal User user,  // TODO: 사용자 정보 넘기기*/
             @PathVariable Long id,
+            HttpServletRequest request,
+            HttpServletResponse response,
             Model model
     ) {
         User user = userService.findById(1L);       // TODO: 테스트용. 나중에 지울 것!
         model.addAttribute("user", user);
 
         Board board = boardService.findById(id);
+        board = boardService.updateHits(board);
         model.addAttribute("board", new BoardResponse(board));
 
         List<Comment> comments = commentService.findByBoardId(id);

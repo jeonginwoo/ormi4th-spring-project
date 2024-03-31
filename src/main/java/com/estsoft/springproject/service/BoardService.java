@@ -51,4 +51,10 @@ public class BoardService {
     public List<Board> findByTitle(String title){
         return boardRepository.findByTitle(title);
     }
+
+    public Board updateHits(Board board) {
+        board.updateHits();
+        boardRepository.save(board);
+        return board;
+    }
 }

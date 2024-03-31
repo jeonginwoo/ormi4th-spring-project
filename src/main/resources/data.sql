@@ -22,6 +22,7 @@ CREATE TABLE board
     created_at  TIMESTAMP,
     modified_at TIMESTAMP,
     user_id     INTEGER,
+    hits        INTEGER,
     PRIMARY KEY (board_id)
 );
 
@@ -40,11 +41,11 @@ INSERT INTO users (email, password, nickname) VALUES ('email1', 'password1', 'ni
 INSERT INTO users (email, password, nickname) VALUES ('email2', 'password2', 'nickname2');
 INSERT INTO users (email, password, nickname) VALUES ('email3', 'password3', 'nickname3');
 
-INSERT INTO board (type, team, title, content, created_at, modified_at, user_id) VALUES ('general', '팀1', '제목1', '내용1', now(), now(), 1);
-INSERT INTO board (type, team, title, content, created_at, modified_at, user_id) VALUES ('general', '팀1', '제목2', '내용2', now(), now(), 2);
-INSERT INTO board (type, team, title, content, created_at, modified_at, user_id) VALUES ('general', '팀2', '제목3', '내용3', now(), now(), 2);
-INSERT INTO board (type, team, title, content, created_at, modified_at, user_id) VALUES ('general', '팀2', '제목4', '내용4', now(), now(), 2);
-INSERT INTO board (type, team, title, content, created_at, modified_at, user_id) VALUES ('announcement', null, '제목5', '내용5', now(), now(), 3);
+INSERT INTO board (type, team, title, content, created_at, modified_at, user_id, hits) VALUES ('general', '팀1', '제목1', '내용1', now(), now(), 1, 0);
+INSERT INTO board (type, team, title, content, created_at, modified_at, user_id, hits) VALUES ('general', '팀1', '제목2', '내용2', now(), now(), 2, 0);
+INSERT INTO board (type, team, title, content, created_at, modified_at, user_id, hits) VALUES ('general', '팀2', '제목3', '내용3', now(), now(), 2, 0);
+INSERT INTO board (type, team, title, content, created_at, modified_at, user_id, hits) VALUES ('general', '팀2', '제목4', '내용4', now(), now(), 2, 0);
+INSERT INTO board (type, team, title, content, created_at, modified_at, user_id, hits) VALUES ('announcement', null, '제목5', '내용5', now(), now(), 3, 0);
 
 INSERT INTO comment (content, created_at, modified_at, board_id, user_id) VALUES ('게시글1에 유저2 댓글', now(), now(), 1, 2);
 INSERT INTO comment (content, created_at, modified_at, board_id, user_id) VALUES ('게시글1에 유저3 댓글', now(), now(), 1, 3);

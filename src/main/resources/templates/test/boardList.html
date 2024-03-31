@@ -47,7 +47,7 @@
             </td>
             <td th:text="${item.user.nickname}"></td>
             <td th:text="${#dates.format(item.createdAt, 'yyyy.MM.dd HH:mm')}"></td>
-            <td></td>
+            <td th:text="${item.hits}"></td>
         </tr>
         </tbody>
     </table>
