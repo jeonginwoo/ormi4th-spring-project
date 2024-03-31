@@ -11,7 +11,7 @@ import java.sql.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Player {
+public class PlayerInfo {
 
     private Long id;
     private String name;

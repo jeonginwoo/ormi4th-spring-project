@@ -11,23 +11,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PitcherRecord {
 
-    private String id;
     private Long playerId;
-    private Long teamId;
-    private int order;
-    private int starter;
-    private String decision;
-    private double innings;
-    private int run;
-    private int earnedRun;
-    private int ab;
-    private int hits;
-    private int doubles;
-    private int triples;
-    private int hr;
-    private int bb;
-    private int ibb;
-    private int hbp;
+    private String playerName;
+    private String teamName;
+    private String emblemPath;
+
+    private int win;
+    private int save;
     private int so;
-    private int np;
+    private double era;
 }

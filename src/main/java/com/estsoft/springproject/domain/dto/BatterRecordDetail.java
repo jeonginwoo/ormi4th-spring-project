@@ -5,24 +5,28 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Year;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class BatterRecordDetail {
 
-    private String id;
-    private Long playerId;
-    private String playerName;
-    private Long teamId;
-    private String teamName;
+    private PlayerInfo player;
+
+    private Year season;
+    private String team;
     private String position;
-    private int order;
+    private int age;
+    private int game;
+    private int pa;
     private int ab;
     private int hits;
     private int doubles;
     private int triples;
     private int hr;
+    private int tb;
     private int bb;
     private int ibb;
     private int hbp;
@@ -39,5 +43,4 @@ public class BatterRecordDetail {
     private double obp;
     private double slg;
     private double ops;
-    private double war;
 }

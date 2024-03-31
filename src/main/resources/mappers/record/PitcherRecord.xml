@@ -8,4 +8,56 @@
         from pitcher_record
         where player_id = #{playerId}
     </select>
+
+    <select id="getPitcherRecordDetailOfAllSeason" resultType="com.estsoft.springproject.domain.dto.PitcherRecordDetail">
+        SELECT
+            year(substring(pr.id, 1, 8)) as season,
+            t.name as team,
+            count(*) as game,
+            sum(pr.starter) as starter,
+            sum(case when pr.decision = 'W' then 1 else 0 end) as win,
+            sum(case when pr.decision = 'L' then 1 else 0 end) as lose,
+            sum(case when pr.decision = 'HD' then 1 else 0 end) as hold,
+            sum(case when pr.decision = 'SV' then 1 else 0 end) as save,
+            CONCAT(FLOOR(round(inn.out_count/3,2)), ' ',
+            CASE
+            WHEN MOD(round(inn.out_count/3,2), 1) = 0.33 THEN '0.1'
+            WHEN MOD(round(inn.out_count/3,2), 1) = 0.66 THEN '0.2'
+            ELSE ''
+            END
+            ) as innings,
+            sum(pr.runs) as runs,
+            sum(pr.earned_run) as earnedRuns,
+            sum(pr.hits) as hits,
+            sum(pr.doubles) as doubles,
+            sum(pr.triples) as triples,
+            sum(pr.homeruns) as hr,
+            sum(pr.bb) as bb,
+            sum(pr.ibb) as ibb,
+            sum(pr.hbp) as hbp,
+            sum(pr.so) as so,
+            sum(pr.np) as np,
+            (sum(pr.bb)+sum(pr.hits))/inn.out_count*3 as whip,
+            sum(pr.so)/inn.out_count*27 as kNine,
+            sum(pr.bb)/inn.out_count*27 as bbNine,
+            sum(pr.homeruns)/inn.out_count*27 as hrNine,
+            sum(pr.so)/sum(pr.bb) as kbb,
+            sum(pr.earned_run)*27/inn.out_count as era
+        FROM
+            pitcher_record pr
+            INNER JOIN team t ON t.id = pr.team_id
+            INNER JOIN (
+            SELECT
+            player_id,
+            round((sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10))) as out_count
+            FROM
+            pitcher_record
+            GROUP BY
+            player_id
+            ) inn ON inn.player_id = pr.player_id
+        WHERE
+            pr.player_id = #{playerId}
+        GROUP BY
+            season, team;
+    </select>
 </mapper>

@@ -1,0 +1,61 @@
+.wrap {
+
+    padding: 100px;
+}
+
+.info-section {
+
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 50px;
+    padding: 20px;
+    gap: 10px;
+}
+
+.emblem {
+    width: 250px;
+    height: 200px;
+}
+
+.name-div {
+    display: flex;
+    gap: 10px;
+}
+
+.player-info {
+    width: 400px;
+}
+
+.player-info-top, .player-info-bot {
+
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+
+    color: white;
+    font-size: 36px;
+}
+
+.record-table {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.record-table-header {
+
+    margin-bottom: 20px;
+    border-bottom: black 1px;
+}
+
+.record-table-header li, .record-table-body li {
+
+    display: flex;
+    text-align: center;
+    justify-content: center;
+
+    gap: 10px;
+}
