@@ -85,8 +85,6 @@ public class BoardController {
     public String showBoard(
             /*@AuthenticationPrincipal User user,  // TODO: 사용자 정보 넘기기*/
             @PathVariable Long id,
-            HttpServletRequest request,
-            HttpServletResponse response,
             Model model
     ) {
         User user = userService.findById(1L);       // TODO: 테스트용. 나중에 지울 것!
