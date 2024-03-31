@@ -61,9 +61,9 @@ public class BoardController {
     public ResponseEntity<BoardResponse> updateBoard(
             /*@AuthenticationPrincipal User user,  // TODO: 인증자만 수정 가능하도록 만들기*/
             @PathVariable Long id,
-            BoardRequest boardRequest
+            BoardRequest request
     ) {
-        Board board = boardService.update(id, boardRequest);
+        Board board = boardService.update(id, request);
         BoardResponse boardResponse = new BoardResponse(board);
 
         return ResponseEntity.ok(boardResponse);
