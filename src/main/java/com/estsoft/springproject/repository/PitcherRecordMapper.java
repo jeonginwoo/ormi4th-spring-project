@@ -11,4 +11,5 @@ public interface PitcherRecordMapper {
 
     List<PitcherRecord> findByPlayerId(Long playerId);
     List<PitcherRecordDetail> getPitcherRecordDetailOfAllSeason(Long playerId);
+    PitcherRecordDetail getCareerRecord(Long playerId);
 }

@@ -33,6 +33,7 @@ public class PlayerService {
         Batter batter = Batter.builder()
                 .playerInfo(playerMapper.findById(id))
                 .batterRecordDetails(batterRecordMapper.getBatterRecordDetailOfAllSeason(id))
+                .careerRecord(batterRecordMapper.getCareerRecord(id))
                 .build();
 
         return batter;
@@ -43,6 +44,7 @@ public class PlayerService {
         Pitcher pitcher = Pitcher.builder()
                 .playerInfo(playerMapper.findById(id))
                 .pitcherRecordDetails(pitcherRecordMapper.getPitcherRecordDetailOfAllSeason(id))
+                .careerRecord(pitcherRecordMapper.getCareerRecord(id))
                 .build();
 
         return pitcher;

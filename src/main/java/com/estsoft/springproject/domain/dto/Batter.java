@@ -15,4 +15,5 @@ public class Batter {
 
     private PlayerInfo playerInfo;
     private List<BatterRecordDetail> batterRecordDetails;
+    private BatterRecordDetail careerRecord;
 }
