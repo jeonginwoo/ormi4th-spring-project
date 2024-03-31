@@ -76,14 +76,14 @@
     border-bottom: solid black 1px;
 }
 
-.record-table-header li, .record-table-body li {
+.record-table-header li, .record-table-body li, .record-table-bottom li {
 
     display: flex;
     text-align: center;
     justify-content: center;
 }
 
-.record-table-header p, .record-table-body p {
+.record-table-header p, .record-table-body p, .record-table-bottom p {
 
     width: 45px;
 }
@@ -91,5 +91,6 @@
 .record-table-body li:last-child {
 
     padding-bottom: 10px;
+    margin-bottom: 20px;
     border-bottom: solid black 1px;
 }
