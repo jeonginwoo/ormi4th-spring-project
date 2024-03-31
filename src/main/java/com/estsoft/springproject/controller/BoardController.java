@@ -64,9 +64,9 @@ public class BoardController {
             BoardRequest request
     ) {
         Board board = boardService.update(id, request);
-        BoardResponse boardResponse = new BoardResponse(board);
+        BoardResponse response = new BoardResponse(board);
 
-        return ResponseEntity.ok(boardResponse);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping
