@@ -42,6 +42,8 @@
             sum(pr.bb)/inn.out_count*27 as bbNine,
             sum(pr.homeruns)/inn.out_count*27 as hrNine,
             sum(pr.so)/sum(pr.bb) as kbb,
+            sum(pr.so)/sum(pr.tbf) * 100 as kp,
+            sum(pr.bb)/sum(pr.tbf) * 100 as bbp,
             sum(pr.earned_run)*27/inn.out_count as era
         FROM
             pitcher_record pr
@@ -92,6 +94,8 @@
             sum(pr.bb)/inn.out_count*27 as bbNine,
             sum(pr.homeruns)/inn.out_count*27 as hrNine,
             sum(pr.so)/sum(pr.bb) as kbb,
+            sum(pr.so)/sum(pr.tbf) * 100 as kp,
+            sum(pr.bb)/sum(pr.tbf) * 100 as bbp,
             sum(pr.earned_run)*27/inn.out_count as era
         FROM
             pitcher_record pr

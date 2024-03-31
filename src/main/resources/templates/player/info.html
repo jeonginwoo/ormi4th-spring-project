@@ -65,6 +65,7 @@
                         <p th:text="${record.innings}"></p>
                         <p th:text="${record.runs}"></p>
                         <p th:text="${record.earnedRuns}"></p>
+                        <p th:text="${record.tbf}"></p>
                         <p th:text="${record.hits}"></p>
                         <p th:text="${record.doubles}"></p>
                         <p th:text="${record.triples}"></p>
@@ -79,6 +80,8 @@
                         <p th:text="${#numbers.formatDecimal(record.bbNine,1,2)}"></p>
                         <p th:text="${#numbers.formatDecimal(record.kbb,1,2)}"></p>
                         <p th:text="${#numbers.formatDecimal(record.hrNine,1,2)}"></p>
+                        <p th:text="${#numbers.formatDecimal(record.kp,1,1)}"></p>
+                        <p th:text="${#numbers.formatDecimal(record.bbp,1,1)}"></p>
                         <p th:text="${#numbers.formatDecimal(record.era,1,2)}"></p>
                     </li>
                 </ul>
@@ -127,6 +130,7 @@
                         <p th:text="${player.careerRecord.innings}"></p>
                         <p th:text="${player.careerRecord.runs}"></p>
                         <p th:text="${player.careerRecord.earnedRuns}"></p>
+                        <p th:text="${player.careerRecord.tbf}"></p>
                         <p th:text="${player.careerRecord.hits}"></p>
                         <p th:text="${player.careerRecord.doubles}"></p>
                         <p th:text="${player.careerRecord.triples}"></p>
@@ -141,6 +145,8 @@
                         <p th:text="${#numbers.formatDecimal(player.careerRecord.bbNine,1,2)}"></p>
                         <p th:text="${#numbers.formatDecimal(player.careerRecord.kbb,1,2)}"></p>
                         <p th:text="${#numbers.formatDecimal(player.careerRecord.hrNine,1,2)}"></p>
+                        <p th:text="${#numbers.formatDecimal(player.careerRecord.kp,1,1)}"></p>
+                        <p th:text="${#numbers.formatDecimal(player.careerRecord.bbp,1,1)}"></p>
                         <p th:text="${#numbers.formatDecimal(player.careerRecord.era,1,2)}"></p>
                     </li>
                 </ul>
