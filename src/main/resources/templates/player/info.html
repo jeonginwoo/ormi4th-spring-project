@@ -14,7 +14,8 @@
 <header th:replace="~{/fragments/header}"></header>
 <article th:fragment="content">
     <div class="wrap">
-        <section class="info-section" th:style="'background-color: ' + ${player.playerInfo.teamColor}">
+        <section class="info-section" th:classappend="${positionId == 1} ? 'gap-pitcher' : 'gap-batter'"
+                 th:style="'background-color: ' + ${player.playerInfo.teamColor}">
             <img class="emblem" th:src="${player.playerInfo.emblemPath}">
             <div class="player-info">
                 <div class="player-info-top">

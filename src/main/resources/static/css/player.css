@@ -1,16 +1,28 @@
 .wrap {
 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 100px;
+    gap: 50px;
 }
 
 .info-section {
 
     display: flex;
     align-items: center;
+    justify-content: center;
 
-    margin-bottom: 50px;
-    padding: 20px;
-    gap: 10px;
+    padding: 30px;
+}
+
+.gap-batter {
+    gap: 480px;
+}
+
+.gap-pitcher {
+    gap: 620px;
 }
 
 .emblem {
@@ -24,7 +36,7 @@
 }
 
 .player-info {
-    width: 400px;
+    width: 450px;
 }
 
 .player-info-top, .player-info-bot {
@@ -39,16 +51,29 @@
 
 .record-table {
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
+
+    padding: 50px;
 }
 
-.record-table-header {
+.record-table {
 
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
+
+    padding: 35px;
+}
+
+.record-table-header ul {
+
+    padding-bottom: 10px;
     margin-bottom: 20px;
-    border-bottom: black 1px;
+    border-bottom: solid black 1px;
 }
 
 .record-table-header li, .record-table-body li {
@@ -56,6 +81,15 @@
     display: flex;
     text-align: center;
     justify-content: center;
+}
 
-    gap: 10px;
+.record-table-header p, .record-table-body p {
+
+    width: 45px;
+}
+
+.record-table-body li:last-child {
+
+    padding-bottom: 10px;
+    border-bottom: solid black 1px;
 }
