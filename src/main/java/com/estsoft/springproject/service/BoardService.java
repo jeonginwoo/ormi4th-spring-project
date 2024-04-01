@@ -25,7 +25,7 @@ public class BoardService {
 
     public Page<Board> findAll(int page) {
         List<Sort.Order> sorts = new ArrayList<>();
-        sorts.add(Sort.Order.desc("createdAt"));
+        sorts.add(Sort.Order.desc("id"));
         Pageable pageable = PageRequest.of(page - 1, 10, Sort.by(sorts));
         return this.boardRepository.findAll(pageable);
     }
@@ -44,11 +44,17 @@ public class BoardService {
         boardRepository.save(updated);
         return updated;
     }
-    public List<Board> findByUserNickName(String nickname){
-        return boardRepository.findByUserNickname(nickname);
+    public Page<Board> findByUserNickName(String nickname,int page){
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("id"));
+        Pageable pageable = PageRequest.of(page - 1, 10, Sort.by(sorts));
+        return boardRepository.findByUserNickname(nickname, pageable);
     }
 
-    public List<Board> findByTitle(String title){
-        return boardRepository.findByTitle(title);
+    public Page<Board> findByTitle(String title,int page){
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("id"));
+        Pageable pageable = PageRequest.of(page - 1, 10, Sort.by(sorts));
+        return boardRepository.findByTitle(title, pageable);
     }
 }
