@@ -14,7 +14,24 @@
             team hometeam on hometeam.id = s.home_team_id
         left join
             score_board sb on sb.id = s.id
-        where month(s.match_date) = #{month}
+        where year(s.match_date) = #{year} and month(s.match_date) = #{month}
+        order by s.match_date
+    </select>
+
+    <select id="getMonthlySchedulesFindByTeamId" resultType="com.estsoft.springproject.domain.dto.Schedule">
+        select s.id, s.match_date as matchDate, awayteam.id as awayTeamId, awayteam.name as awayTeamName, awayteam.emblem_path as awayTeamEmblemPath,
+               hometeam.id as homeTeamId, hometeam.name as homeTeamName, hometeam.emblem_path as homeTeamEmblemPath, s.stadium, s.broadcast, s.status,
+               sb.away_runs as awayTeamRuns, sb.home_runs as homeTeamRuns
+        from `schedule` s
+                 inner join
+             team awayteam on awayteam.id = s.away_team_id
+                 inner join
+             team hometeam on hometeam.id = s.home_team_id
+                 left join
+             score_board sb on sb.id = s.id
+        where year(s.match_date) = #{year} and month(s.match_date) = #{month}
+        and (s.away_team_id = #{teamId} or s.home_team_id = #{teamId})
+        order by s.match_date
     </select>
 
     <select id="getDailySchedules" resultType="com.estsoft.springproject.domain.dto.Schedule">
@@ -26,5 +43,6 @@
         inner join team hometeam on hometeam.id = s.home_team_id
         left join score_board sb on sb.id = s.id
         where date(s.match_date) = #{date}
+        order by s.match_date
     </select>
 </mapper>

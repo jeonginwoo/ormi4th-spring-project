@@ -32,6 +32,7 @@ ul,li {
 }
 
 a {
+    color: black;
     text-decoration-line: none;
     text-decoration-color: black;
 }
