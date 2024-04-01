@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<th:block layout:fragment="head">
+    <title>선수 정보</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet"/>
+    <link th:href="@{/css/player.css}" rel="stylesheet"/>
+</th:block>
+
+<body>
+<header th:replace="~{/fragments/header}"></header>
+<article th:fragment="content">
+    <div class="wrap">
+        <section class="info-section" th:classappend="${positionId == 1} ? 'gap-pitcher' : 'gap-batter'"
+                 th:style="'background-color: ' + ${player.playerInfo.teamColor}">
+            <img class="emblem" th:src="${player.playerInfo.emblemPath}">
+            <div class="player-info">
+                <div class="player-info-top">
+                    <div class="name-div">
+                        <p th:text="${player.playerInfo.uniformNumber}"></p>
+                        <p th:text="${player.playerInfo.name}"></p>
+                    </div>
+                    <p th:text="${player.playerInfo.birth}"></p>
+                </div>
+                <div class="player-info-bot">
+                    <p th:text="${player.playerInfo.position}"></p>
+                    <p th:text="${player.playerInfo.hand}"></p>
+                </div>
+            </div>
+        </section>
+        <section class="record-table">
+            <div class="record-table-header">
+                <ul th:if="${positionId == 1}">
+                    <li>
+                        <p th:each="column : ${#strings.arraySplit('시즌 팀 경기 선발 승 패 세이브 홀드 이닝 실점 자책 타자 안타 2루타 3루타 홈런 볼넷 고4 사구 삼진 투구수',' ')}"
+                           th:text="${column}"></p>
+                        <p th:each="column : ${#strings.arraySplit('WHIP K/9 BB/9 K/BB HR/9 k% BB% ERA',' ')}"
+                           th:text="${column}"></p>
+                    </li>
+                </ul>
+                <ul th:unless="${positionId == 1}">
+                    <li>
+                        <p th:text="시즌"></p>
+                        <p th:text="팀"></p>
+                        <p th:each="column : ${#strings.arraySplit('포지션 경기 타석 타수 안타 2루타 3루타 홈런 루타 타점 득점 도루 도실 볼넷 고4 사구 삼진 병살 희타 희비',' ')}"
+                           th:text="${column}"></p>
+                        <p th:each="column : ${#strings.arraySplit('타율 출루율 장타율 OPS',' ')}" th:text="${column}"></p>
+                    </li>
+                </ul>
+            </div>
+            <div class="record-table-body">
+                <ul th:if="${positionId == 1}">
+                    <li th:each="record : ${player.pitcherRecordDetails}">
+                        <p class="season" th:text="${record.season}"></p>
+                        <p class="team" th:text="${#strings.listSplit(record.team,' ')[0]}"></p>
+                        <p th:text="${record.game}"></p>
+                        <p th:text="${record.starter}"></p>
+                        <p th:text="${record.win}"></p>
+                        <p th:text="${record.lose}"></p>
+                        <p th:text="${record.save}"></p>
+                        <p th:text="${record.hold}"></p>
+                        <p th:text="${record.innings}"></p>
+                        <p th:text="${record.runs}"></p>
+                        <p th:text="${record.earnedRuns}"></p>
+                        <p th:text="${record.tbf}"></p>
+                        <p th:text="${record.hits}"></p>
+                        <p th:text="${record.doubles}"></p>
+                        <p th:text="${record.triples}"></p>
+                        <p th:text="${record.hr}"></p>
+                        <p th:text="${record.bb}"></p>
+                        <p th:text="${record.ibb}"></p>
+                        <p th:text="${record.hbp}"></p>
+                        <p th:text="${record.so}"></p>
+                        <p th:text="${record.np}"></p>
+                        <p th:text="${#numbers.formatDecimal(record.whip,1,2)}"></p>
+                        <p th:text="${#numbers.formatDecimal(record.kNine,1,2)}"></p>
+                        <p th:text="${#numbers.formatDecimal(record.bbNine,1,2)}"></p>
+                        <p th:text="${#numbers.formatDecimal(record.kbb,1,2)}"></p>
+                        <p th:text="${#numbers.formatDecimal(record.hrNine,1,2)}"></p>
+                        <p th:text="${#numbers.formatDecimal(record.kp,1,1)}"></p>
+                        <p th:text="${#numbers.formatDecimal(record.bbp,1,1)}"></p>
+                        <p th:text="${#numbers.formatDecimal(record.era,1,2)}"></p>
+                    </li>
+                </ul>
+                <ul th:unless="${positionId == 1}">
+                    <li th:each="record : ${player.batterRecordDetails}">
+                        <p class="season" th:text="${record.season}"></p>
+                        <p class="team" th:text="${#strings.listSplit(record.team,' ')[0]}"></p>
+                        <p th:text="${#strings.substring(record.position,0,2)}"></p>
+                        <p th:text="${record.game}"></p>
+                        <p th:text="${record.ab}"></p>
+                        <p th:text="${record.hits}"></p>
+                        <p th:text="${record.doubles}"></p>
+                        <p th:text="${record.triples}"></p>
+                        <p th:text="${record.hr}"></p>
+                        <p th:text="${record.tb}"></p>
+                        <p th:text="${record.rbi}"></p>
+                        <p th:text="${record.runs}"></p>
+                        <p th:text="${record.sb}"></p>
+                        <p th:text="${record.cs}"></p>
+                        <p th:text="${record.bb}"></p>
+                        <p th:text="${record.ibb}"></p>
+                        <p th:text="${record.hbp}"></p>
+                        <p th:text="${record.so}"></p>
+                        <p th:text="${record.dp}"></p>
+                        <p th:text="${record.sb}"></p>
+                        <p th:text="${record.sc}"></p>
+                        <p th:text="${record.sf}"></p>
+                        <p th:text="${#numbers.formatDecimal(record.avg,1,3)}"></p>
+                        <p th:text="${#numbers.formatDecimal(record.obp,1,3)}"></p>
+                        <p th:text="${#numbers.formatDecimal(record.slg,1,3)}"></p>
+                        <p th:text="${#numbers.formatDecimal(record.ops,1,3)}"></p>
+                    </li>
+                </ul>
+            </div>
+            <div class="record-table-bottom">
+                <ul th:if="${positionId == 1}">
+                    <li>
+                        <p class="season" th:text="${player.pitcherRecordDetails.size()} + '시즌'"></p>
+                        <p class="team" th:text="통산"></p>
+                        <p th:text="${player.careerRecord.game}"></p>
+                        <p th:text="${player.careerRecord.starter}"></p>
+                        <p th:text="${player.careerRecord.win}"></p>
+                        <p th:text="${player.careerRecord.lose}"></p>
+                        <p th:text="${player.careerRecord.save}"></p>
+                        <p th:text="${player.careerRecord.hold}"></p>
+                        <p th:text="${player.careerRecord.innings}"></p>
+                        <p th:text="${player.careerRecord.runs}"></p>
+                        <p th:text="${player.careerRecord.earnedRuns}"></p>
+                        <p th:text="${player.careerRecord.tbf}"></p>
+                        <p th:text="${player.careerRecord.hits}"></p>
+                        <p th:text="${player.careerRecord.doubles}"></p>
+                        <p th:text="${player.careerRecord.triples}"></p>
+                        <p th:text="${player.careerRecord.hr}"></p>
+                        <p th:text="${player.careerRecord.bb}"></p>
+                        <p th:text="${player.careerRecord.ibb}"></p>
+                        <p th:text="${player.careerRecord.hbp}"></p>
+                        <p th:text="${player.careerRecord.so}"></p>
+                        <p th:text="${player.careerRecord.np}"></p>
+                        <p th:text="${#numbers.formatDecimal(player.careerRecord.whip,1,2)}"></p>
+                        <p th:text="${#numbers.formatDecimal(player.careerRecord.kNine,1,2)}"></p>
+                        <p th:text="${#numbers.formatDecimal(player.careerRecord.bbNine,1,2)}"></p>
+                        <p th:text="${#numbers.formatDecimal(player.careerRecord.kbb,1,2)}"></p>
+                        <p th:text="${#numbers.formatDecimal(player.careerRecord.hrNine,1,2)}"></p>
+                        <p th:text="${#numbers.formatDecimal(player.careerRecord.kp,1,1)}"></p>
+                        <p th:text="${#numbers.formatDecimal(player.careerRecord.bbp,1,1)}"></p>
+                        <p th:text="${#numbers.formatDecimal(player.careerRecord.era,1,2)}"></p>
+                    </li>
+                </ul>
+                <ul th:unless="${positionId == 1}">
+                    <li>
+                        <p class="season" th:text="${player.batterRecordDetails.size()} + '시즌'"></p>
+                        <p class="team" th:text="통산"></p>
+                        <p th:text="${#strings.substring(player.careerRecord.position,0,2)}"></p>
+                        <p th:text="${player.careerRecord.game}"></p>
+                        <p th:text="${player.careerRecord.ab}"></p>
+                        <p th:text="${player.careerRecord.hits}"></p>
+                        <p th:text="${player.careerRecord.doubles}"></p>
+                        <p th:text="${player.careerRecord.triples}"></p>
+                        <p th:text="${player.careerRecord.hr}"></p>
+                        <p th:text="${player.careerRecord.tb}"></p>
+                        <p th:text="${player.careerRecord.rbi}"></p>
+                        <p th:text="${player.careerRecord.runs}"></p>
+                        <p th:text="${player.careerRecord.sb}"></p>
+                        <p th:text="${player.careerRecord.cs}"></p>
+                        <p th:text="${player.careerRecord.bb}"></p>
+                        <p th:text="${player.careerRecord.ibb}"></p>
+                        <p th:text="${player.careerRecord.hbp}"></p>
+                        <p th:text="${player.careerRecord.so}"></p>
+                        <p th:text="${player.careerRecord.dp}"></p>
+                        <p th:text="${player.careerRecord.sb}"></p>
+                        <p th:text="${player.careerRecord.sc}"></p>
+                        <p th:text="${player.careerRecord.sf}"></p>
+                        <p th:text="${#numbers.formatDecimal(player.careerRecord.avg,1,3)}"></p>
+                        <p th:text="${#numbers.formatDecimal(player.careerRecord.obp,1,3)}"></p>
+                        <p th:text="${#numbers.formatDecimal(player.careerRecord.slg,1,3)}"></p>
+                        <p th:text="${#numbers.formatDecimal(player.careerRecord.ops,1,3)}"></p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</article>
+</body>
+<script th:src="@{/js/divClick.js}"></script>
+</html>

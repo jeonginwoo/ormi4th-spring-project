@@ -21,9 +21,9 @@
                (select sum(br.homeruns) from batter_record br where br.team_id = r.team_id) as teamHR,
                (select sum(br.hits)/sum(br.ab) from batter_record br where br.team_id = r.team_id) as teamAVG,
                (select (sum(br.hits) + sum(br.bb) + sum(br.hbp))/(sum(br.ab) + sum(br.bb) + sum(br.hbp) + sum(br.sf)) from batter_record br where br.team_id = r.team_id) as teamOBP,
-               (select (sum(br.hits) + sum(br.doubles)*2 + sum(br.triples)*3 + sum(br.homeruns)*4)/sum(br.ab) from batter_record br where br.team_id = r.team_id) as teamSLG,
+               (select (sum(br.hits) +sum(br.doubles) + sum(br.triples)*2 + sum(homeruns)*3)/sum(br.ab) from batter_record br where br.team_id = r.team_id) as teamSLG,
                (select (sum(br.hits) + sum(br.bb) + sum(br.hbp))/(sum(br.ab) + sum(br.bb) + sum(br.hbp) + sum(br.sf)) from batter_record br where br.team_id = r.team_id) +
-               (select (sum(br.hits) + sum(br.doubles)*2 + sum(br.triples)*3 + sum(br.homeruns)*4)/sum(br.ab) from batter_record br where br.team_id = r.team_id) as teamOPS,
+               (select (sum(br.hits) +sum(br.doubles) + sum(br.triples)*2 + sum(homeruns)*3)/sum(br.ab) from batter_record br where br.team_id = r.team_id) as teamOPS,
                (SELECT round((sum(pr.earned_run) * 27)/sum((truncate(innings,0) * 3 + round(MOD(innings,1),1) * 10)), 2) FROM pitcher_record pr where pr.team_id = r.team_id) as teamERA
         from team_ranking r
                  inner join

@@ -1,6 +1,7 @@
 package com.estsoft.springproject.repository;
 
 import com.estsoft.springproject.domain.dto.PitcherRecord;
+import com.estsoft.springproject.domain.dto.PitcherRecordDetail;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -9,4 +10,6 @@ import java.util.List;
 public interface PitcherRecordMapper {
 
     List<PitcherRecord> findByPlayerId(Long playerId);
+    List<PitcherRecordDetail> getPitcherRecordDetailOfAllSeason(Long playerId);
+    PitcherRecordDetail getCareerRecord(Long playerId);
 }
