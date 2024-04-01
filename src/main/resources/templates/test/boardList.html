@@ -39,15 +39,15 @@
             <th>조회수</th>
         </tr>
         </thead>
-        <tbody id="item">
-        <tr th:each="item: ${paging}">
-            <td th:text="${item.id}"></td>
+        <tbody id="items">
+        <tr th:each="item, loop: ${paging}">
+            <td td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
             <td class="title">
                 <a th:href="@{/boards/{id}(id=${item.id})}" th:text="${item.title}"></a>
             </td>
             <td th:text="${item.user.nickname}"></td>
             <td th:text="${#dates.format(item.createdAt, 'yyyy.MM.dd HH:mm')}"></td>
-            <td></td>
+            <td th:text="${item.hits}"></td>
         </tr>
         </tbody>
     </table>
@@ -61,7 +61,7 @@
                 </a>
             </li>
             <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
-                th:if="${paging.number-4 <= page and page <= paging.number+6}"
+                th:if="${((paging.number) - (paging.number)%10) < page and page <= ((paging.number) + (10 - (paging.number)%10))}"
                 th:classappend="${page == paging.number+1} ? 'active'"
                 class="page-item">
                 <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>

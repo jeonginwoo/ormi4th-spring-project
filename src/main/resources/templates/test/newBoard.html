@@ -51,8 +51,8 @@
 <div class="action-buttons">
     <a th:if="${board.id} == null" href="/boards">취소</a>
     <a th:if="${board.id} != null" th:href="@{/boards/{id}(id=${board.id})}">취소</a>
-    <button th:if="${board.id} == null" id="create-btn" class="on" type="submit">등록</button>
-    <button th:if="${board.id} != null" id="modify-btn" class="on" type="submit">수정</button>
+    <button th:if="${board.id} == null" id="board-create-btn" class="on" type="submit">등록</button>
+    <button th:if="${board.id} != null" id="board-update-btn" class="on" type="submit">수정</button>
 </div>
 
 <script src="/js/boardEditor.js"></script>
