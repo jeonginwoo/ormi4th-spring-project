@@ -27,9 +27,9 @@
                         <div class="player-header">
                             <p th:text="선수"></p>
                         </div>
-                        <p th:each="column : ${#strings.arraySplit('경기 선발 승 패 세이브 홀드 이닝 실점 자책 타자 안타 2루타 3루타 홈런 볼넷 고4 사구 삼진 투구수',' ')}"
+                        <p th:each="column : ${#strings.arraySplit('ERA 경기 선발 승 패 세이브 홀드 이닝 실점 자책 타자 안타 2루타 3루타 홈런 볼넷 고4 사구 삼진 투구수',' ')}"
                            th:text="${column}"></p>
-                        <p th:each="column : ${#strings.arraySplit('WHIP K/9 BB/9 K/BB HR/9 k% BB% ERA',' ')}"
+                        <p th:each="column : ${#strings.arraySplit('WHIP K/9 BB/9 K/BB HR/9 k% BB%',' ')}"
                            th:text="${column}"></p>
                     </li>
                 </ul>
@@ -51,8 +51,10 @@
                         <p th:text="${record.rank}"></p>
                         <div class="player">
                             <img class="emblem" th:src="${record.emblemPath}">
-                            <p th:text="${record.playerName}"></p>
+                            <a th:href="@{/player/info(id = ${record.playerId}, positionId = 1)}"
+                               th:text="${record.playerName}"></a>
                         </div>
+                        <p class="era" th:text="${#numbers.formatDecimal(record.era,1,2)}"></p>
                         <p th:text="${record.game}"></p>
                         <p th:text="${record.starter}"></p>
                         <p th:text="${record.win}"></p>
@@ -79,7 +81,6 @@
                         <p th:text="${#numbers.formatDecimal(record.hrNine,1,2)}"></p>
                         <p th:text="${#numbers.formatDecimal(record.kp,1,1)}"></p>
                         <p th:text="${#numbers.formatDecimal(record.bbp,1,1)}"></p>
-                        <p th:text="${#numbers.formatDecimal(record.era,1,2)}"></p>
                     </li>
                 </ul>
                 <ul th:unless="${type == 'pitcher'}">
@@ -87,7 +88,8 @@
                         <p th:text="${record.rank}"></p>
                         <div class="player">
                             <img class="emblem" th:src="${record.emblemPath}">
-                            <p th:text="${record.playerName}"></p>
+                            <a th:href="@{/player/info(id = ${record.playerId}, positionId = 2)}"
+                               th:text="${record.playerName}"></a>
                         </div>
                         <p th:text="${record.position}"></p>
                         <p th:text="${record.game}"></p>

@@ -34,7 +34,14 @@
             pr_cal.hbp as hbp,
             pr_cal.so as so,
             pr_cal.np as np,
-            pr_cal.era as era
+            pr_cal.era as era,
+            pr_cal.whip as whip,
+            pr_cal.kNine as kNine,
+            pr_cal.bbNine as bbNine,
+            pr_cal.hrNine as hrNine,
+            pr_cal.kbb as kbb,
+            pr_cal.kp * 100 as kp,
+            pr_cal.bbp * 100 as bbp
         FROM pitcher_record pr
         inner join player p on p.id = pr.player_id
         inner join team t on t.id = pr.team_id
@@ -67,8 +74,15 @@
             sum(pr.hbp) as hbp,
             sum(pr.so) as so,
             sum(pr.np) as np,
-            (sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)) as out_count,
-            round(sum(earned_run) *27 / (sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)),2) as era
+            sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10) as out_count,
+            round(sum(earned_run) *27 / (sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)),2) as era,
+            (sum(pr.bb)+sum(pr.hits))/(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10))*3 as whip,
+            sum(pr.so)/(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10))*27 as kNine,
+            sum(pr.bb)/(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10))*27 as bbNine,
+            sum(pr.homeruns)/(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10))*27 as hrNine,
+            sum(pr.so)/sum(pr.bb) as kbb,
+            sum(pr.so)/sum(pr.tbf) as kp,
+            sum(pr.bb)/sum(pr.tbf) as bbp
             from pitcher_record pr
             group by player_id
         ) pr_cal on pr_cal.player_id = pr.player_id
