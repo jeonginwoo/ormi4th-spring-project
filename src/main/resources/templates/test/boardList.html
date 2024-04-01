@@ -6,27 +6,27 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>BoardList</title>
-    <link rel="stylesheet" th:href="@{/css/headerCSS.css}" />
-    <link rel="stylesheet" th:href="@{/css/boardListCSS.css}" />
+    <link rel="stylesheet" th:href="@{/css/headerCSS.css}"/>
+    <link rel="stylesheet" th:href="@{/css/boardListCSS.css}"/>
 
 </head>
 <body>
 <header th:replace="~{fragment/header}"></header>
 
 <div>
-  <div class="board-controls">
-    <button class="ui-button" th:onclick="|location.href='@{/mypage/1}'|">마이페이지</button>
-    <!-- 검색 폼 및 기타 내용 -->
-    <form action="/boards/search" method="get">
-        <select name="searchType">
-            <option value="nickname">작성자 닉네임</option>
-            <option value="title">게시글 제목</option>
-        </select>
-        <input type="text" name="searchQuery" placeholder="검색어를 입력하세요">
-        <button type="submit">검색</button>
-    </form>
-    <button class="ui-button" th:onclick="|location.href='@{/boards/new-board}'|">글쓰기</button>
-  </div>
+    <div class="board-controls">
+        <button class="ui-button" th:onclick="|location.href='@{/mypage/1}'|">마이페이지</button>
+        <!-- 검색 폼 및 기타 내용 -->
+        <form action="/boards/search" method="get">
+            <select name="searchType">
+                <option value="nickname">작성자 닉네임</option>
+                <option value="title">게시글 제목</option>
+            </select>
+            <input type="text" name="searchQuery" placeholder="검색어를 입력하세요">
+            <button type="submit">검색</button>
+        </form>
+        <button class="ui-button" th:onclick="|location.href='@{/boards/new-board}'|">글쓰기</button>
+    </div>
 
     <hr>
     <table>

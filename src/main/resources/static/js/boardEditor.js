@@ -4,7 +4,8 @@ const editor = new toastui.Editor({
     el: document.querySelector('#editor'),
     previewStyle: 'vertical',
     height: '500px',
-    initialValue: boardContent
+    initialValue: boardContent,
+    placeholder: '내용 입력'
 });
 
 // 게시글 수정
@@ -40,7 +41,7 @@ if (createButton) {
         formData.append('content', content);
 
         if (title == "" && content == "") {
-            alert('내용을 적어주세요.');
+            alert('제목과 내용을 적어주세요.');
         } else if (title == "") {
             alert('제목이 비었습니다.');
         } else if (content == "") {

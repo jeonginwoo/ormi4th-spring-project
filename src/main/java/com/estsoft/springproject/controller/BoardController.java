@@ -4,11 +4,13 @@ package com.estsoft.springproject.controller;
 import com.estsoft.springproject.domain.dto.CommentResponse;
 import com.estsoft.springproject.domain.entity.Board;
 import com.estsoft.springproject.domain.entity.Comment;
+import com.estsoft.springproject.domain.entity.Like;
 import com.estsoft.springproject.domain.entity.User;
 import com.estsoft.springproject.domain.dto.BoardRequest;
 import com.estsoft.springproject.domain.dto.BoardResponse;
 import com.estsoft.springproject.service.BoardService;
 import com.estsoft.springproject.service.CommentService;
+import com.estsoft.springproject.service.LikeService;
 import com.estsoft.springproject.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +32,7 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
     private final CommentService commentService;
+    private final LikeService likeService;
     private final UserService userService;      // TODO: 테스트용. 나중에 지울 것!
 
     @PostMapping
@@ -72,7 +75,6 @@ public class BoardController {
         Page<Board> paging = this.boardService.findAll(page);
         model.addAttribute("paging", paging);
 
-//        return "boardList";
         return "test/boardList";  // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
     }
 
@@ -93,7 +95,12 @@ public class BoardController {
         List<CommentResponse> responseList = comments.stream().map(CommentResponse::new).toList();
         model.addAttribute("comments", responseList);
 
-//        return "board";
+        Like like = likeService.findLike(user.getId(), board.getId());
+        model.addAttribute("like", like);
+
+        int likeNum = likeService.findByBoardId(id).size();
+        model.addAttribute("likeNum", likeNum);
+
         return "test/board";   // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
     }
 
@@ -108,7 +115,7 @@ public class BoardController {
             Board board = boardService.findById(id);
             model.addAttribute("board", new BoardResponse(board));
         }
-//        return "newBoard";
+
         return "test/newBoard";   // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
     }
 

@@ -26,11 +26,11 @@
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 
     <!--    <link rel="stylesheet" href="../../static/css/newBoardCSS.css">-->
-    <link rel="stylesheet" th:href="@{/css/headerCSS.css}" />
-    <link rel="stylesheet" th:href="@{/css/newBoardCSS.css}" />
+    <link rel="stylesheet" href="/css/headerCSS.css" />
+    <link rel="stylesheet" href="/css/newBoardCSS.css" />
 </head>
 <body>
-<header th:replace="fragment/header"></header>
+<header th:replace="~{fragment/header}"></header>
 
 <div class="board-title">
     <strong th:if="${board.id} == null">글쓰기</strong>
