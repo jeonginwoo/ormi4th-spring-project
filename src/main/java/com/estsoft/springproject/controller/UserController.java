@@ -38,8 +38,10 @@ public class UserController {
 		@RequestParam(value = "commentPage", defaultValue = "1") int commentPage) {
 		Page<Board> boardPageResult = userService.getUserBoardsPaged(userId, boardPage);
 		Page<Comment> commentPageResult = userService.getUserCommentsPaged(userId, commentPage);
+		User user = userService.findById(userId);
 		model.addAttribute("boardPage", boardPageResult);
 		model.addAttribute("commentPage", commentPageResult);
+		model.addAttribute("user",user);
 		return "test/mypage";
 	}
 
