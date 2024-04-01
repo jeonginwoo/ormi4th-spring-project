@@ -2,113 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>마이페이지</title>
-    <style>
-        body {
-            font-family: 'Noto Sans KR', sans-serif; /* 한글 폰트 적용 */
-            background-color: #f7f8fa;
-            margin: 0;
-            padding: 20px;
-            color: #333; /* 기본 텍스트 색상 변경 */
-        }
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BoardList</title>
+    <link rel="stylesheet" th:href="@{/css/mypageCSS.css}" />
 
-        .container {
-            max-width: 800px;
-            margin: 40px auto; /* 위아래 마진 추가 */
-            padding: 40px;
-            background: #fff;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 그림자 효과 강화 */
-            border-radius: 8px; /* 모서리 둥글게 */
-        }
-
-        h2, h3 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px; /* 제목 아래 마진 추가 */
-        }
-
-        label {
-            color: #666;
-            font-weight: bold; /* 라벨 글씨 굵게 */
-        }
-
-        .ui-button, button {
-            display: inline-block; /* 인라인 블록으로 변경 */
-            margin: 10px 5px; /* 버튼 사이의 간격 추가 */
-            background-color: #4CAF50; /* 버튼 색상 변경 */
-            color: white;
-            padding: 10px 20px; /* 패딩 조정 */
-            text-decoration: none;
-            border: none; /* 테두리 제거 */
-            border-radius: 25px; /* 둥근 버튼 */
-            cursor: pointer;
-            transition: background-color 0.3s; /* 호버 효과 부드럽게 */
-        }
-
-        .ui-button:hover, button:hover {
-            background-color: #45a049;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* 테이블에 그림자 추가 */
-        }
-
-        th, td {
-            text-align: left;
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f2f2f2;
-            color: #333; /* 헤더 텍스트 색상 변경 */
-        }
-
-        td a {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold; /* 링크 글씨 굵게 */
-        }
-
-        td a:hover {
-            text-decoration: underline;
-        }
-
-        /* 반응형 디자인 */
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-                margin: 20px;
-            }
-
-            .ui-button, button {
-                padding: 10px 15px;
-            }
-        }
-
-    </style>
 </head>
 <body>
 <div>
-    <h2>마이페이지</h2>
-
-    <div>
-        <label>이메일: </label><span th:text="${user.email}"></span>
-    </div>
-    <div>
-        <label>닉네임: </label><span th:text="${user.nickname}"></span>
-    </div>
-    <!-- 사용자 정보 수정 버튼 -->
-    <button class="ui-button" th:onclick="|location.href='@{/mypage/update/{userId}(userId=${user.id})}'|">정보 수정</button>
-    <!-- 계정 삭제 처리 -->
-    <form th:action="@{/mypage/{userId}(userId=${user.id})}" method="post">
-        <input type="hidden" name="_method" value="delete" />
-        <button type="submit">계정 삭제</button>
-    </form>
-    <hr>
+    <!-- 게시글 페이징 -->
     <h3>내가 작성한 게시글</h3>
     <table>
         <thead>
@@ -119,7 +22,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="board : ${user.boards}">
+        <!-- 게시글 행 반복 -->
+        <tr th:each="board : ${boardPage.content}">
             <td th:text="${board.id}"></td>
             <td>
                 <a th:href="@{/boards/{id}(id=${board.id})}" th:text="${board.title}"></a>
@@ -129,6 +33,42 @@
         </tbody>
     </table>
 
+    <!-- 게시글 페이징 처리 -->
+    <div th:if="${boardPage.totalPages > 0}">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${not boardPage.hasPrevious()} ? 'disabled'">
+                <a class="page-link" th:href="@{|/mypage/${userId}?boardPage=0|}">
+                    <span>처음</span>
+                </a>
+            </li>
+            <li class="page-item" th:classappend="${not boardPage.hasPrevious()} ? 'disabled'">
+                <a class="page-link" th:href="@{|/mypage/${userId}?boardPage=${boardPage.number - 1}|}">
+                    <span>이전</span>
+                </a>
+            </li>
+            <!-- 페이지 번호 표시 -->
+            <li th:each="page : ${#numbers.sequence(0, boardPage.totalPages - 1)}"
+                th:classappend="${boardPage.number == page} ? 'active'">
+                <form th:action="@{|/mypage/${userId}|}" method="get">
+                    <input type="hidden" name="boardPage" th:value="${page + 1}" />
+                    <button type="submit" class="page-number" th:text="${page + 1}"></button>
+                </form>
+            </li>
+
+            <li class="page-item" th:classappend="${not boardPage.hasNext()} ? 'disabled'">
+                <a class="page-link" th:href="@{|/mypage/${userId}?boardPage=${boardPage.number + 1}|}">
+                    <span>다음</span>
+                </a>
+            </li>
+            <li class="page-item" th:classappend="${not boardPage.hasNext()} ? 'disabled'">
+                <a class="page-link" th:href="@{|/mypage/${userId}?boardPage=${boardPage.totalPages - 1}|}">
+                    <span>마지막</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 댓글 페이징 -->
     <h3>내가 작성한 댓글</h3>
     <table>
         <thead>
@@ -140,7 +80,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="comment, commentIndex : ${user.comments}">
+        <!-- 댓글 행 반복 -->
+        <tr th:each="comment, commentIndex : ${commentPage.content}">
             <td th:text="${commentIndex.index + 1}"></td>
             <td th:text="${comment.content}"></td>
             <td>
@@ -151,6 +92,36 @@
         </tbody>
     </table>
 
+    <!-- 댓글 페이징 처리 -->
+    <div th:if="${commentPage.totalPages > 0}">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${not commentPage.hasPrevious()} ? 'disabled'">
+                <a class="page-link" th:href="@{|/mypage/${userId}?commentPage=0|}">
+                    <span>처음</span>
+                </a>
+            </li>
+            <li class="page-item" th:classappend="${not commentPage.hasPrevious()} ? 'disabled'">
+                <a class="page-link" th:href="@{|/mypage/${userId}?commentPage=${commentPage.number - 1}|}">
+                    <span>이전</span>
+                </a>
+            </li>
+            <!-- 페이지 번호 표시 -->
+            <li th:each="page : ${#numbers.sequence(0, commentPage.totalPages - 1)}"
+                th:classappend="${commentPage.number == page} ? 'active'">
+                <a class="page-number" th:href="@{|/mypage/${userId}?commentPage=${page}|}" th:text="${page + 1}"></a>
+            </li>
+            <li class="page-item" th:classappend="${not commentPage.hasNext()} ? 'disabled'">
+                <a class="page-link" th:href="@{|/mypage/${userId}?commentPage=${commentPage.number + 1}|}">
+                    <span>다음</span>
+                </a>
+            </li>
+            <li class="page-item" th:classappend="${not commentPage.hasNext()} ? 'disabled'">
+                <a class="page-link" th:href="@{|/mypage/${userId}?commentPage=${commentPage.totalPages - 1}|}">
+                    <span>마지막</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>

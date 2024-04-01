@@ -1,5 +1,6 @@
 package com.estsoft.springproject.controller;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,10 +10,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.estsoft.springproject.domain.dto.UserRequest;
 import com.estsoft.springproject.domain.dto.UserResponse;
+import com.estsoft.springproject.domain.entity.Board;
+import com.estsoft.springproject.domain.entity.Comment;
 import com.estsoft.springproject.domain.entity.User;
 import com.estsoft.springproject.service.BoardService;
 import com.estsoft.springproject.service.UserService;
@@ -29,11 +33,18 @@ public class UserController {
 	private final BoardService boardService;
 
 	@GetMapping("/mypage/{userId}")
-	public String getUserMypage(@PathVariable Long userId, Model model){
-		UserResponse userResponse = userService.getUserMypageInfo(userId);
-		model.addAttribute("user",userResponse);
-		return "/test/mypage";
+	public String showUserMypage(@PathVariable Long userId, Model model,
+		@RequestParam(value = "boardPage", defaultValue = "1") int boardPage,
+		@RequestParam(value = "commentPage", defaultValue = "1") int commentPage) {
+		Page<Board> boardPageResult = userService.getUserBoardsPaged(userId, boardPage);
+		Page<Comment> commentPageResult = userService.getUserCommentsPaged(userId, commentPage);
+		model.addAttribute("boardPage", boardPageResult);
+		model.addAttribute("commentPage", commentPageResult);
+		return "test/mypage";
 	}
+
+
+
 
 	@GetMapping("/mypage/update/{userId}")
 	public String showUpdateForm(@PathVariable("userId") Long userId, Model model) {
