@@ -25,6 +25,54 @@
         order by `avg` desc;
     </select>
 
+    <select id="getBattersRecord" resultType="com.estsoft.springproject.domain.dto.BatterRecord">
+        select
+            p.id as playerId,
+            p.name as playerName,
+            t.name as teamName,
+            t.emblem_path as emblemPath,
+               (select p.name
+                from batter_record
+                inner join position p
+                on p.id = position
+                where player_id = br.player_id
+                GROUP BY position
+                ORDER BY COUNT(*) DESC LIMIT 1) as position,
+            count(*) as game,
+            sum(br.ab) as ab,
+            sum(br.hits) as hits,
+            sum(br.doubles) as doubles,
+            sum(br.triples) as triples,
+            sum(br.homeruns) as hr,
+            sum(br.hits) + sum(br.doubles) + sum(br.triples) + sum(br.homeruns) as tb,
+            sum(br.bb) as bb,
+            sum(br.ibb) as ibb,
+            sum(br.hbp) as hbp,
+            sum(br.so) as so,
+            sum(br.sb) as sb,
+            sum(br.cs) as cs,
+            sum(br.runs) as runs,
+            sum(br.rbi) as rbi,
+            sum(br.dp) as dp,
+            sum(br.sc) as sc, sum(br.sf) as sf,
+            sum(br.hits)/sum(br.ab) as `avg`,
+            (sum(br.hits) + sum(br.bb) + sum(br.hbp))/(sum(br.ab) + sum(br.bb) + sum(br.hbp) + sum(br.sf)) as obp,
+            (sum(br.hits) +sum(br.doubles) + sum(br.triples)*2 + sum(homeruns)*3)/sum(br.ab) as slg,
+            (sum(br.hits) + sum(br.bb) + sum(br.hbp))/(sum(br.ab) + sum(br.bb) + sum(br.hbp) + sum(br.sf)) +
+            (sum(br.hits) +sum(br.doubles) + sum(br.triples)*2 + sum(homeruns)*3)/sum(br.ab) as ops
+        FROM batter_record br
+        inner join player p on p.id = br.player_id
+        inner join team t on t.id = br.team_id
+        group by br.player_id, br.team_id
+        having(
+            <![CDATA[
+            select tr.game
+            from team_ranking tr
+            where tr.team_id = br.team_id and tr.season = #{season}) * 3 <= (sum(br.ab) + sum(br.bb) + sum(br.hbp) + sum(br.sc) + sum(br.sf))
+            ]]>
+        order by `avg` desc;
+    </select>
+
     <select id="getBatterRecordDetailOfAllSeason" resultType="com.estsoft.springproject.domain.dto.BatterRecordDetail">
         SELECT year(substring(br.id,1,8)) as season,
             (select p.name

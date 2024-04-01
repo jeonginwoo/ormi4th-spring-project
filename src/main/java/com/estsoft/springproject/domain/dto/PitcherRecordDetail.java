@@ -15,9 +15,6 @@ public class PitcherRecordDetail {
 
     private PlayerInfo player;
 
-    //시즌 팀 경기 선발 승 패 세이브 홀드 이닝 실점 자책 타자 안타 2루타 3루타 홈런 볼넷 고4 사구 삼진 투구수
-    // WHIP K/9 BB/9 K/BB k% BB% ERA
-
     private Year season;
     private String team;
     private int game;

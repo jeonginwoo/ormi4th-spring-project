@@ -9,6 +9,81 @@
         where player_id = #{playerId}
     </select>
 
+    <select id="getPitchersRecord" resultType="com.estsoft.springproject.domain.dto.PitcherRecord">
+        SELECT
+            rank() over (order by pr_cal.era) as `rank`,
+            p.id as playerId,
+            p.name as playerName,
+            t.name as teamName,
+            t.emblem_path as emblemPath,
+            pr_cal.game as game,
+            pr_cal.starter as starter,
+            pr_cal.win as win,
+            pr_cal.lose as lose,
+            pr_cal.hold as hold,
+            pr_cal.save as save,
+            pr_cal.innings as innings,
+            pr_cal.runs as runs,
+            pr_cal.earnedRuns as earnedRuns,
+            pr_cal.hits as hits,
+            pr_cal.doubles as doubles,
+            pr_cal.triples as triples,
+            pr_cal.hr as hr,
+            pr_cal.bb as bb,
+            pr_cal.ibb as ibb,
+            pr_cal.hbp as hbp,
+            pr_cal.so as so,
+            pr_cal.np as np,
+            pr_cal.era as era
+        FROM pitcher_record pr
+        inner join player p on p.id = pr.player_id
+        inner join team t on t.id = pr.team_id
+        inner join (
+            select
+            player_id,
+            count(*) as game,
+            sum(pr.starter) as starter,
+            sum(case when pr.decision = 'W' then 1 else 0 end) as win,
+            sum(case when pr.decision = 'L' then 1 else 0 end) as lose,
+            sum(case when pr.decision = 'HD' then 1 else 0 end) as hold,
+            sum(case when pr.decision = 'SV' then 1 else 0 end) as save,
+            CONCAT(floor(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)/3), ' ',
+                CASE
+                    WHEN round(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)/3 -
+                        floor(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)/3), 2) = 0.33 THEN '1/3'
+                    WHEN round(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)/3 -
+                        floor(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)/3), 2) = 0.67 THEN '2/3'
+                    ELSE ''
+                END
+            ) as innings,
+            sum(pr.runs) as runs,
+            sum(pr.earned_run) as earnedRuns,
+            sum(pr.hits) as hits,
+            sum(pr.doubles) as doubles,
+            sum(pr.triples) as triples,
+            sum(pr.homeruns) as hr,
+            sum(pr.bb) as bb,
+            sum(pr.ibb) as ibb,
+            sum(pr.hbp) as hbp,
+            sum(pr.so) as so,
+            sum(pr.np) as np,
+            (sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)) as out_count,
+            round(sum(earned_run) *27 / (sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)),2) as era
+            from pitcher_record pr
+            group by player_id
+        ) pr_cal on pr_cal.player_id = pr.player_id
+        WHERE
+        pr.team_id IN (
+            <![CDATA[
+                SELECT tr.team_id
+                FROM team_ranking tr
+                WHERE tr.season = #{season} AND tr.game <= pr_cal.out_count / 3
+            ]]>
+        )
+        GROUP BY
+        pr.player_id, pr.team_id;
+    </select>
+
     <select id="getPitcherRecordDetailOfAllSeason" resultType="com.estsoft.springproject.domain.dto.PitcherRecordDetail">
         SELECT
             year(substring(pr.id, 1, 8)) as season,
@@ -19,12 +94,14 @@
             sum(case when pr.decision = 'L' then 1 else 0 end) as lose,
             sum(case when pr.decision = 'HD' then 1 else 0 end) as hold,
             sum(case when pr.decision = 'SV' then 1 else 0 end) as save,
-            CONCAT(FLOOR(round(inn.out_count/3,2)), ' ',
-            CASE
-            WHEN MOD(round(inn.out_count/3,2), 1) = 0.33 THEN '0.1'
-            WHEN MOD(round(inn.out_count/3,2), 1) = 0.66 THEN '0.2'
-            ELSE ''
-            END
+            CONCAT(floor(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)/3), ' ',
+                CASE
+                    WHEN round(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)/3 -
+                        floor(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)/3), 2) = 0.33 THEN '1/3'
+                    WHEN round(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)/3 -
+                        floor(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)/3), 2) = 0.67 THEN '2/3'
+                    ELSE ''
+                END
             ) as innings,
             sum(pr.runs) as runs,
             sum(pr.earned_run) as earnedRuns,
@@ -71,12 +148,14 @@
             sum(case when pr.decision = 'L' then 1 else 0 end) as lose,
             sum(case when pr.decision = 'HD' then 1 else 0 end) as hold,
             sum(case when pr.decision = 'SV' then 1 else 0 end) as save,
-            CONCAT(FLOOR(round(inn.out_count/3,2)), ' ',
+            CONCAT(floor(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)/3), ' ',
             CASE
-            WHEN MOD(round(inn.out_count/3,2), 1) = 0.33 THEN '0.1'
-            WHEN MOD(round(inn.out_count/3,2), 1) = 0.66 THEN '0.2'
-            ELSE ''
-            END
+                WHEN round(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)/3 -
+                    floor(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)/3), 2) = 0.33 THEN '1/3'
+                WHEN round(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)/3 -
+                    floor(sum(truncate(innings,0)*3 + round(mod(innings,1),1)*10)/3), 2) = 0.67 THEN '2/3'
+                ELSE ''
+                END
             ) as innings,
             sum(pr.runs) as runs,
             sum(pr.earned_run) as earnedRuns,

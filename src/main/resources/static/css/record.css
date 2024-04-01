@@ -1,0 +1,87 @@
+.wrap {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 150px;
+    gap: 50px;
+}
+
+.year-selector {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 200px;
+    padding: 20px;
+
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
+}
+
+.year-selector button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+
+    width: 25px;
+    height: 25px;
+}
+
+.record-table {
+
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
+
+    padding: 35px;
+}
+
+.record-table-header ul {
+
+    display: flex;
+    justify-content: center;
+
+    margin-bottom: 10px;
+    border-bottom: solid black 1px;
+}
+
+.record-table-header li, .record-table-body li {
+
+    display: flex;
+    text-align: center;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.record-table-header p, .record-table-body p {
+
+    width: 65px;
+}
+
+.emblem {
+    width: 40px;
+}
+
+.player-header {
+    width: 110px;
+}
+
+.player-header p {
+    width: 40px;
+}
+
+.player {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.player p {
+    width: 70px;
+}
