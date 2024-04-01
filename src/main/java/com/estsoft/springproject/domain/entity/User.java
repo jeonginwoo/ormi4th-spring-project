@@ -41,6 +41,10 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Board> likes = new ArrayList<>();
+
     @Builder
     public User(String email, String password, String nickname, String role) {
         this.email = email;
@@ -48,6 +52,7 @@ public class User {
         this.nickname = nickname;
         // this.role=role;
     }
+
     public void update(String email,String nickname,String password){
         this.email=email;
         this.nickname=nickname;

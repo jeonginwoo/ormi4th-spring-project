@@ -16,7 +16,7 @@ if (deleteButton) {
 
 
 /*********************************************************************************************/
-// 댓글 수정, 삭제, 등록
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const editButtons = document.querySelectorAll(".edit-comment-button");
@@ -43,6 +43,7 @@ function closeEDialog() {
     editDialog.close();
 }
 
+// 댓글 수정
 function updateComment() {
     const editedContent = document.getElementById("dialogCommentContent").value;
     const commentId = document.getElementById("dialogCommentId").value;
@@ -62,6 +63,7 @@ function updateComment() {
     xhr.send(JSON.stringify({ content: editedContent }));
 }
 
+// 댓글 삭제
 function deleteComment() {
     const commentArea = event.target.closest(".area");
     const commentId = commentArea.querySelector("input[name='commentId']").value;
@@ -79,6 +81,7 @@ function deleteComment() {
     xhr.send();
 }
 
+// 댓글 등록
 const commentCreateButton = document.getElementById('comment-create-btn');
 if (commentCreateButton) {
     commentCreateButton.addEventListener('click', event => {
@@ -96,4 +99,38 @@ if (commentCreateButton) {
             location.reload();
         });
     });
+}
+
+
+/*********************************************************************************************/
+
+
+// 좋아요 등록
+function addLike() {
+    const boardId = document.getElementById("board-id").value;
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/boards/" + boardId + "/like", true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            location.reload();
+        } else {
+            console.error(xhr.responseText);
+        }
+    };
+    xhr.send();
+}
+
+// 좋아요 삭제
+function deleteLike() {
+    const boardId = document.getElementById("board-id").value;
+    const xhr = new XMLHttpRequest();
+    xhr.open("DELETE", "/boards/" + boardId + "/like", true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            location.reload();
+        } else {
+            console.error(xhr.responseText);
+        }
+    };
+    xhr.send();
 }

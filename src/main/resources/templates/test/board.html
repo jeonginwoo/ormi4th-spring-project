@@ -37,13 +37,14 @@
 
     <link rel="stylesheet" href="../../static/css/headerCSS.css">
     <link rel="stylesheet" href="../../static/css/boardCSS.css">
-    <link rel="stylesheet" th:href="@{/css/headerCSS.css}" />
-    <link rel="stylesheet" th:href="@{/css/boardCSS.css}" />
+    <link rel="stylesheet" href="/css/headerCSS.css" />
+    <link rel="stylesheet" href="/css/boardCSS.css" />
 </head>
 
 <body>
-<header th:replace="fragment/header"></header>
+<header th:replace="~{fragment/header}"></header>
 
+<input type="hidden" id="user-id" th:value="${user.id}">
 <input type="hidden" id="board-id" th:value="${board.id}">
 <div class="board-buttons">
     <a th:href="@{/boards}" class="on">목록</a>
@@ -68,6 +69,11 @@
     </div>
     <div>
         작성자: <span th:text="${board.nickname}"></span>
+    </div>
+    <div>
+        <button id="add-like-btn" th:if="${like == null}" onclick="addLike()">🖤</button>
+        <button id="delete-like-btn" th:if="${like != null}" onclick="deleteLike()">❤️</button>
+        <span th:text="${likeNum}"></span>
     </div>
 </div>
 <!--<form method="post" class="comment-form">-->
