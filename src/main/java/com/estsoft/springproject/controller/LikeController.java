@@ -44,11 +44,4 @@ public class LikeController {
         likeService.deleteLike(user.getId(), board.getId());
         return ResponseEntity.ok().build();
     }
-
-    @GetMapping("/like")
-    public ResponseEntity<List<LikeResponse>> allLike() {
-        List<Like> likes = likeService.findAll();
-        List<LikeResponse> response = likes.stream().map(LikeResponse::new).toList();
-        return ResponseEntity.ok(response);
-    }
 }
