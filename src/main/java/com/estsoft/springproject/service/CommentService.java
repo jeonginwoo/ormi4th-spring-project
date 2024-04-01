@@ -34,4 +34,8 @@ public class CommentService {
     public void deleteById(Long id) {
         commentRepository.deleteById(id);
     }
+
+	public int getTotalComments() {
+        return (int)commentRepository.count();
+	}
 }

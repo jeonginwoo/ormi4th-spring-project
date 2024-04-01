@@ -30,8 +30,8 @@ public class User {
     @Column(name = "nickname", nullable = false)
     private String nickname;
 
-    // @Column(name="role" ,nullable=false)
-    // private String role;
+    @Column(name="role" ,nullable=false)
+    private String role;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL, orphanRemoval = true)
@@ -50,13 +50,16 @@ public class User {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
-        // this.role=role;
+        this.role=role;
     }
 
     public void update(String email,String nickname,String password){
         this.email=email;
         this.nickname=nickname;
         this.password=password;
+    }
+    public void updateRole(String role){
+        this.role = role;
     }
 
 //    @Override

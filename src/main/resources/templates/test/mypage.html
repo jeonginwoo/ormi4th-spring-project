@@ -10,7 +10,24 @@
 
 </head>
 <body>
-<div>
+<div class="header">
+    <h2>마이페이지</h2>
+
+    <div>
+        <label>이메일: </label><span th:text="${user.email}"></span>
+    </div>
+    <div>
+        <label>닉네임: </label><span th:text="${user.nickname}"></span>
+    </div>
+    <!-- 사용자 정보 수정 버튼 -->
+    <button class="ui-button" th:onclick="|location.href='@{/mypage/update/{userId}(userId=${user.id})}'|">정보 수정</button>
+    <!-- 계정 삭제 처리 -->
+    <form th:action="@{/mypage/{userId}(userId=${user.id})}" method="post">
+        <input type="hidden" name="_method" value="delete" />
+        <button type="submit">계정 삭제</button>
+    </form>
+    <button class="ui-button" th:if="${user.role eq 'admin'}" th:onclick="|location.href='/mypage/${user.id}/admin'|">관리자페이지</button>
+    <hr>
     <!-- 게시글 페이징 -->
     <h3>내가 작성한 게시글</h3>
     <table>

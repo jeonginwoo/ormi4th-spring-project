@@ -63,4 +63,8 @@ public class BoardService {
         boardRepository.save(board);
         return board;
     }
+
+	public int getTotalPosts() {
+        return (int)boardRepository.count();
+	}
 }
