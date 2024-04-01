@@ -4,9 +4,15 @@
 
 <mapper namespace="com.estsoft.springproject.repository.ScoreBoardMapper">
     <select id="findById" resultType="com.estsoft.springproject.domain.dto.ScoreBoard">
-        select id, away_score as awayScore, away_runs as awayRuns, away_hits as awayHits, away_error as awayError, away_bb as awayBB,
-               home_score as homeScore, home_runs as homeRuns, home_hits as homeHits, home_error as homeError, home_bb as homeBB
-        from score_board
-        where id = #{id}
+        select away_score as awayScore, away_runs as awayRuns, away_stats as awayStats,
+               away_team.name as awayTeamName, away_team.emblem_path as awayEmblemPath,
+               home_score as homeScore, home_runs as homeRuns, home_stats as homeStats,
+               home_team.name as homeTeamName, home_team.emblem_path as homeEmblemPath,
+               s.status as `status`, s.stadium as stadium, DATE_FORMAT(time(s.match_date), '%H:%i') as `time`
+        from score_board sb
+        inner join team away_team on away_team.id = substring(sb.id,9,1) + 1
+        inner join team home_team on home_team.id = substring(sb.id,10,1) + 1
+        inner join `schedule` s on s.id = sb.id
+        where sb.id = #{id}
     </select>
 </mapper>

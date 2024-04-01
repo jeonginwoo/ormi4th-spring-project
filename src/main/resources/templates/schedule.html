@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<th:block layout:fragment="head">
+    <title>월간 일정</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet"/>
+    <link th:href="@{/css/schedule.css}" rel="stylesheet"/>
+</th:block>
+
+<body>
+<header th:replace="~{/fragments/header}"></header>
+<article th:fragment="content">
+    <div class="wrap">
+        <div class="month-selector">
+            <a th:if="${team}" th:href="@{'/schedule?date='+${previous}+'&team='+${team}}">&lt;</a>
+            <a th:unless="${team}" th:href="@{'/schedule?date='+${previous}}">&lt;</a>
+            <span class="year" th:text="${#temporals.format(date,'yyyy')}"></span>
+            <span class="month" th:text="${#temporals.format(date,'MM')}"></span>
+            <a th:if="${team}" th:href="@{'/schedule?date='+${next}+'&team='+${team}}">&gt;</a>
+            <a th:unless="${team}" th:href="@{'/schedule?date='+${next}}">&gt;</a>
+        </div>
+
+        <section class="team-selector-group">
+            <li class="team-selector" th:classappend="${team == null} ? 'red-text':''">
+                <a th:href="@{'/schedule?date='+${date}}">
+                    <img class="emblem" th:src="@{/images/emblems/kbo.png}">
+                    <p th:text="전체"></p>
+                </a>
+            </li>
+            <li class="team-selector" th:classappend="${column == team} ? 'red-text':''"
+                th:each="column : ${#strings.arraySplit('LG KT SSG NC 두산 KIA 롯데 삼성 한화 키움',' ')}">
+                <a th:href="@{'/schedule?date='+${date}+'&team='+${column}}">
+                    <img class="emblem" th:src="@{'/images/emblems/' + ${column} + '.png'}">
+                    <p th:text="${column}"></p>
+                </a>
+            </li>
+        </section>
+        <section class="schedule-table-section">
+            <h2 class="table-title" th:text="${#temporals.format(date,'yyyy')} + '시즌 경기일정'"></h2>
+            <ul class="schedule-table-header">
+                <li>
+                    <p class="date">날짜</p>
+                </li>
+                <li>
+                    <p class="time">시간</p>
+                </li>
+                <li>
+                    <p class="match">경기</p>
+                </li>
+                <li>
+                    <p class="record">기록</p>
+                </li>
+                <li>
+                    <p class="stadium">구장</p>
+                </li>
+            </ul>
+            <ul class="schedule-table-body">
+                <li th:each="schedule: ${schedules}">
+                    <p class="date" th:text="${#dates.format(schedule.matchDate, 'MM.dd (E)')}"></p>
+                    <p class="time" th:text="${#dates.format(schedule.matchDate, 'HH:mm')}"></p>
+                    <div class="away">
+                        <p th:text="${#strings.listSplit(schedule.awayTeamName,' ')[0]}"></p>
+                        <img class="emblem" th:src="${schedule.awayTeamEmblemPath}">
+                    </div>
+                    <div class="game-info">
+                        <p class="away-score" th:text="${schedule.status == '종료'} ? ${schedule.awayTeamRuns}"></p>
+                        <p th:text="${schedule.status == 'vs'} ? '예정' : ${schedule.status}"
+                           th:classappend="${schedule.status == '취소'} ? 'red-text'"></p>
+                        <p class="home-score" th:text="${schedule.status == '종료'} ? ${schedule.homeTeamRuns}"></p>
+                    </div>
+                    <div class="home">
+                        <img class="emblem" th:src="${schedule.homeTeamEmblemPath}">
+                        <p th:text="${#strings.listSplit(schedule.homeTeamName,' ')[0]}"></p>
+                    </div>
+                    <button class="record game-result-button" th:value="${schedule.id}" onclick="goToGameResult(this.value)">기록</button>
+                    <p class="stadium" th:text="${schedule.stadium}"></p>
+                </li>
+            </ul>
+        </section>
+    </div>
+</article>
+</body>
+<script th:src="@{/js/divClick.js}"></script>
+</html>

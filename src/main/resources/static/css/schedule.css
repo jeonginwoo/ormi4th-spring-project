@@ -1,0 +1,155 @@
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 100px;
+    gap: 50px;
+}
+
+.month-selector {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 200px;
+    padding: 20px;
+
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
+}
+
+.month-selector button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+
+    width: 25px;
+    height: 25px;
+}
+
+.team-selector-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
+}
+
+.team-selector {
+    text-align: center;
+
+    padding: 10px;
+}
+
+.emblem {
+    width: 65px;
+    height: 50px;
+}
+
+.schedule-table-section {
+
+    width: 1035px;
+
+    padding: 30px;
+
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
+}
+
+.table-title {
+
+    margin-bottom: 10px;
+}
+
+.schedule-table-header {
+    display: flex;
+    padding: 10px 0;
+
+    background-color: #D9D9D9;
+}
+
+.schedule-table-header p {
+    font-size: 24px;
+}
+
+.date, .time, .record, .stadium {
+    width: 100px;
+    text-align: center;
+}
+
+.date {
+    width: 110px;
+}
+
+.match {
+    width: 565px;
+    text-align: center;
+}
+
+.schedule-table-body li {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.schedule-table-body p {
+    font-size: 24px;
+}
+
+.red-text, .red-text p {
+    color: red;
+}
+
+.blue-text {
+    color: blue;
+}
+
+.away, .home {
+    display: flex;
+    align-items: center;
+
+    width: 220px;
+    gap: 20px;
+}
+
+.away {
+    justify-content: right;
+    padding-right: 20px;
+}
+
+.home {
+    padding-left: 20px;
+}
+
+.game-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    width: 150px;
+    gap: 20px;
+}
+
+.away-score, .home-score {
+    width: 30px;
+    text-align: center;
+}
+
+.game-result-button {
+
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    padding: 20px;
+}

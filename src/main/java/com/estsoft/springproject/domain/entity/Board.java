@@ -23,19 +23,19 @@ import java.util.List;
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="board_id",updatable = false)
+    @Column(name = "board_id", updatable = false)
     private Long id;
 
-    @Column(name="type")
+    @Column(name = "type")
     private String type;
 
-    @Column(name="team")
+    @Column(name = "team")
     private String team;
 
-    @Column(name="title", nullable=false)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name="content")
+    @Column(name = "content")
     private String content;
 
     @CreatedDate
@@ -45,6 +45,9 @@ public class Board {
     @LastModifiedDate
     @Column(name = "modified_at")
     private Timestamp modifiedAt;
+
+    @Column(name = "hits")
+    private Long hits;  // 조회수
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
@@ -61,10 +64,15 @@ public class Board {
         this.title = request.getTitle();
         this.content = request.getContent();
         this.user = user;
+        this.hits = 0L;
     }
 
-    public void update(String title,String content){
+    public void update(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public void updateHits() {
+        this.hits++;
     }
 }

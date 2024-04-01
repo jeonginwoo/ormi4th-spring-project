@@ -57,4 +57,10 @@ public class BoardService {
         Pageable pageable = PageRequest.of(page - 1, 10, Sort.by(sorts));
         return boardRepository.findByTitle(title, pageable);
     }
+
+    public Board updateHits(Board board) {
+        board.updateHits();
+        boardRepository.save(board);
+        return board;
+    }
 }

@@ -60,6 +60,7 @@ public class BoardController {
     ) {
         Board board = boardService.update(id, request);
         BoardResponse response = new BoardResponse(board);
+
         return ResponseEntity.ok(response);
     }
 
@@ -85,6 +86,7 @@ public class BoardController {
         model.addAttribute("user", user);
 
         Board board = boardService.findById(id);
+        board = boardService.updateHits(board);
         model.addAttribute("board", new BoardResponse(board));
 
         List<Comment> comments = commentService.findByBoardId(id);
