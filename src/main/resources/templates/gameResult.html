@@ -136,7 +136,7 @@
                         <li th:each="batter : ${result?.awayBatterLineup}">
                             <p th:text="${batter?.gs} != 1 ? '교' : ${batter?.order}"></p>
                             <p th:text="${batter?.playerName}"></p>
-                            <p th:text="${#strings.substring(batter?.position,0,2)}"></p>
+                            <p th:text="${batter?.position}"></p>
                             <p th:text="${batter?.ab}"></p>
                             <p th:text="${batter?.runs}"></p>
                             <p th:text="${batter?.hits}"></p>
@@ -164,7 +164,7 @@
                         <li th:each="batter : ${result?.homeBatterLineup}">
                             <p th:text="${batter?.gs} != 1 ? '교' : ${batter?.order}"></p>
                             <p th:text="${batter?.playerName}"></p>
-                            <p th:text="${#strings.substring(batter?.position,0,2)}"></p>
+                            <p th:text="${batter?.position}"></p>
                             <p th:text="${batter?.ab}"></p>
                             <p th:text="${batter?.runs}"></p>
                             <p th:text="${batter?.hits}"></p>
