@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}" />
+</head>
+<body>
+<div class="container">
+    <h1>Admin Page</h1>
+    <h2>총 회원 수: <span th:text="${totalUsers}"></span></h2>
+    <h2>총 게시글 수: <span th:text="${totalPosts}"></span></h2>
+    <h2>총 댓글 수: <span th:text="${totalComments}"></span></h2>
+
+    <h3>회원 목록</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Nickname</th>
+            <th>Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td><a th:href="@{'/mypage/' + ${user.id}}"><span th:text="${user.id}"></span></a></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.nickname}"></td>
+            <td>
+                <form th:action="@{/mypage/{userId}/admin(userId=${user.id})}" method="post">
+                    <select name="role">
+                        <option value="admin" th:selected="${'admin' eq user.role}">Admin</option>
+                        <option value="user" th:selected="${'user' eq user.role}">User</option>
+                    </select>
+                    <button type="submit">변경</button>
+                    <input type="hidden" name="userId" th:value="${user.id}" /> <!-- 사용자 아이디 유지 -->
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

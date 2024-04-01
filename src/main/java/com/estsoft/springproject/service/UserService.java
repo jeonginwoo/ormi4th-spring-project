@@ -1,5 +1,6 @@
 package com.estsoft.springproject.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.estsoft.springproject.domain.dto.UserRequest;
@@ -54,5 +55,15 @@ public class UserService {
         int pageSize = 10; // 한 페이지에 표시할 댓글 수
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         return commentRepository.findByUserId(userId, pageable);
+    }
+    public List<User> getAllUser(){
+        return userRepository.findAll();
+    }
+    public void updateRole(Long userId,String role){
+        User user = userRepository.findById(userId).orElseThrow(()-> new IllegalArgumentException("해당 사용자를 찾을 수 없습니다."));
+        user.updateRole(role);
+    }
+    public int getTotalUsers(){
+        return (int)userRepository.count();
     }
 }
