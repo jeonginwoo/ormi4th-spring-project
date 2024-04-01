@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     padding: 150px;
-    gap: 50px;
+    gap: 100px;
 }
 
 .year-selector {
@@ -39,13 +39,34 @@
     border-radius: 20px;
     box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
 
-    padding: 35px;
+    width: 2000px;
+    padding: 50px 35px;
+}
+
+.type-selector {
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+    padding-left: 20px;
+    margin-bottom: 50px;
+}
+
+.blue-text {
+    color: blue;
+}
+
+.type-selector a {
+    font-size: 40px;
+}
+.type-pitcher {
+    padding-right: 20px;
+    border-right: black 2px solid;
 }
 
 .record-table-header ul {
 
     display: flex;
-    justify-content: center;
 
     margin-bottom: 10px;
     border-bottom: solid black 1px;

@@ -42,4 +42,7 @@ public class BatterRecord {
     private double obp;
     private double slg;
     private double ops;
+    private double isop;
+    private double woba;
+    private double babip;
 }
