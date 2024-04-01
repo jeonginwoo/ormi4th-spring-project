@@ -67,7 +67,7 @@
                     <button>&gt;</button>
                 </div>
                 <ul th:each="schedule:${schedules}">
-                    <li class="scheduleTableBody">
+                    <li class="scheduleTableBody" th:value="${schedule.id}" onclick="goToGameResult(this.value)">
                         <div class="away-div">
                             <div>
                                 <span th:text="${schedule.awayTeamName}"></span>
@@ -128,4 +128,5 @@
     </div>
 </article>
 </body>
+<script th:src="@{/js/divClick.js}"></script>
 </html>

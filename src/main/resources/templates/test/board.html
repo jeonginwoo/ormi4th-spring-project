@@ -64,7 +64,7 @@
     <script src="/js/boardViewer.js"></script>
     <hr>
     <div>
-        작성일: <span th:text="${#dates.format(board.created_at, 'yyyy.MM.dd HH:mm')}"></span>
+        작성일: <span th:text="${#dates.format(board.createdAt, 'yyyy.MM.dd HH:mm')}"></span>
     </div>
     <div>
         작성자: <span th:text="${board.nickname}"></span>

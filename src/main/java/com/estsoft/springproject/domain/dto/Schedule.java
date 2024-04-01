@@ -15,6 +15,8 @@ public class Schedule {
 
     private String id;
     private Timestamp matchDate;
+    private int awayTeamId;
+    private int homeTeamId;
     private String awayTeamName;
     private String homeTeamName;
     private String stadium;

@@ -18,4 +18,15 @@ public class PitcherLineup {
     private String playerName;
     private Long teamId;
     private Long positionId;
+
+    private double innings;
+    private int hits;
+    private int runs;
+    private int earnedRun;
+    private int bb;
+    private int so;
+    private int homeruns;
+    private int np;
+    private double era;
+    private String decision;
 }

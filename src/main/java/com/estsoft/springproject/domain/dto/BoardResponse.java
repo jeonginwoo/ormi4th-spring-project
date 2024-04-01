@@ -16,8 +16,8 @@ public class BoardResponse {
     private String team;    // 응원 팀
     private String title;
     private String content;
-    private Timestamp created_at;
-    private Timestamp modified_at;
+    private Timestamp createdAt;
+    private Timestamp modifiedAt;
     private String nickname;    // 작성자
     private Long userId;
     private Long hits;
@@ -28,8 +28,8 @@ public class BoardResponse {
         this.team = board.getTeam();
         this.title = board.getTitle();
         this.content = board.getContent();
-        this.created_at = board.getCreatedAt();
-        this.modified_at = board.getModifiedAt();
+        this.createdAt = board.getCreatedAt();
+        this.modifiedAt = board.getModifiedAt();
         this.nickname = board.getUser().getNickname();
         this.userId = board.getUser().getId();
         this.hits = board.getHits();

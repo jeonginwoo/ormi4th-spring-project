@@ -4,8 +4,12 @@
 
 <mapper namespace="com.estsoft.springproject.repository.PitcherLineupMapper">
     <select id="getPitcherLineup" resultType="com.estsoft.springproject.domain.dto.PitcherLineup">
-        select id, match_info_id as matchInfoId, `order`, player_id as playerId, player_name as playerName, team_id as teamId, position_id as positionId
-        from pitcher_lineup
-        where match_info_id = #{matchInfoId} and team_id = #{teamId}
+        select pl.id, pl.match_info_id as matchInfoId, pl.order as `order`, pl.player_id as playerId, pl.player_name as playerName,
+               pl.team_id as teamId, pl.position_id as positionId, innings, hits, runs, earned_run, bb, so, homeruns, np, decision,
+               (SELECT round((sum(earned_run) * 27)/sum((truncate(innings,0) * 3 + round(MOD(innings,1),1) * 10)), 2)
+                FROM pitcher_record where player_id = pl.player_id group by player_id) as era
+        from pitcher_lineup pl
+                 inner join pitcher_record pr on pr.id = pl.id
+        where pl.match_info_id = #{matchInfoId} and pl.team_id = #{teamId};
     </select>
 </mapper>

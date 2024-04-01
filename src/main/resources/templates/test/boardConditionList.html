@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BoardList</title>
+    <link rel="stylesheet" th:href="@{/css/headerCSS.css}" />
+    <link rel="stylesheet" th:href="@{/css/boardListCSS.css}" />
+</head>
+<body>
+
+</body>
+</html>
+<div>
+    <div class="board-controls">
+        <!-- 이 부분은 검색 폼과 기타 내용입니다. -->
+        <form action="/boards/search" method="get">
+            <select name="searchType">
+                <option value="nickname">작성자 닉네임</option>
+                <option value="title">게시글 제목</option>
+            </select>
+            <input type="text" name="searchQuery" placeholder="검색어를 입력하세요">
+            <button type="submit">검색</button>
+        </form>
+    </div>
+
+    <hr>
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>생성 일시</th>
+            <th>조회수</th>
+        </tr>
+        </thead>
+        <tbody id="item">
+        <tr th:each="item: ${paging.content}">
+            <!-- 이 부분은 검색 결과를 출력하는 부분입니다. -->
+            <td th:text="${item.id}"></td>
+            <td class="title">
+                <a th:href="@{/boards/{id}(id=${item.id})}" th:text="${item.title}"></a>
+            </td>
+            <td th:text="${item.user.nickname}"></td>
+            <td th:text="${#dates.format(item.createdAt, 'yyyy.MM.dd HH:mm')}"></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+    <!-- 페이징처리 -->
+    <div th:if="${!paging.isEmpty()}">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                <a class="page-link" th:href="@{/boards/search(searchType=${searchType}, searchQuery=${searchQuery}, page=${paging.number})}">
+                    <span>이전</span>
+                </a>
+            </li>
+            <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
+                th:if="${paging.number-4 <= page and page <= paging.number+6}"
+                th:classappend="${page == paging.number+1} ? 'active'"
+                class="page-item">
+                <a th:text="${page}" class="page-link" th:href="@{|?searchType=${searchType}&amp;searchQuery=${searchQuery}&amp;page=${page}|}"></a>
+            </li>
+            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                <a class="page-link" th:href="@{|?searchType=${searchType}&amp;searchQuery=${searchQuery}&amp;page=${paging.number+2}|}">
+                    <span>다음</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
