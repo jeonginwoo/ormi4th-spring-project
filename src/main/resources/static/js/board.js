@@ -111,10 +111,6 @@ function createChildComment() {
     const content = childArea.querySelector(".child-content").value;
     const parentId = childArea.querySelector("input[name='parentId']").value;
 
-    const formData = new FormData();
-    formData.append('content', content);
-    formData.append('parentId', parentId);
-
     fetch(`/boards/${boardId}/comments`, {
         method: 'POST',
         headers: {

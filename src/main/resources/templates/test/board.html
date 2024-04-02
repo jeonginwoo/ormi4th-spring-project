@@ -53,7 +53,7 @@
 
 <div class="comment-input">
     <textarea id="content" class="comment-content" placeholder="댓글을 입력하세요"></textarea>
-    <button id="comment-create-btn" class="comment-btn" onclick="createComment()">댓글</button>
+    <button id="comment-create-btn" class="comment-btn">댓글</button>
 </div>
 <div th:each="comment, commentIndex: ${comments}" class="area comment-container">
     <span th:text="${comment.nickname}">댓글 유저 정보</span>
