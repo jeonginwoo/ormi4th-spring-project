@@ -5,6 +5,7 @@ import com.estsoft.springproject.domain.entity.Comment;
 import com.estsoft.springproject.domain.entity.User;
 import lombok.*;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Data
@@ -14,8 +15,8 @@ import java.time.LocalDateTime;
 public class CommentResponse {
     private Long commentId;
     private String content;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
+    private Timestamp createdAt;
+    private Timestamp modifiedAt;
     private String nickname;
     private Long userId;
     private Long boardId;

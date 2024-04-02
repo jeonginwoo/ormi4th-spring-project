@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,11 +27,11 @@ public class Comment {
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+    private Timestamp createdAt;
 
     @LastModifiedDate
     @Column(name = "modified_at")
-    private LocalDateTime modifiedAt;
+    private Timestamp modifiedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
@@ -52,8 +53,6 @@ public class Comment {
         this.user = user;
         this.board = board;
         this.parent = parent;
-        this.createdAt = LocalDateTime.now();
-        this.modifiedAt = LocalDateTime.now();
     }
 
     public void updateContent(String content){
