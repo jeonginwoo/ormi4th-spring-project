@@ -126,6 +126,7 @@ public class BoardController {
         Model model,
         Principal principal
     ) {
+
         String username = principal != null ? principal.getName() : null;
         model.addAttribute("loggedIn", username != null);
         if (user == null) {
@@ -133,25 +134,39 @@ public class BoardController {
             return "redirect:/login"; // 로그인 페이지로 리다이렉트 혹은 처리할 경로로 변경
         }
 
+
+        // 게시판
         Board board = boardService.findById(id);
         if (board == null) {
             // 게시글이 없을 경우 처리
             return "error"; // 예시: 에러 페이지로 리다이렉트
         }
 
+
         // 게시글 정보 추가
         model.addAttribute("board", new BoardResponse(board));
         model.addAttribute("user",user);
         // 댓글 정보 추가
+
         List<Comment> comments = commentService.findByBoardId(id);
         List<CommentResponse> responseList = comments.stream().map(CommentResponse::new).toList();
         model.addAttribute("comments", responseList);
 
-        // 좋아요 정보 추가
+        // 답글
+        List<List<CommentResponse>> childrenList = new ArrayList<>();
+        for (Comment comment : comments) {
+            List<Comment> children = commentService.findChildren(comment.getId());
+            List<CommentResponse> childrenResponse = children.stream().map(CommentResponse::new).toList();
+            childrenList.add(childrenResponse);
+        }
+        model.addAttribute("childrenList", childrenList);
+
+        // 좋아요
         Like like = likeService.findLike(user.getId(), board.getId());
         model.addAttribute("like", like);
 
-        // 좋아요 수 추가
+        // 좋아요 수
+
         int likeNum = likeService.findByBoardId(id).size();
         model.addAttribute("likeNum", likeNum);
 

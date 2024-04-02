@@ -8,11 +8,6 @@
     --black: black;
 }
 
-body {
-    max-width: 60vw;
-    margin: auto;
-}
-
 header {
     display: flex;
     justify-content: space-between;
@@ -67,6 +62,19 @@ td {
     padding: 2px 20px;
 }
 
+table td:nth-child(1),
+table td:nth-child(2) {
+    min-width: 67px;
+}
+
+table td:nth-child(4) {
+    min-width: 167px;
+}
+
+table td:nth-child(5) {
+    min-width: 80px;
+}
+
 .board-controls{
     display: flex;
     margin-top: 10px;
@@ -86,7 +94,7 @@ td {
 }
 
 .title {
-    width: 420px;
+    width: 100%;
 }
 
 .title a {

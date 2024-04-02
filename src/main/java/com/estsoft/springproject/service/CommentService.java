@@ -16,15 +16,20 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     public List<Comment> findByBoardId(Long boardId) {
-        return commentRepository.findByBoard_Id(boardId);
+        return commentRepository.findByBoard_IdAndParentNull(boardId);
     }
 
     public Comment findById(Long id) {
-        return commentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found id" + id));
+        if (id == null) return null;
+        return commentRepository.findById(id).orElse(null);
     }
 
-    public Comment save(CommentRequest request, User user, Board board) {
-        return commentRepository.save(new Comment(request, user, board));
+    public List<Comment> findChildren(Long parentId) {
+        return commentRepository.findByParent_Id(parentId);
+    }
+
+    public Comment save(CommentRequest request, User user, Board board, Comment parent) {
+        return commentRepository.save(new Comment(request, user, board, parent));
     }
 
     public Comment update(Comment comment) {

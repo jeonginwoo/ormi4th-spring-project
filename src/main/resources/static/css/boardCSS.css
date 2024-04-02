@@ -1,7 +1,3 @@
-html{
-    width: 60vw;
-    margin-left: 20vw;
-}
 
 .area {
     margin: 5px 0;
@@ -28,33 +24,86 @@ html{
 }
 
 .content {
-    padding: 5px;
-    margin: 10px 0;
-    border: 1px solid #b2b2b2;
+    padding: 10px 15px;
+    margin: 3px 0 12px;
+    background: #e3eee1;
     border-radius: 5px;
     width: 100%;
 }
 
-.content-board{
-    width: 100%;
-    height: 400px;
-    resize:none;
-    font-size: 17px;
-    border: none;
-    outline: none;
+#viewer {
+    min-height: 300px;
 }
 
-.comment-container {
+.toastui-editor-contents {
+    font-size: 17px;
+}
+
+.comment-input {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
     margin-top: 15px;
-
 }
 
-#content {
+.comment-content {
+    width: 100%;
+    height: 40px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    border: 1px solid #b2b2b2;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.comment-btn {
+    width: 70px;
+    height: 40px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.child-container {
+    padding-left: 30px;
+    margin-top: 10px;
+}
+
+.display-none {
+    display: none;
+}
+
+.display-flex {
+    display: flex;
+}
+
+summary {
+    width: fit-content;
+    padding: 3px 10px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    border: 1px solid rgba(0,0,0,0);
+    transition: border-color 0.2s ease;
+}
+
+summary:hover {
+    background: #e1e9ee;
+    border: 1px solid #3192d7;
+    cursor: pointer;    /* 손가락 포인터로 변경 */
+    user-select: none;  /* 드래그 막기 */
+}
+
+.child-input {
+    align-items: center;
+    margin: 15px 0 10px;
+}
+
+.child-content {
     flex: 1;
-    width: 90%;
+    width: 80%;
     height: 40px;
     resize: none;
     margin-right: 10px;
@@ -62,12 +111,7 @@ html{
     border-radius: 5px;
 }
 
-#comment-create-btn {
-    width: 10%;
-    height: 40px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.comment-info {
+    color: #b2b2b2;
+    font-size: 10px;
 }

@@ -13,14 +13,15 @@ const updateButton = document.getElementById('board-update-btn');
 if (updateButton) {
     // 클릭 이벤트가 감지되면 수정 API 요청
     updateButton.addEventListener('click', event => {
-        let params = new URLSearchParams(location.search);
-        let id = params.get('id');
-        let formData = new FormData();
-        formData.append('title', document.getElementById('title').value);
-        formData.append('content', editor.getMarkdown());
+        const formData = new FormData();
+        const boardId = document.getElementById("board-id").value;
+        const title = document.getElementById('title').value
+        const content = editor.getMarkdown()
+        formData.append('title', title);
+        formData.append('content', content);
 
         // 수정할 데이터를 URL 매개변수에 포함하여 PUT 요청 보내기
-        fetch(`/boards/${id}`, {
+        fetch(`/boards/${boardId}`, {
             method: 'PUT',
             body: formData,
         }).then(() => {
