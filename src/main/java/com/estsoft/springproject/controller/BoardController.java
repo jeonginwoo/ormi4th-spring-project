@@ -84,20 +84,34 @@ public class BoardController {
             @PathVariable Long id,
             Model model
     ) {
+        // 사용자
         User user = userService.findById(1L);       // TODO: 테스트용. 나중에 지울 것!
         model.addAttribute("user", user);
 
+        // 게시판
         Board board = boardService.findById(id);
         board = boardService.updateHits(board);
         model.addAttribute("board", new BoardResponse(board));
 
+        // 댓글
         List<Comment> comments = commentService.findByBoardId(id);
         List<CommentResponse> responseList = comments.stream().map(CommentResponse::new).toList();
         model.addAttribute("comments", responseList);
 
+        // 답글
+        List<List<CommentResponse>> childrenList = new ArrayList<>();
+        for (Comment comment : comments) {
+            List<Comment> children = commentService.findChildren(comment.getId());
+            List<CommentResponse> childrenResponse = children.stream().map(CommentResponse::new).toList();
+            childrenList.add(childrenResponse);
+        }
+        model.addAttribute("childrenList", childrenList);
+
+        // 좋아요
         Like like = likeService.findLike(user.getId(), board.getId());
         model.addAttribute("like", like);
 
+        // 좋아요 수
         int likeNum = likeService.findByBoardId(id).size();
         model.addAttribute("likeNum", likeNum);
 

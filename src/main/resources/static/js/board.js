@@ -22,10 +22,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const editButtons = document.querySelectorAll(".edit-comment-button");
     editButtons.forEach(function (button) {
         button.addEventListener("click", function () {
-            const commentArea = button.closest(".area");
-            const commentContent = commentArea.querySelector(".content").innerText;
+            const commentArea = button.closest(".comment-container");
+            const boardId = document.getElementById("board-id").value;
             const commentId = commentArea.querySelector("input[name='commentId']").value;
-            const boardId = commentArea.querySelector("input[name='boardId']").value;
+            const commentContent = commentArea.querySelector(".content").innerText;
 
             // 다이얼로그에 댓글 내용과 댓글 ID를 채웁니다.
             document.getElementById("dialogBoardId").value = boardId;
@@ -45,9 +45,9 @@ function closeEDialog() {
 
 // 댓글 수정
 function updateComment() {
-    const editedContent = document.getElementById("dialogCommentContent").value;
-    const commentId = document.getElementById("dialogCommentId").value;
     const boardId = document.getElementById("dialogBoardId").value;
+    const commentId = document.getElementById("dialogCommentId").value;
+    const editedContent = document.getElementById("dialogCommentContent").value;
 
     const xhr = new XMLHttpRequest();
     xhr.open("PUT", "/boards/" + boardId + "/comments/" + commentId, true);
@@ -65,9 +65,9 @@ function updateComment() {
 
 // 댓글 삭제
 function deleteComment() {
-    const commentArea = event.target.closest(".area");
+    const commentArea = event.target.closest(".comment-container");
+    const boardId = document.getElementById("board-id").value;
     const commentId = commentArea.querySelector("input[name='commentId']").value;
-    const boardId = commentArea.querySelector("input[name='boardId']").value;
 
     const xhr = new XMLHttpRequest();
     xhr.open("DELETE", "/boards/" + boardId + "/comments/" + commentId, true);
@@ -85,20 +85,60 @@ function deleteComment() {
 const commentCreateButton = document.getElementById('comment-create-btn');
 if (commentCreateButton) {
     commentCreateButton.addEventListener('click', event => {
-        const boardId = window.location.pathname.split('/').pop();
+        const boardId = document.getElementById("board-id").value;
         const content = document.getElementById('content').value;
+        const parentId = null;
+
         fetch(`/boards/${boardId}/comments`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                content: content
+                content: content,
+                parentId: parentId,
             }),
         }).then(() => {
             location.reload();
         });
     });
+}
+
+// 답글 등록
+function createChildComment() {
+    const childArea = event.target.closest(".child-container");
+    const boardId = document.getElementById("board-id").value;
+    const content = childArea.querySelector(".child-content").value;
+    const parentId = childArea.querySelector("input[name='parentId']").value;
+
+    if (content == "") {
+        alert("내용이 비었습니다.")
+    } else {
+        fetch(`/boards/${boardId}/comments`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                content: content,
+                parentId: parentId,
+            }),
+        }).then(() => {
+            location.reload();
+        });
+    }
+}
+
+function toggleChildComment() {
+    const commentArea = event.target.closest(".comment-container");
+    const childInput = commentArea.querySelector(".child-input");
+    if (childInput.classList.contains("display-none")) {
+        childInput.classList.remove("display-none");
+        childInput.classList.add("display-flex");
+    } else {
+        childInput.classList.add("display-none");
+        childInput.classList.remove("display-flex");
+    }
 }
 
 

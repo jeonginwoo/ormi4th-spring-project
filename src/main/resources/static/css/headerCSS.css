@@ -8,8 +8,10 @@
 }
 
 body {
-    max-width: 60vw;
+    max-width: 1000px;
+    min-width: 700px;
     margin: auto;
+    padding: 0 20px;
 }
 
 header {

@@ -4,32 +4,6 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>게시글 상세</title>
-    <style>
-        body {
-            max-width: 1000px;
-            margin: auto;
-        }
-        .area {
-            margin: 20px 0;
-            padding: 10px 20px;
-            border: 1px solid black;
-            border-radius: 10px;
-        }
-        .content {
-            padding: 5px;
-            margin: 10px 0;
-            border: 1px solid #b2b2b2;
-            border-radius: 5px;
-            width: 100%;
-        }
-        #viewer {
-            min-height: 300px;
-        }
-        textArea {
-            width: 85%;
-            height: 40px;
-        }
-    </style>
 
     <!-- TOAST UI Editor CDN URL(CSS)-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
@@ -76,26 +50,43 @@
         <span th:text="${likeNum}"></span>
     </div>
 </div>
-<!--<form method="post" class="comment-form">-->
-<!--    <textarea placeholder="댓글을 입력하세요" required></textarea>-->
-<!--    <button type="submit" class="on">댓글 달기</button>-->
-<!--</form>-->
-<div class="comment-container">
-    <textarea id="content" placeholder="댓글을 입력하세요"></textarea>
-    <button id="comment-create-btn" onclick="createComment()">댓글 달기</button>
+
+<div class="comment-input">
+    <textarea id="content" class="comment-content" placeholder="댓글을 입력하세요"></textarea>
+    <button id="comment-create-btn" class="comment-btn">댓글</button>
 </div>
-<div th:each="comment: ${comments}" class="area">
+<div th:each="comment, commentIndex: ${comments}" class="area comment-container">
     <span th:text="${comment.nickname}">댓글 유저 정보</span>
+    <span class="contentTime comment-info" th:text="${#dates.format(comment.createdAt, 'yy.MM.dd HH:mm')}">댓글 시간 들어갑니다.</span>
     <span th:if="${comment.userId} == ${user.id}" class="commentControl">
-        <input type="hidden" name="boardId" th:value="${board.id}">
-        <input type="hidden" name="commentId" th:value="${comment.commentId}" />
+        <input type="hidden" name="commentId" th:value="${comment.commentId}"/>
         <button class="edit-comment-button">수정</button>
-        <button type="submit" onclick="deleteComment();">삭제</button>
+        <button onclick="deleteComment();">삭제</button>
     </span>
+    <button onclick="toggleChildComment()">답글</button>
     <div class="content" th:text="${comment.content}">댓글 내용이 들어갑니다.</div>
-    <div class="contentTime" th:text="${comment.createdAt}">댓글 시간 들어갑니다.</div>
 
-
+    <!-- 자식 댓글 -->
+    <div class="child-container">
+        <input type="hidden" name="parentId" th:value="${comment.commentId}">
+        <div class="display-none child-input comment-input">
+            <textarea class="child-content" placeholder="답글을 입력하세요"></textarea>
+            <button class="child-create-btn comment-btn" onclick="createChildComment()">답글</button>
+        </div>
+        <details th:if="${#lists.size(childrenList[__${commentIndex.index}__]) > 0}">
+            <summary th:text="'답글 ' + ${#lists.size(childrenList[__${commentIndex.index}__]) + '개'}">댓글</summary>
+            <div th:each="child : ${childrenList[__${commentIndex.index}__]}" class="child-comment comment-container">
+                <span th:text="${child.nickname}">댓글 유저 정보</span>
+                <span class="contentTime comment-info" th:text="${#dates.format(child.createdAt, 'yy.MM.dd HH:mm')}">댓글 시간 들어갑니다.</span>
+                <span th:if="${child.userId} == ${user.id}" class="commentControl">
+                    <input type="hidden" name="commentId" th:value="${child.commentId}"/>
+                    <button class="edit-comment-button">수정</button>
+                    <button onclick="deleteComment();">삭제</button>
+                </span>
+                <div class="content" th:text="${child.content}">댓글 내용이 들어갑니다.</div>
+            </div>
+        </details>
+    </div>
 </div>
 
 <!-- 수정용 Dialog 창 -->
