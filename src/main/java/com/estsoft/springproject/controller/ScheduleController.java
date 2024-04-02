@@ -4,6 +4,7 @@ import com.estsoft.springproject.domain.dto.Schedule;
 import com.estsoft.springproject.domain.dto.TeamId;
 import com.estsoft.springproject.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequiredArgsConstructor
@@ -42,6 +44,21 @@ public class ScheduleController {
         model.addAttribute("schedules", schedules);
 
         return "schedule";
+    }
+
+    @GetMapping("/daily")
+    public String getDailySchedule(LocalDate date, Model model) {
+
+        String d = date.toString();
+
+        List<Schedule> schedules = scheduleService.getDailySchedules(d);
+
+        model.addAttribute("schedules", schedules);
+        model.addAttribute("date", date.format(DateTimeFormatter.ofPattern("MM.dd(E)", Locale.KOREAN)));
+        model.addAttribute("previous", date.minusDays(1));
+        model.addAttribute("next", date.plusDays(1));
+
+        return "schedule/daily";
     }
 
     private LocalDate previous(LocalDate date) {
