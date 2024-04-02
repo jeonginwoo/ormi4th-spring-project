@@ -9,10 +9,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,9 +65,13 @@ public class Board {
         this.hits = 0L;
     }
 
-    public void update(String title, String content) {
+    public void updateContent(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public void updateComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public void updateHits() {

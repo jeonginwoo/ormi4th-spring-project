@@ -1,7 +1,3 @@
-html{
-    width: 60vw;
-    margin-left: 20vw;
-}
 
 .area {
     margin: 5px 0;
@@ -28,9 +24,9 @@ html{
 }
 
 .content {
-    padding: 5px;
-    margin: 10px 0;
-    border: 1px solid #b2b2b2;
+    padding: 10px 5px;
+    margin: 3px 0 12px;
+    background: #e3eee1;
     border-radius: 5px;
     width: 100%;
 }
@@ -44,15 +40,23 @@ html{
     outline: none;
 }
 
-.comment-container {
+#viewer {
+    min-height: 300px;
+}
+
+textArea {
+    width: 85%;
+    height: 40px;
+}
+
+.comment-input {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
     margin-top: 15px;
-
 }
 
-#content {
+.comment-content {
     flex: 1;
     width: 90%;
     height: 40px;
@@ -62,7 +66,7 @@ html{
     border-radius: 5px;
 }
 
-#comment-create-btn {
+.comment-btn {
     width: 10%;
     height: 40px;
     background-color: #28a745;
@@ -70,4 +74,37 @@ html{
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.child-container {
+    padding-left: 30px;
+    margin-top: 10px;
+}
+
+.display-none {
+    display: none;
+}
+
+.display-flex {
+    display: flex;
+}
+
+.child-input {
+    align-items: center;
+    margin: 15px 0 10px;
+}
+
+.child-content {
+    flex: 1;
+    width: 80%;
+    height: 40px;
+    resize: none;
+    margin-right: 10px;
+    border: 1px solid #b2b2b2;
+    border-radius: 5px;
+}
+
+.comment-info {
+    color: #b2b2b2;
+    font-size: 10px;
 }

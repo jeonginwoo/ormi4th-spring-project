@@ -2,6 +2,7 @@ package com.estsoft.springproject.controller;
 
 import com.estsoft.springproject.domain.dto.CommentRequest;
 import com.estsoft.springproject.domain.dto.CommentResponse;
+import com.estsoft.springproject.domain.entity.Board;
 import com.estsoft.springproject.domain.entity.Comment;
 import com.estsoft.springproject.domain.entity.User;
 import com.estsoft.springproject.service.BoardService;
@@ -28,7 +29,9 @@ public class CommentController {
             @RequestBody CommentRequest request
     ) {
         User user = userService.findById(1L);   // TODO: 테스트용. 나중에 지울 것!
-        Comment comment = commentService.save(request, user, boardService.findById(boardId));
+        Board board = boardService.findById(boardId);
+        Comment parent = commentService.findById(request.getParentId());
+        Comment comment = commentService.save(request, user, board, parent);
         CommentResponse response = new CommentResponse(comment);
         return ResponseEntity.ok(response);
     }
@@ -48,7 +51,7 @@ public class CommentController {
             @RequestBody CommentRequest request
     ) {
         Comment comment = commentService.findById(commentId);
-        comment.update(request.getContent());
+        comment.updateContent(request.getContent());
         commentService.update(comment);
         CommentResponse response = new CommentResponse(comment);
         return ResponseEntity.ok(response);
