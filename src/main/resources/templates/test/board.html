@@ -48,7 +48,7 @@
 <input type="hidden" id="board-id" th:value="${board.id}">
 <div class="board-buttons">
     <a th:href="@{/boards}" class="on">목록</a>
-    <span th:if="${board.userId} == ${user.id}">
+    <span th:if="${board.user.id} == ${user.id}">
     <button type="button" id="board-update-btn"
             th:onclick="|location.href='@{/boards/new-board?id={id}(id=${board.id})}'|"
             class="btn btn-primary btn-sm">수정

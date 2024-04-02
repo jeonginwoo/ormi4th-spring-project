@@ -26,7 +26,7 @@
         <input type="hidden" name="_method" value="delete" />
         <button type="submit">계정 삭제</button>
     </form>
-    <button class="ui-button" th:if="${user.role eq 'admin'}" th:onclick="|location.href='/mypage/${user.id}/admin'|">관리자페이지</button>
+    <button class="ui-button" th:if="${user.role eq 'admin'}" th:onclick="|location.href='/mypage/admin'|">관리자페이지</button>
     <hr>
     <!-- 게시글 페이징 -->
     <h3>내가 작성한 게시글</h3>
