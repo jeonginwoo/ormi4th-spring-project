@@ -7,6 +7,7 @@ import com.estsoft.springproject.repository.PitcherRecordMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Year;
 import java.util.List;
 
 @Service
@@ -24,6 +25,16 @@ public class RecordService {
     public List<BatterRecord> getBatterRecordOrderByAVG(String season) {
 
         return batterRecordMapper.getBatterRecordOrderByAVG(season);
+    }
+
+    public List<BatterRecord> getBattersRecord(Year season) {
+
+        return batterRecordMapper.getBattersRecord(season);
+    }
+
+    public List<PitcherRecord> getPitchersRecord(Year season) {
+
+        return pitcherRecordMapper.getPitchersRecord(season);
     }
 
     public List<PitcherRecord> getPitcherRecord(Long playerId) {

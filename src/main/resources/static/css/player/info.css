@@ -56,16 +56,6 @@
     border-radius: 20px;
     box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
 
-    padding: 50px;
-}
-
-.record-table {
-
-    box-sizing: border-box;
-    background-color: #fff;
-    border-radius: 20px;
-    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
-
     padding: 35px;
 }
 

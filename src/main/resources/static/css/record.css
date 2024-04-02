@@ -1,0 +1,108 @@
+.wrap {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 150px;
+    gap: 100px;
+}
+
+.year-selector {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 200px;
+    padding: 20px;
+
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
+}
+
+.year-selector button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+
+    width: 25px;
+    height: 25px;
+}
+
+.record-table {
+
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
+
+    width: 2000px;
+    padding: 50px 35px;
+}
+
+.type-selector {
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+    padding-left: 20px;
+    margin-bottom: 50px;
+}
+
+.blue-text {
+    color: blue;
+}
+
+.type-selector a {
+    font-size: 40px;
+}
+.type-pitcher {
+    padding-right: 20px;
+    border-right: black 2px solid;
+}
+
+.record-table-header ul {
+
+    display: flex;
+
+    margin-bottom: 10px;
+    border-bottom: solid black 1px;
+}
+
+.record-table-header li, .record-table-body li {
+
+    display: flex;
+    text-align: center;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.record-table-header p, .record-table-body p {
+
+    width: 65px;
+}
+
+.emblem {
+    width: 40px;
+}
+
+.player-header {
+    width: 110px;
+}
+
+.player-header p {
+    width: 40px;
+}
+
+.player {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.player a {
+    width: 70px;
+}

@@ -5,9 +5,9 @@
       layout:decorate="~{layout/layout}">
 
 <th:block layout:fragment="head">
-    <title>선수 정보</title>
+    <title th:text="${player.playerInfo.uniformNumber+' '+player.playerInfo.name}"></title>
     <link th:href="@{/css/common.css}" rel="stylesheet"/>
-    <link th:href="@{/css/player.css}" rel="stylesheet"/>
+    <link th:href="@{/css/player/info.css}" rel="stylesheet"/>
 </th:block>
 
 <body>

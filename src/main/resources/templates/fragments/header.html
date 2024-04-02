@@ -3,32 +3,28 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link th:href="@{/css/header.css}" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link th:href="@{/css/header.css}" rel="stylesheet"/>
 </head>
 
 <body>
 <div class="header">
-  <nav class="navigationBar">
-    <div class="HomeButton">
-      <a th:href="@{/baseball/home}">
-        <img class="homeButton" th:src="@{/image/baseball.png}">
-      </a>
-    </div>
-    <a class="navBarText" th:href="@{/baseball/scheduleNResult(year = ${year}, month = ${month})}">
-      일정/결과
-    </a>
-    <div class="dropdown">
-      <button class="dropBtn">기록/순위</button>
-      <div class="dropdown-content">
-        <a href="#">기록</a>
-        <a href="#">순위</a>
-      </div>
-    </div>
-  </nav>
+    <nav class="navigationBar">
+        <div class="HomeButton">
+            <a th:href="@{/}">
+                <img class="homeButton" th:src="@{/image/baseball.png}">
+            </a>
+        </div>
+        <a class="navBarText" th:href="@{/schedule(date = ${#dates.format(#dates.createNow(),'yyyy-MM-dd')})}">
+            일정/결과
+        </a>
+        <a class="navBarText" th:href="@{/record}">
+            기록/순위
+        </a>
+    </nav>
 </div>
 </body>
 
