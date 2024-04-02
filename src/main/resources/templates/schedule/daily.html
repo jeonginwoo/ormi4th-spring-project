@@ -24,9 +24,9 @@
                 <img class="emblem" th:src="${schedule.awayTeamEmblemPath}">
             </div>
             <div class="info-div">
-                <p th:if="${schedule.status} != 'vs'" th:text="${schedule.awayTeamRuns}"></p>
-                <p th:text="${schedule.status}"></p>
-                <p th:if="${schedule.status} != 'vs'" th:text="${schedule.homeTeamRuns}"></p>
+                <p class="away-score" th:text="${schedule.status == '종료'} ? ${schedule.awayTeamRuns}"></p>
+                <p class="status" th:classappend="${schedule.status == '취소'} ? 'red-text'" th:text="${schedule.status}"></p>
+                <p class="home-score" th:text="${schedule.status == '종료'} ? ${schedule.homeTeamRuns}"></p>
             </div>
             <div class="home-div">
                 <img class="emblem" th:src="${schedule.homeTeamEmblemPath}">
@@ -37,7 +37,7 @@
             </div>
         </li>
         <li th:if="${schedules.isEmpty()}">
-            <p th:text="'프로야구 경기가 없습니다.'"></p>
+            <p class="no-game" th:text="'프로야구 경기가 없습니다.'"></p>
         </li>
     </ul>
 </div>

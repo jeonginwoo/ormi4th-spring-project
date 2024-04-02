@@ -52,7 +52,15 @@
 }
 
 .team-ranking-table-header p, .team-ranking-table-body p {
-    width: 60px;
+    width: 35px;
+}
+
+.team-ranking-table-header p:nth-child(7), .team-ranking-table-body p:nth-child(7) {
+    width: 55px;
+}
+
+.team-ranking-table-body {
+    padding-top: 10px;
 }
 
 .team-header {
@@ -81,8 +89,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    width: 200px;
+    text-align: center;
 }
 
 .emblem {
@@ -105,16 +112,20 @@
 .schedule-table-body li {
 
     height: 80px;
+    gap: 15px;
 }
 
 .away-div, .home-div {
 
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 10px;
 
-    width: 250px;
+    width: 150px;
+}
+
+.away-div {
+    justify-content: right;
 }
 
 .info-div {
@@ -122,7 +133,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    text-align: center;
 
-    width: 55px;
+    width: 70px;
+}
+
+.away-score, .home-score {
+    width: 20px;
+}
+
+.status {
+    width: 30px;
+}
+
+.red-text {
+    color: red;
+}
+
+.no-game {
+    width: 400px;
+    text-align: center;
 }
