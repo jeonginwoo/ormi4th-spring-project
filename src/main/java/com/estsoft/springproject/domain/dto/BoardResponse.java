@@ -1,6 +1,8 @@
 package com.estsoft.springproject.domain.dto;
 
 import com.estsoft.springproject.domain.entity.Board;
+import com.estsoft.springproject.domain.entity.User;
+
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -21,6 +23,11 @@ public class BoardResponse {
     private String nickname;    // 작성자
     private Long userId;
     private Long hits;
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
 
     public BoardResponse(Board board) {
         this.id = board.getId();
@@ -33,5 +40,6 @@ public class BoardResponse {
         this.nickname = board.getUser().getNickname();
         this.userId = board.getUser().getId();
         this.hits = board.getHits();
+        this.user = board.getUser();
     }
 }
