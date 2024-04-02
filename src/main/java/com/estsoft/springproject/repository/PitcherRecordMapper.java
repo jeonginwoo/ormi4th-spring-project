@@ -14,4 +14,5 @@ public interface PitcherRecordMapper {
     List<PitcherRecord> getPitchersRecord(Year season);
     List<PitcherRecordDetail> getPitcherRecordDetailOfAllSeason(Long playerId);
     PitcherRecordDetail getCareerRecord(Long playerId);
+    List<PitcherRecord> getPitcherRecordOrderByQuery(String season, String query);
 }

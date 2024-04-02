@@ -28,7 +28,7 @@
     margin-bottom: 30px;
 }
 
-.team-ranking-table, .schedule-table, .playerRanking {
+.team-ranking-table, .schedule-table, .player-ranking-table {
 
     padding: 20px;
     box-sizing: border-box;
@@ -74,7 +74,7 @@
 .team {
     display: flex;
     align-items: center;
-    justify-content: center;
+    text-align: left;
 
     width: 135px;
     gap: 10px;
@@ -153,4 +153,44 @@
 .no-game {
     width: 400px;
     text-align: center;
+}
+
+.player-ranking-table-header li, .player-ranking-table-body li {
+
+    display: flex;
+    text-align: center;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.player-ranking-table-header li {
+    border-bottom: solid 1px black;
+}
+
+.player-ranking-table-header p {
+    width: 50px;
+}
+
+.player-ranking-table-body {
+    padding-top: 10px;
+}
+
+.blue-text {
+    color: blue;
+}
+
+.rank {
+    width: 50px;
+}
+
+.player-name {
+    width: 80px;
+    text-align: left;
+    margin-right: 20px;
+}
+
+.record {
+    width: 115px;
+    text-align: center;
+    padding-left: 55px;
 }

@@ -49,6 +49,20 @@ public class RecordController {
         return "record";
     }
 
+    @GetMapping("/ranking")
+    public String getPlayerRanking(@RequestParam(defaultValue = "#{T(java.time.Year).now()}") Year season,
+                                          String query, String type, Model model) {
+
+        List<?> records = isPitcher(type) ?
+                recordService.getPitcherRecordOrderByQuery(season.toString(),query) :
+                recordService.getBatterRecordOrderByQuery(season.toString(), query);
+
+        model.addAttribute("records", records);
+        model.addAttribute("query", query);
+
+        return "record/ranking";
+    }
+
     private boolean isPitcher(String type) {
 
         return type.equals("pitcher");
