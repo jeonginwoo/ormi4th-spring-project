@@ -27,11 +27,14 @@ public class TeamRankingController {
     }
 
     @GetMapping("/detail")
-    public String getTeamRankingDetail(@RequestParam(defaultValue = "2024", value = "season") Year season, Model model) {
+    public String getTeamRankingDetail(@RequestParam(defaultValue = "#{T(java.time.Year).now()}") Year season,
+                                       Model model) {
 
         List<TeamRankingDetail> teamRankingDetails = teamRankingService.getTeamRankingListDetail(season);
 
+        model.addAttribute("previous", season.minusYears(1));
         model.addAttribute("season", season);
+        model.addAttribute("next", season.plusYears(1));
         model.addAttribute("details", teamRankingDetails);
 
         return "teamRanking/detail";
