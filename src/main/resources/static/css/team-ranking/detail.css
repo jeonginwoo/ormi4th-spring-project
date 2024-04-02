@@ -1,41 +1,23 @@
 .wrap {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 80px;
-    margin: 80px;
-}
-
-.team-ranking-detail {
-
-    box-sizing: border-box;
-    background-color: #fff;
-    border-radius: 20px;
-    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
-}
-
-.team-ranking-detail {
-
-    padding: 30px 20px 30px 20px;
-}
-
-.team-ranking-detail-table-head {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-
-    background-color: #fff;
-    border-bottom: solid 1px black;
+    padding: 150px;
+    gap: 100px;
 }
 
 .year-selector {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
 
-    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 200px;
+    padding: 20px;
+
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
 }
 
 .year-selector button {
@@ -49,33 +31,67 @@
     height: 25px;
 }
 
-.year {
-    font-size: 20px;
-    font-weight: normal;
-    text-align: center;
+.team-ranking-table {
+
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
+
+    padding: 30px 20px;
 }
 
-.team-ranking-detail-table-body {
+.table-title {
+
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.team-ranking-detail-table-header li, .team-ranking-detail-table-body li{
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.team-ranking-detail-table-header li {
 
     background-color: #fff;
     border-bottom: solid 1px black;
 }
 
-.team {
-    width: 180px;
+.team-ranking-detail-table-body li:first-child {
+    padding-top: 10px;
+}
 
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    gap: 10px;
+.team-ranking-detail-table-header p, .team-ranking-detail-table-body p {
+
+    width: 65px;
 }
 
 .emblem {
-    width: 65px;
-    height: 50px;
+    width: 40px;
     background-color: #fff;
+}
+
+.team-header {
+    width: 140px;
+    padding-left: 10px;
+}
+
+.team-header p {
+    width: 30px;
+}
+
+.team {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 140px;
+    gap: 10px;
+}
+
+.team a {
+    width: 85px;
 }
