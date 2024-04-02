@@ -92,6 +92,9 @@
                             </div>
                         </div>
                     </li>
+                    <li th:if="${schedules.isEmpty()}">
+                        <p th:text="'프로야구 경기가 없습니다.'"></p>
+                    </li>
                 </ul>
             </div>
         </section>
