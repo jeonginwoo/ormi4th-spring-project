@@ -13,39 +13,41 @@
 <body>
 <header th:replace="~{/fragments/header}"></header>
 <article th:fragment="content">
-    <div class="home-contents">
-        <section class="team-ranking">
+    <div class="wrap">
+        <section class="team-ranking-table">
             <div class="more">
-                <a href="/teamranking/detail">
+                <a th:href="@{/teamranking/detail}">
                     더보기
                 </a>
             </div>
-            <div class="tableTitle" th:text="'KBO리그 팀 순위'">
+            <div class="table-title" th:text="'KBO리그 팀 순위'">
             </div>
-            <div class="teamRankingTable">
-                <li class="teamRankingTableHead">
-                    <div class="rank">순위</div>
-                    <div class="team">팀</div>
-                    <div class="game">경기</div>
-                    <div class="win">승</div>
-                    <div class="lose">패</div>
-                    <div class="draw">무</div>
-                    <div class="winPercent">승률</div>
-                    <div class="winMargin">승차</div>
-                </li>
-                <ul th:each="ranking:${teamRanking}">
-                    <li class="teamRankingTableBody">
-                        <div class="rank" th:text="${ranking.rank}"></div>
+            <div class="team-ranking-table-header">
+                <ul>
+                    <li>
+                        <p>순위</p>
+                        <div class="team-header">
+                            <p th:text="팀"></p>
+                        </div>
+                        <p th:each="column : ${#strings.arraySplit('경기 승 패 무 승률 승차',' ')}"
+                           th:text="${column}"></p>
+                    </li>
+                </ul>
+            </div>
+            <div class="team-ranking-table-body">
+                <ul>
+                    <li th:each="ranking:${teamRanking}">
+                        <p th:text="${ranking.rank}"></p>
                         <div class="team">
                             <img class="emblem" th:src="${ranking.emblemPath}">
-                            <span th:text="${ranking.teamName}"></span>
+                            <a th:text="${ranking.teamName}"></a>
                         </div>
-                        <div class="game" th:text="${ranking.game}"></div>
-                        <div class="win" th:text="${ranking.win}"></div>
-                        <div class="lose" th:text="${ranking.lose}"></div>
-                        <div class="draw" th:text="${ranking.draw}"></div>
-                        <div class="winPercent" th:text="${#numbers.formatDecimal(ranking.winPercent, 1, 3)}"></div>
-                        <div class="winMargin" th:text="${ranking.winMargin}"></div>
+                        <p th:text="${ranking.game}"></p>
+                        <p th:text="${ranking.win}"></p>
+                        <p th:text="${ranking.lose}"></p>
+                        <p th:text="${ranking.draw}"></p>
+                        <p th:text="${#numbers.formatDecimal(ranking.winPercent, 1, 3)}"></p>
+                        <p th:text="${ranking.winMargin}"></p>
                     </li>
                 </ul>
             </div>
@@ -57,7 +59,7 @@
                     더보기
                 </a>
             </div>
-            <div class="tableTitle">
+            <div class="table-title">
                 경기 일정/결과
             </div>
             <div class="scheduleTable">
@@ -98,7 +100,7 @@
                     더보기
                 </a>
             </div>
-            <div class="tableTitle">
+            <div class="table-title">
                 KBO리그 개인 순위
             </div>
             <div class="playerRankingTable">

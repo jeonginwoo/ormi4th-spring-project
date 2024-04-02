@@ -1,4 +1,4 @@
-.home-contents {
+.wrap {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,7 +7,7 @@
     margin: 80px;
 }
 
-.home-content section {
+.home-content {
     flex: 0 0 auto;
     padding: 20px;
 
@@ -17,110 +17,70 @@
 .more {
 
     font-size: 16px;
-    font-weight: normal;
     text-align: right;
-    color: #000;
-    background-color: #ffffff;
+    margin-bottom: 20px;
 }
 
-.more > a:hover {
-    text-decoration: none;
-}
-
-.tableTitle {
-    align-self: stretch;
-    flex-grow: 0;
+.table-title {
     font-size: 36px;
-    justify-content: center;
     text-align: center;
-    color: #000;
-    background-color: #ffffff;
+
+    margin-bottom: 30px;
 }
 
-.team-ranking, .schedule, .playerRanking {
-    width: 600px;
+.team-ranking-table, .schedule, .playerRanking {
+
     padding: 20px;
     box-sizing: border-box;
-    margin-bottom: 20px;
-    background-color: #fff;
     border-radius: 20px;
     box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
 }
 
-.teamRankingTable, .scheduleTable, .playerRankingTable {
-    width: 100%;
-    height: 100%;
+.team-ranking-table-header li, .team-ranking-table-body li {
 
-    padding: 20px 10px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    padding-bottom: 10px;
 }
 
-.teamRankingTableHead, .scheduleTableHead, .playerRankingTableHead {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+.team-ranking-table-header li {
 
-    background-color: #fff;
     border-bottom: solid 1px black;
 }
 
-.scheduleTableHead button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    outline: none;
-    padding: 0;
+.team-ranking-table-body li:first-child {
 
-    width: 25px;
-    height: 25px;
+    padding-top: 10px;
 }
 
-.teamRankingTableBody, .scheduleTableBody, .playerRankingTableBody {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-
-    background-color: #fff;
-    border-bottom: solid 1px black;
+.team-ranking-table-header p, .team-ranking-table-body p {
+    width: 60px;
 }
 
-.date {
-    font-size: 20px;
-    font-weight: normal;
-    text-align: center;
+.team-header {
+    width: 135px;
 }
 
-.rank, .team, .game, .win, .draw, .lose, .winPercent, .winMargin, .awayTeam, .aPitcher, .homeTeam, .hPitcher, .record, .avg, .hits, .rbi, .hr, .wins, .era, .so, .sv, .name, .awayScore, .homeScore, .status {
-    width: 40px;
-    font-size: 20px;
-    font-weight: normal;
-    text-align: center;
-    color: #000;
-    background-color: #fff;
-}
-
-.teamRankingTableHead > .team {
-
-    padding-left: 20px;
-}
-
-.winPercent {
-    width: 50px;
+.team-header p {
+    width: 30px;
 }
 
 .team {
-    width: 180px;
-
     display: flex;
     align-items: center;
-    justify-content: left;
+    justify-content: center;
+
+    width: 135px;
     gap: 10px;
 }
 
+.team a {
+    width: 85px;
+}
+
 .emblem {
-    width: 65px;
-    height: 50px;
+    width: 40px;
     background-color: #fff;
 }
 
