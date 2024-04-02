@@ -111,18 +111,22 @@ function createChildComment() {
     const content = childArea.querySelector(".child-content").value;
     const parentId = childArea.querySelector("input[name='parentId']").value;
 
-    fetch(`/boards/${boardId}/comments`, {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            content: content,
-            parentId: parentId,
-        }),
-    }).then(() => {
-        location.reload();
-    });
+    if (content == "") {
+        alert("내용이 비었습니다.")
+    } else {
+        fetch(`/boards/${boardId}/comments`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                content: content,
+                parentId: parentId,
+            }),
+        }).then(() => {
+            location.reload();
+        });
+    }
 }
 
 function toggleChildComment() {
