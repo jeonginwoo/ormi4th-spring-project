@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequiredArgsConstructor
@@ -41,6 +42,10 @@ public class IndexController {
         model.addAttribute("teamRanking", teamRanking);
         model.addAttribute("schedules", schedules);
         model.addAttribute("records", records);
+
+        model.addAttribute("date", currentDate.format(DateTimeFormatter.ofPattern("MM.dd(E)", Locale.KOREAN)));
+        model.addAttribute("previous", currentDate.minusDays(1));
+        model.addAttribute("next", currentDate.plusDays(1));
 
         return "index";
     }

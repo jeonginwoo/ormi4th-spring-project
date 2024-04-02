@@ -36,3 +36,8 @@ a {
     text-decoration-line: none;
     text-decoration-color: black;
 }
+
+button {
+    border: 0;
+    background-color: transparent;
+}

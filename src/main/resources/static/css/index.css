@@ -28,7 +28,7 @@
     margin-bottom: 30px;
 }
 
-.team-ranking-table, .schedule, .playerRanking {
+.team-ranking-table, .schedule-table, .playerRanking {
 
     padding: 20px;
     box-sizing: border-box;
@@ -47,11 +47,6 @@
 .team-ranking-table-header li {
 
     border-bottom: solid 1px black;
-}
-
-.team-ranking-table-body li:first-child {
-
-    padding-top: 10px;
 }
 
 .team-ranking-table-header p, .team-ranking-table-body p {
@@ -79,9 +74,35 @@
     width: 85px;
 }
 
+.date-selector {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 200px;
+}
+
 .emblem {
     width: 40px;
     background-color: #fff;
+}
+
+.schedule-table-header, .schedule-table-body li {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: solid 1px black;
+}
+
+.schedule-table-header {
+    padding-bottom: 10px;
+}
+
+.schedule-table-body li {
+
+    height: 80px;
 }
 
 .away-div, .home-div {
@@ -90,4 +111,16 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+
+    width: 250px;
+}
+
+.info-div {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 55px;
 }

@@ -53,40 +53,42 @@
             </div>
         </section>
 
-        <section class="schedule">
+        <section class="schedule-table">
             <div class="more">
-                <a>
+                <a th:href="@{/schedule(date = ${#dates.format(#dates.createNow(),'yyyy-MM-dd')})}" }>
                     더보기
                 </a>
             </div>
             <div class="table-title">
                 경기 일정/결과
             </div>
-            <div class="scheduleTable">
-                <div class="scheduleTableHead">
-                    <button>&lt;</button>
-                    <span class="date" th:text="${#dates.format(#dates.createNow(), 'MM.dd (E)')}"></span>
-                    <button>&gt;</button>
+            <div class="schedule-table-header">
+                <div class="date-selector">
+                    <button th:value="${previous}" onclick="getDailySchedule(this.value)">&lt;</button>
+                    <p class="date" th:text="${date}"></p>
+                    <button th:value="${next}" onclick="getDailySchedule(this.value)">&gt</button>
                 </div>
-                <ul th:each="schedule:${schedules}">
-                    <li class="scheduleTableBody" th:value="${schedule.id}" onclick="goToGameResult(this.value)">
+            </div>
+            <div class="schedule-table-body">
+                <ul>
+                    <li th:each="schedule: ${schedules}" th:value="${schedule.id}" onclick="goToGameResult(this.value)">
                         <div class="away-div">
                             <div>
-                                <span th:text="${schedule.awayTeamName}"></span>
-                                <span th:text="${schedule.awayStarter}"></span>
+                                <p th:text="${schedule.awayTeamName}"></p>
+                                <p th:text="${schedule.awayStarter}"></p>
                             </div>
                             <img class="emblem" th:src="${schedule.awayTeamEmblemPath}">
                         </div>
-                        <div>
-                            <span th:if="${schedule.status} != 'vs'" th:text="${schedule.awayTeamRuns}"></span>
-                            <span th:text="${schedule.status}"></span>
-                            <span th:if="${schedule.status} != 'vs'" th:text="${schedule.homeTeamRuns}"></span>
+                        <div class="info-div">
+                            <p th:if="${schedule.status} != 'vs'" th:text="${schedule.awayTeamRuns}"></p>
+                            <p th:text="${schedule.status}"></p>
+                            <p th:if="${schedule.status} != 'vs'" th:text="${schedule.homeTeamRuns}"></p>
                         </div>
                         <div class="home-div">
                             <img class="emblem" th:src="${schedule.homeTeamEmblemPath}">
                             <div>
-                                <span th:text="${schedule.homeTeamName}"></span>
-                                <span th:text="${schedule.homeStarter}"></span>
+                                <p th:text="${schedule.homeTeamName}"></p>
+                                <p th:text="${schedule.homeStarter}"></p>
                             </div>
                         </div>
                     </li>
@@ -130,5 +132,7 @@
     </div>
 </article>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script th:src="@{/js/divClick.js}"></script>
+<script th:src="@{/js/index_ajax.js}"></script>
 </html>
