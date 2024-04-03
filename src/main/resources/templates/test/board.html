@@ -7,7 +7,7 @@
 
     <!-- TOAST UI Editor CDN URL(CSS)-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
-    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
 
     <link rel="stylesheet" href="../../static/css/header.css">
     <link rel="stylesheet" href="../../static/css/boardCSS.css">
@@ -18,16 +18,17 @@
 <body>
 <header th:replace="~{fragments/header}"></header>
 
+<!-- 게시글 -->
 <input type="hidden" id="user-id" th:value="${user.id}">
 <input type="hidden" id="board-id" th:value="${board.id}">
 <div class="board-buttons">
-    <a th:href="@{/boards}" class="on">목록</a>
+    <button th:onclick="|location.href='@{/boards}'|" class="on">목록</button>
     <span th:if="${board.userId} == ${user.id}">
-    <button type="button" id="board-update-btn"
-            th:onclick="|location.href='@{/boards/new-board?id={id}(id=${board.id})}'|"
-            class="btn btn-primary btn-sm">수정
-    </button>
-    <button id="board-delete-btn">삭제</button>
+        <button type="button" id="board-update-btn"
+                th:onclick="|location.href='@{/boards/new-board?id={id}(id=${board.id})}'|"
+                class="btn btn-primary btn-sm">수정
+        </button>
+        <button id="board-delete-btn">삭제</button>
     </span>
 </div>
 <div class="area">
@@ -51,6 +52,7 @@
     </div>
 </div>
 
+<!-- 댓글 -->
 <div class="comment-input">
     <textarea id="content" class="comment-content" placeholder="댓글을 입력하세요"></textarea>
     <button id="comment-create-btn" class="comment-btn">댓글</button>
@@ -88,17 +90,6 @@
         </details>
     </div>
 </div>
-
-<!-- 수정용 Dialog 창 -->
-<dialog id="editDialog">
-    <form id="editForm">
-        <input type="hidden" id="dialogBoardId">
-        <input type="hidden" id="dialogCommentId">
-        <textarea id="dialogCommentContent"></textarea>
-        <button type="button" onclick="updateComment()">저장</button>
-        <button type="button" onclick="closeEDialog()">취소</button>
-    </form>
-</dialog>
 
 <script src="/js/board.js"></script>
 

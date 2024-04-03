@@ -1,4 +1,3 @@
-
 const boardContent = document.getElementById('boardContent').value;
 const editor = new toastui.Editor({
     el: document.querySelector('#editor'),
@@ -9,6 +8,23 @@ const editor = new toastui.Editor({
 });
 
 // 게시글 수정
+function updateBoard() {
+    const formData = new FormData();
+    const boardId = document.getElementById("board-id").value;
+    const title = document.getElementById('title').value
+    const content = editor.getMarkdown()
+    formData.append('title', title);
+    formData.append('content', content);
+    // 수정할 데이터를 URL 매개변수에 포함하여 PUT 요청 보내기
+    fetch(`/boards/${boardId}`, {
+        method: 'PUT',
+        body: formData,
+    }).then(() => {
+        alert('수정이 완료되었습니다');
+        location.replace(`/boards/` + boardId);
+    });
+}
+
 const updateButton = document.getElementById('board-update-btn');
 if (updateButton) {
     // 클릭 이벤트가 감지되면 수정 API 요청
@@ -19,14 +35,13 @@ if (updateButton) {
         const content = editor.getMarkdown()
         formData.append('title', title);
         formData.append('content', content);
-
         // 수정할 데이터를 URL 매개변수에 포함하여 PUT 요청 보내기
         fetch(`/boards/${boardId}`, {
             method: 'PUT',
             body: formData,
         }).then(() => {
             alert('수정이 완료되었습니다');
-            location.replace(`/boards/`+id);
+            location.replace(`/boards/` + boardId);
         });
     });
 }
@@ -54,7 +69,7 @@ if (createButton) {
             }).then(response => response.json()
             ).then((data) => {
                 alert('등록 완료되었습니다');
-                location.replace(`/boards/`+data.id);
+                location.replace(`/boards/` + data.id);
             });
         }
     });

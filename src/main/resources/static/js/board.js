@@ -17,51 +17,79 @@ if (deleteButton) {
 
 /*********************************************************************************************/
 
-
+// 댓글 수정
 document.addEventListener("DOMContentLoaded", function () {
     const editButtons = document.querySelectorAll(".edit-comment-button");
     editButtons.forEach(function (button) {
         button.addEventListener("click", function () {
-            const commentArea = button.closest(".comment-container");
+            // 다른 수정 창 닫기
+            closeAllEditDialogs();
             const boardId = document.getElementById("board-id").value;
-            const commentId = commentArea.querySelector("input[name='commentId']").value;
-            const commentContent = commentArea.querySelector(".content").innerText;
+            const commentContainer = button.closest(".comment-container");
+            const commentId = commentContainer.querySelector("input[name='commentId']").value;
+            const content = commentContainer.querySelector(".content");
+            const editContent = document.createElement('textarea');
+            editContent.classList.add('update-content');
+            editContent.value = content.innerText;
+            content.style.display = 'none';
 
-            // 다이얼로그에 댓글 내용과 댓글 ID를 채웁니다.
-            document.getElementById("dialogBoardId").value = boardId;
-            document.getElementById("dialogCommentId").value = commentId;
-            document.getElementById("dialogCommentContent").value = commentContent;
+            const updateBtnAlign = document.createElement('div');
+            updateBtnAlign.classList.add('btn-align');
 
-            const editDialog = document.getElementById("editDialog");
-            editDialog.showModal();
+            const updateBtn = document.createElement('button');
+            updateBtn.innerText = '저장';
+            updateBtn.addEventListener('click', function() {
+                const editedContent = editContent.value;
+                if (editedContent == "") {
+                    alert("내용이 비었습니다.")
+                } else {
+                    fetch(`/boards/${boardId}/comments/${commentId}`, {
+                        method: 'PUT',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            content: editedContent,
+                        }),
+                    });
+
+                    // 원래 내용으로 대체
+                    content.innerText = editedContent;
+                    content.style.display = 'block';
+                    commentContainer.removeChild(editContent);
+                    commentContainer.removeChild(updateBtnAlign);
+                }
+            });
+
+            const cancelBtn = document.createElement('button');
+            cancelBtn.innerText = '취소';
+            cancelBtn.addEventListener('click', function() {
+                content.style.display = 'block';
+                commentContainer.removeChild(editContent);
+                commentContainer.removeChild(updateBtnAlign);
+            });
+
+            // 수정할 내용 추가
+            updateBtnAlign.appendChild(cancelBtn);
+            updateBtnAlign.appendChild(updateBtn);
+            commentContainer.insertBefore(updateBtnAlign, content.nextSibling);
+            commentContainer.insertBefore(editContent, content.nextSibling);
         });
     });
 });
 
-function closeEDialog() {
-    const editDialog = document.getElementById("editDialog");
-    editDialog.close();
+// 모든 수정 창 닫기
+function closeAllEditDialogs() {
+    const editContents = document.querySelectorAll('.update-content');
+    editContents.forEach(function(content) {
+        const commentContainer = content.closest('.comment-container');
+        const originalContent = commentContainer.querySelector('.content');
+        originalContent.style.display = 'block';
+        commentContainer.removeChild(content.nextSibling);
+        commentContainer.removeChild(content);
+    });
 }
 
-// 댓글 수정
-function updateComment() {
-    const boardId = document.getElementById("dialogBoardId").value;
-    const commentId = document.getElementById("dialogCommentId").value;
-    const editedContent = document.getElementById("dialogCommentContent").value;
-
-    const xhr = new XMLHttpRequest();
-    xhr.open("PUT", "/boards/" + boardId + "/comments/" + commentId, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            closeEDialog();
-            location.reload();
-        } else {
-            console.error(xhr.responseText);
-        }
-    };
-    xhr.send(JSON.stringify({ content: editedContent }));
-}
 
 // 댓글 삭제
 function deleteComment() {
@@ -73,7 +101,7 @@ function deleteComment() {
     xhr.open("DELETE", "/boards/" + boardId + "/comments/" + commentId, true);
     xhr.onload = function () {
         if (xhr.status === 200) {
-            location.reload();
+            commentArea.classList.add("display-none");
         } else {
             console.error(xhr.responseText);
         }

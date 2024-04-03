@@ -70,7 +70,7 @@ public class BoardController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBoard(
-            @AuthenticationPrincipal User user,  // TODO: 인증자만 삭제 가능하도록 만들기*/
+            @AuthenticationPrincipal User user,
             @PathVariable Long id
     ) {
         Board board = boardService.findById(id);
@@ -127,28 +127,25 @@ public class BoardController {
         Model model,
         Principal principal
     ) {
-
+        // 사용자
         String username = principal != null ? principal.getName() : null;
         model.addAttribute("loggedIn", username != null);
         if (user == null) {
             // 로그인되지 않은 사용자일 경우 처리
             return "redirect:/login"; // 로그인 페이지로 리다이렉트 혹은 처리할 경로로 변경
         }
-
+        model.addAttribute("user",user);
 
         // 게시판
         Board board = boardService.findById(id);
+        boardService.updateHits(board);
         if (board == null) {
             // 게시글이 없을 경우 처리
             return "error"; // 예시: 에러 페이지로 리다이렉트
         }
-
-
-        // 게시글 정보 추가
         model.addAttribute("board", new BoardResponse(board));
-        model.addAttribute("user",user);
-        // 댓글 정보 추가
 
+        // 댓글
         List<Comment> comments = commentService.findByBoardId(id);
         List<CommentResponse> responseList = comments.stream().map(CommentResponse::new).toList();
         model.addAttribute("comments", responseList);
@@ -167,7 +164,6 @@ public class BoardController {
         model.addAttribute("like", like);
 
         // 좋아요 수
-
         int likeNum = likeService.findByBoardId(id).size();
         model.addAttribute("likeNum", likeNum);
 
