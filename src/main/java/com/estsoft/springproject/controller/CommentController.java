@@ -30,42 +30,35 @@ public class CommentController {
 
     @PostMapping
     public ResponseEntity<CommentResponse> addComment(
-        @PathVariable Long boardId,
-        @RequestBody CommentRequest request,
-        @AuthenticationPrincipal UserDetails userDetails
+            @PathVariable Long boardId,
+            @RequestBody CommentRequest request,
+            @AuthenticationPrincipal UserDetails userDetails
     ) {
-
-            Long userId = getUserIdFromUserDetails(userDetails);
-            if (userId != null) {
-                User user = userService.findById(userId);
-                if (user != null) {
-                    Board board = boardService.findById(boardId);
-                    if (board != null) {
-                        Comment comment = commentService.save(request, user, board);
-                        CommentResponse response = new CommentResponse(comment);
-                        return ResponseEntity.ok(response);
-                    } else {
-                        // 게시글이 없는 경우
-                        return ResponseEntity.notFound().build();
-                    }
+        Long userId = getUserIdFromUserDetails(userDetails);
+        if (userId != null) {
+            User user = userService.findById(userId);
+            if (user != null) {
+                Board board = boardService.findById(boardId);
+                if (board != null) {
+                    Comment parent = commentService.findById(request.getParentId());
+                    Comment comment = commentService.save(request, user, board, parent);
+                    CommentResponse response = new CommentResponse(comment);
+                    return ResponseEntity.ok(response);
+                } else {
+                    // 게시글이 없는 경우
+                    return ResponseEntity.notFound().build();
                 }
-              
             }
-      
-//           Board board = boardService.findById(boardId);
-//           Comment parent = commentService.findById(request.getParentId());
-//           Comment comment = commentService.save(request, user, board, parent);
-//           CommentResponse response = new CommentResponse(comment);
-//         return ResponseEntity.ok(response);
-            // 사용자 정보를 가져올 수 없는 경우
-//                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        // 사용자 정보를 가져올 수 없는 경우
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
+
     private Long getUserIdFromUserDetails(UserDetails userDetails) {
         if (userDetails instanceof User) {
             return ((User) userDetails).getId();
         }
         return null;
-
     }
 
     @GetMapping
