@@ -3,12 +3,14 @@ package com.estsoft.springproject.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +47,8 @@ public class UserController {
 	private final UserService userService;
 	private final BoardService boardService;
 	private final CommentService commentService;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	// @GetMapping("/mypage/{userId}")
 	// public String showUserMypage(@PathVariable Long userId, Model model,
@@ -96,9 +100,13 @@ public class UserController {
 	}
 	@Transactional
 	@PutMapping("/mypage/update/{userId}")
-	public String updateMypageInfo(@PathVariable Long userId,@ModelAttribute UserRequest userRequest){
+	public String updateMypageInfo(@PathVariable Long userId,@ModelAttribute UserRequest userRequest,Model model){
+		User user = userService.findById(userId);
+		String encodedPassword = passwordEncoder.encode(userRequest.getPassword());
+		userRequest.setPassword(encodedPassword);
 		userService.updateUserInfo(userId,userRequest);
-		return "redirect:/mypage/" + userId;
+		model.addAttribute("user",user);
+		return "redirect:/mypage";
 	}
 
 	@DeleteMapping("/mypage/{userId}")

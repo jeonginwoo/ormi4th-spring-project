@@ -138,6 +138,7 @@ public class BoardController {
 
         // 게시판
         Board board = boardService.findById(id);
+        boardService.updateHits(board);
         if (board == null) {
             // 게시글이 없을 경우 처리
             return "error"; // 예시: 에러 페이지로 리다이렉트
