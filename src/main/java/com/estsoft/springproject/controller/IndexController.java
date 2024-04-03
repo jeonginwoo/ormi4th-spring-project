@@ -35,9 +35,11 @@ public class IndexController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         String date = currentDate.format(formatter);
 
+        String query = "avg";
+
         List<TeamRanking> teamRanking = teamRankingService.getTeamRankingList(season);
         List<Schedule> schedules = scheduleService.getDailySchedules(date);
-        List<BatterRecord> records = recordService.getBatterRecordOrderByAVG(season.toString());
+        List<BatterRecord> records = recordService.getBatterRecordOrderByQuery(season.toString(), query);
 
         model.addAttribute("teamRanking", teamRanking);
         model.addAttribute("schedules", schedules);
@@ -46,6 +48,7 @@ public class IndexController {
         model.addAttribute("date", currentDate.format(DateTimeFormatter.ofPattern("MM.dd(E)", Locale.KOREAN)));
         model.addAttribute("previous", currentDate.minusDays(1));
         model.addAttribute("next", currentDate.plusDays(1));
+        model.addAttribute("query", query);
 
         return "index";
     }

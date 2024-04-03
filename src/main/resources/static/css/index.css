@@ -28,7 +28,7 @@
     margin-bottom: 30px;
 }
 
-.team-ranking-table, .schedule-table, .playerRanking {
+.team-ranking-table, .schedule-table, .player-ranking-table {
 
     padding: 20px;
     box-sizing: border-box;
@@ -52,7 +52,15 @@
 }
 
 .team-ranking-table-header p, .team-ranking-table-body p {
-    width: 60px;
+    width: 35px;
+}
+
+.team-ranking-table-header p:nth-child(7), .team-ranking-table-body p:nth-child(7) {
+    width: 55px;
+}
+
+.team-ranking-table-body {
+    padding-top: 10px;
 }
 
 .team-header {
@@ -66,7 +74,7 @@
 .team {
     display: flex;
     align-items: center;
-    justify-content: center;
+    text-align: left;
 
     width: 135px;
     gap: 10px;
@@ -81,8 +89,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    width: 200px;
+    text-align: center;
 }
 
 .emblem {
@@ -105,16 +112,20 @@
 .schedule-table-body li {
 
     height: 80px;
+    gap: 15px;
 }
 
 .away-div, .home-div {
 
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 10px;
 
-    width: 250px;
+    width: 150px;
+}
+
+.away-div {
+    justify-content: right;
 }
 
 .info-div {
@@ -122,7 +133,64 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    text-align: center;
 
-    width: 55px;
+    width: 70px;
+}
+
+.away-score, .home-score {
+    width: 20px;
+}
+
+.status {
+    width: 30px;
+}
+
+.red-text {
+    color: red;
+}
+
+.no-game {
+    width: 400px;
+    text-align: center;
+}
+
+.player-ranking-table-header li, .player-ranking-table-body li {
+
+    display: flex;
+    text-align: center;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.player-ranking-table-header li {
+    border-bottom: solid 1px black;
+}
+
+.player-ranking-table-header p {
+    width: 50px;
+}
+
+.player-ranking-table-body {
+    padding-top: 10px;
+}
+
+.blue-text {
+    color: blue;
+}
+
+.rank {
+    width: 50px;
+}
+
+.player-name {
+    width: 80px;
+    text-align: left;
+    margin-right: 20px;
+}
+
+.record {
+    width: 115px;
+    text-align: center;
+    padding-left: 55px;
 }

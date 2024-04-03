@@ -1,0 +1,43 @@
+<div class="more">
+    <a th:href="@{/record}" }>
+        더보기
+    </a>
+</div>
+<div class="table-title" th:text="'KBO리그 개인 순위'">
+</div>
+<div class="player-ranking-table-header">
+    <ul>
+        <li>
+            <p th:text="'타율'" onclick="getPlayerRanking('avg', 'batter')" th:classappend="${query} == 'avg' ? 'red-text' : ''"></p>
+            <p th:text="'안타'" onclick="getPlayerRanking('hits', 'batter')" th:classappend="${query} == 'hits' ? 'red-text' : ''"></p>
+            <p th:text="'타점'" onclick="getPlayerRanking('rbi', 'batter')" th:classappend="${query} == 'rbi' ? 'red-text' : ''"></p>
+            <p th:text="'홈런'" onclick="getPlayerRanking('hr', 'batter')" th:classappend="${query} == 'hr' ? 'red-text' : ''"></p>
+            <p th:text="'다승'" onclick="getPlayerRanking('win', 'pitcher')" th:classappend="${query} == 'win' ? 'red-text' : ''"></p>
+            <p th:text="'평자'" onclick="getPlayerRanking('era', 'pitcher')" th:classappend="${query} == 'era' ? 'red-text' : ''"></p>
+            <p th:text="'삼진'" onclick="getPlayerRanking('so', 'pitcher')" th:classappend="${query} == 'so' ? 'red-text' : ''"></p>
+            <p th:text="'구원'" onclick="getPlayerRanking('save', 'pitcher')" th:classappend="${query} == 'save' ? 'red-text' : ''"></p>
+        </li>
+    </ul>
+</div>
+<div class="player-ranking-table-body">
+    <ul>
+        <li th:each="record, status :${records}" th:if="${status.index < 10}">
+            <p class="rank" th:text="${record.rank}"></p>
+            <p class="player-name" th:text="${record.playerName}"></p>
+            <div class="team">
+                <img class="emblem" th:src="${record.emblemPath}">
+                <p th:text="${record.teamName}"></p>
+            </div>
+            <div th:switch="${query}">
+                <p th:case="'avg'" class="record" th:text="${#numbers.formatDecimal(record.avg,1,3)}"></p>
+                <p th:case="'hits'" class="record" th:text="${record.hits}"></p>
+                <p th:case="'rbi'" class="record" th:text="${record.rbi}"></p>
+                <p th:case="'hr'" class="record" th:text="${record.hr}"></p>
+                <p th:case="'win'" class="record" th:text="${record.win}"></p>
+                <p th:case="'era'" class="record" th:text="${#numbers.formatDecimal(record.era,1,2)}"></p>
+                <p th:case="'so'" class="record" th:text="${record.so}"></p>
+                <p th:case="'save'" class="record" th:text="${record.save}"></p>
+            </div>
+        </li>
+    </ul>
+</div>

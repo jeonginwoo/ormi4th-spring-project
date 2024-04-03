@@ -11,7 +11,7 @@ import java.util.List;
 public interface BatterRecordMapper {
 
     List<BatterRecord> findByPlayerId(Long playerId);
-    List<BatterRecord> getBatterRecordOrderByAVG(String season);
+    List<BatterRecord> getBatterRecordOrderByQuery(String season, String query);
     List<BatterRecord> getBattersRecord(Year season);
     List<BatterRecordDetail> getBatterRecordDetailOfAllSeason(Long playerId);
     BatterRecordDetail getCareerRecord(Long playerId);

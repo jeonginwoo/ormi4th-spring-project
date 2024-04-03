@@ -22,12 +22,13 @@ public class RecordService {
         return batterRecordMapper.findByPlayerId(playerId);
     }
 
-    public List<BatterRecord> getBatterRecordOrderByAVG(String season) {
+    public List<BatterRecord> getBatterRecordOrderByQuery(String season, String query) {
 
-        return batterRecordMapper.getBatterRecordOrderByAVG(season);
+        return batterRecordMapper.getBatterRecordOrderByQuery(season, query);
     }
 
     public List<BatterRecord> getBattersRecord(Year season) {
+
 
         return batterRecordMapper.getBattersRecord(season);
     }
@@ -40,5 +41,10 @@ public class RecordService {
     public List<PitcherRecord> getPitcherRecord(Long playerId) {
 
         return pitcherRecordMapper.findByPlayerId(playerId);
+    }
+
+    public List<PitcherRecord> getPitcherRecordOrderByQuery(String season, String query) {
+
+        return pitcherRecordMapper.getPitcherRecordOrderByQuery(season, query);
     }
 }
