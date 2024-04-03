@@ -26,7 +26,7 @@ if (updateButton) {
             body: formData,
         }).then(() => {
             alert('수정이 완료되었습니다');
-            location.replace(`/boards/`+id);
+            location.replace(`/boards/`+boardId);
         });
     });
 }

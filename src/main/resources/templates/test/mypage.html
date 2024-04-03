@@ -104,7 +104,7 @@
             <td>
                 <a th:href="@{/boards/{boardId}(boardId=${comment.board.id})}">게시글로 이동</a>
             </td>
-            <td th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td th:text="${#dates.format(comment.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
         </tr>
         </tbody>
     </table>
