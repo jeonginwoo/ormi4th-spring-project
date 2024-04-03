@@ -145,11 +145,11 @@ public class UserController {
 
 	// spring security 관련 코드
 	// 회원가입 컨트롤러
-	@PostMapping("/user")
-	public String signup(UserRequest request){
-		userService.save(request);
-		return "redirect:/login";
-	}
+	//@PostMapping("/user")
+	//public String signup(UserRequest request){
+		//userService.save(request);
+		//return "redirect:/login";
+	//}
 	//로그아웃 컨트롤러
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response){

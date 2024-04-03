@@ -20,6 +20,7 @@
     </div>
 
     <div class="right">
+        <button class="ui-button" th:onclick="|location.href='@{/mypage}'|">마이페이지</button>
         <button class="ui-button" th:if="${loggedIn}" th:onclick="|location.href='@{/logout}'|">로그아웃</button>
         <a class="ui-button" th:unless="${loggedIn}" th:href="@{/login}">로그인</a>
         <a class="ui-button" th:unless="${loggedIn}" th:href="@{/register}">회원가입</a>

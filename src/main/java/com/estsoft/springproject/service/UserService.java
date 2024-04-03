@@ -101,4 +101,10 @@ public class UserService implements UserDetailsService {
             .nickname(dto.getNickname())
             .role("user").build());
     }
+    /*
+    public boolean isNicknameAvailable(String nickname) {
+        Optional<User> user = userRepository.findByNickname(nickname);
+        return !user.isPresent(); // 사용 가능한 닉네임이면 true, 이미 사용 중이면 false 반환
+    }
+    */
 }
