@@ -70,7 +70,7 @@ public class BoardController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBoard(
-            @AuthenticationPrincipal User user,  // TODO: 인증자만 삭제 가능하도록 만들기*/
+            @AuthenticationPrincipal User user,
             @PathVariable Long id
     ) {
         Board board = boardService.findById(id);
