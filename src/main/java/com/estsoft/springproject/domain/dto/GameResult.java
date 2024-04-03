@@ -13,6 +13,7 @@ import java.util.List;
 public class GameResult {
 
     List<Schedule> dailySchedules;
+    GameInfo gameInfo;
     ScoreBoard scoreBoard;
     List<BatterLineup> awayBatterLineup;
     List<BatterLineup> homeBatterLineup;
