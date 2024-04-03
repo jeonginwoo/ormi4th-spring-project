@@ -18,21 +18,21 @@
             <ul th:each="schedule : ${result.dailySchedules}">
                 <li th:value="${schedule.id}" onclick="goToGameResult(this.value)">
                     <div class="game-selector">
-                        <span th:text="${schedule.status == 'vs'} ? '경기전' : ${schedule.status}"
+                        <span class="status" th:text="${schedule.status == 'vs'} ? '경기전' : ${schedule.status}"
                               th:classappend="${schedule.status == '종료'} ? 'red-text'"></span>
                         <div class="away-div">
                             <div class="team">
                                 <img class="emblem" th:src="${schedule.awayTeamEmblemPath}">
                                 <p th:text="${schedule.awayTeamName}"></p>
                             </div>
-                            <p th:text="${schedule.awayTeamRuns}"></p>
+                            <p th:text="${schedule.status == '종료'} ? ${schedule.awayTeamRuns}"></p>
                         </div>
                         <div class="home-div">
                             <div class="team">
                                 <img class="emblem" th:src="${schedule.homeTeamEmblemPath}">
                                 <p th:text="${schedule.homeTeamName}"></p>
                             </div>
-                            <p th:text="${schedule.homeTeamRuns}"></p>
+                            <p th:text="${schedule.status == '종료'} ? ${schedule.homeTeamRuns}"></p>
                         </div>
                     </div>
                 </li>
@@ -125,26 +125,25 @@
                         <li>
                             <div class="team">
                                 <img class="emblem" th:src="${result?.scoreBoard?.awayEmblemPath}">
-                                <p th:text="${result?.scoreBoard?.awayTeamName}"></p>
+                                <p th:text="${#strings.listSplit(result?.scoreBoard?.awayTeamName,' ')[0]}"></p>
                             </div>
-                        </li>
-                        <li th:each="value : ${#strings.arraySplit('타수 득점 안타 타점 홈런 볼넷 삼진 타율',' ')}">
-                            <p th:text="${value}"></p>
+                            <p th:each="value : ${#strings.arraySplit('타수 득점 안타 타점 홈런 볼넷 삼진 타율',' ')}"
+                               th:text="${value}"></p>
                         </li>
                     </ul>
                     <ul class="lineup-body">
                         <li th:each="batter : ${result?.awayBatterLineup}">
-                            <p th:text="${batter?.gs} != 1 ? '교' : ${batter?.order}"></p>
-                            <p th:text="${batter?.playerName}"></p>
-                            <p th:text="${batter?.position}"></p>
-                            <p th:text="${batter?.ab}"></p>
-                            <p th:text="${batter?.runs}"></p>
-                            <p th:text="${batter?.hits}"></p>
-                            <p th:text="${batter?.rbi}"></p>
-                            <p th:text="${batter?.homeruns}"></p>
-                            <p th:text="${batter?.bb}"></p>
-                            <p th:text="${batter?.so}"></p>
-                            <p th:text="${#numbers.formatDecimal(batter?.avg,1,3)}"></p>
+                            <p class="order" th:text="${batter?.gs} != 1 ? '교' : ${batter?.order}"></p>
+                            <p class="player-name" th:text="${batter?.playerName}"></p>
+                            <p class="position" th:text="${batter?.position}"></p>
+                            <p class="ab" th:text="${batter?.ab}"></p>
+                            <p class="runs" th:text="${batter?.runs}"></p>
+                            <p class="hits" th:text="${batter?.hits}"></p>
+                            <p class="rbi" th:text="${batter?.rbi}"></p>
+                            <p class="hr" th:text="${batter?.homeruns}"></p>
+                            <p class="bb" th:text="${batter?.bb}"></p>
+                            <p class="so" th:text="${batter?.so}"></p>
+                            <p class="avg" th:text="${#numbers.formatDecimal(batter?.avg,1,3)}"></p>
                         </li>
                     </ul>
                 </div>
@@ -153,26 +152,25 @@
                         <li>
                             <div class="team">
                                 <img class="emblem" th:src="${result?.scoreBoard?.homeEmblemPath}">
-                                <p th:text="${result?.scoreBoard?.homeTeamName}"></p>
+                                <p th:text="${#strings.listSplit(result?.scoreBoard?.homeTeamName,' ')[0]}"></p>
                             </div>
-                        </li>
-                        <li th:each="value : ${#strings.arraySplit('타수 득점 안타 타점 홈런 볼넷 삼진 타율',' ')}">
-                            <p th:text="${value}"></p>
+                            <p th:each="value : ${#strings.arraySplit('타수 득점 안타 타점 홈런 볼넷 삼진 타율',' ')}"
+                               th:text="${value}"></p>
                         </li>
                     </ul>
                     <ul class="lineup-body">
                         <li th:each="batter : ${result?.homeBatterLineup}">
-                            <p th:text="${batter?.gs} != 1 ? '교' : ${batter?.order}"></p>
-                            <p th:text="${batter?.playerName}"></p>
-                            <p th:text="${batter?.position}"></p>
-                            <p th:text="${batter?.ab}"></p>
-                            <p th:text="${batter?.runs}"></p>
-                            <p th:text="${batter?.hits}"></p>
-                            <p th:text="${batter?.rbi}"></p>
-                            <p th:text="${batter?.homeruns}"></p>
-                            <p th:text="${batter?.bb}"></p>
-                            <p th:text="${batter?.so}"></p>
-                            <p th:text="${#numbers.formatDecimal(batter?.avg,1,3)}"></p>
+                            <p class="order" th:text="${batter?.gs} != 1 ? '교' : ${batter?.order}"></p>
+                            <p class="player-name" th:text="${batter?.playerName}"></p>
+                            <p class="position" th:text="${batter?.position}"></p>
+                            <p class="ab" th:text="${batter?.ab}"></p>
+                            <p class="runs" th:text="${batter?.runs}"></p>
+                            <p class="hits" th:text="${batter?.hits}"></p>
+                            <p class="rbi" th:text="${batter?.rbi}"></p>
+                            <p class="hr" th:text="${batter?.homeruns}"></p>
+                            <p class="bb" th:text="${batter?.bb}"></p>
+                            <p class="so" th:text="${batter?.so}"></p>
+                            <p class="avg" th:text="${#numbers.formatDecimal(batter?.avg,1,3)}"></p>
                         </li>
                     </ul>
                 </div>
@@ -184,25 +182,38 @@
                         <li>
                             <div class="team">
                                 <img class="emblem" th:src="${result?.scoreBoard?.awayEmblemPath}">
-                                <p th:text="${result?.scoreBoard?.awayTeamName}"></p>
+                                <p th:text="${#strings.listSplit(result?.scoreBoard?.awayTeamName,' ')[0]}"></p>
                             </div>
-                        </li>
-                        <li th:each="value : ${#strings.arraySplit('이닝 피안타 실점 자책 4사구 삼진 피홈런 투구수 ERA',' ')}">
-                            <p th:text="${value}"></p>
+                            <p class="inning">이닝</p>
+                            <p class="phits">피안타</p>
+                            <p class="pruns">실점</p>
+                            <p class="er">자책</p>
+                            <p class="bb">볼넷</p>
+                            <p class="so">삼진</p>
+                            <p class="phr">피홈런</p>
+                            <p class="np">투구</p>
+                            <p class="era">ERA</p>
                         </li>
                     </ul>
                     <ul class="lineup-body">
                         <li th:each="pitcher : ${result?.awayPitcherLineup}">
-                            <p th:text="${pitcher?.playerName}"></p>
-                            <p th:text="${pitcher?.decision}"></p>
-                            <p th:text="${pitcher?.innings}"></p>
-                            <p th:text="${pitcher?.runs}"></p>
-                            <p th:text="${pitcher?.earnedRun}"></p>
-                            <p th:text="${pitcher?.bb}"></p>
-                            <p th:text="${pitcher?.so}"></p>
-                            <p th:text="${pitcher?.homeruns}"></p>
-                            <p th:text="${pitcher?.np}"></p>
-                            <p th:text="${#numbers.formatDecimal(pitcher?.era,1,2)}"></p>
+                            <div>
+                                <p th:if="${pitcher?.decision == 'W'}" class="dec blue-text" th:text="'승'"></p>
+                                <p th:if="${pitcher?.decision == 'L'}" class="dec red-text" th:text="'패'"></p>
+                                <p th:if="${pitcher?.decision == 'HD'}" class="dec" th:text="'홀'"></p>
+                                <p th:if="${pitcher?.decision == 'SV'}" class="dec green-text" th:text="'세'"></p>
+                                <p th:unless="${pitcher?.decision == 'W' or pitcher?.decision == 'L' or pitcher?.decision == 'HD' or pitcher?.decision == 'SV'}" class="dec" th:text="''"></p>
+                            </div>
+                            <p class="player-name" th:text="${pitcher?.playerName}"></p>
+                            <p class="inning" th:text="${pitcher?.innings}"></p>
+                            <p class="phits" th:text="${pitcher?.hits}"></p>
+                            <p class="pruns" th:text="${pitcher?.runs}"></p>
+                            <p class="er" th:text="${pitcher?.earnedRun}"></p>
+                            <p class="bb" th:text="${pitcher?.bb}"></p>
+                            <p class="so" th:text="${pitcher?.so}"></p>
+                            <p class="phr" th:text="${pitcher?.homeruns}"></p>
+                            <p class="np" th:text="${pitcher?.np}"></p>
+                            <p class="era" th:text="${#numbers.formatDecimal(pitcher?.era,1,2)}"></p>
                         </li>
                     </ul>
                 </div>
@@ -211,25 +222,38 @@
                         <li>
                             <div class="team">
                                 <img class="emblem" th:src="${result?.scoreBoard?.homeEmblemPath}">
-                                <p th:text="${result?.scoreBoard?.homeTeamName}"></p>
+                                <p th:text="${#strings.listSplit(result?.scoreBoard?.awayTeamName,' ')[0]}"></p>
                             </div>
-                        </li>
-                        <li th:each="value : ${#strings.arraySplit('이닝 피안타 실점 자책 4사구 삼진 피홈런 투구수 ERA',' ')}">
-                            <p th:text="${value}"></p>
+                            <p class="inning">이닝</p>
+                            <p class="phits">피안타</p>
+                            <p class="pruns">실점</p>
+                            <p class="er">자책</p>
+                            <p class="bb">볼넷</p>
+                            <p class="so">삼진</p>
+                            <p class="phr">피홈런</p>
+                            <p class="np">투구</p>
+                            <p class="era">ERA</p>
                         </li>
                     </ul>
                     <ul class="lineup-body">
                         <li th:each="pitcher : ${result?.homePitcherLineup}">
-                            <p th:text="${pitcher?.playerName}"></p>
-                            <p th:text="${pitcher?.decision}"></p>
-                            <p th:text="${pitcher?.innings}"></p>
-                            <p th:text="${pitcher?.runs}"></p>
-                            <p th:text="${pitcher?.earnedRun}"></p>
-                            <p th:text="${pitcher?.bb}"></p>
-                            <p th:text="${pitcher?.so}"></p>
-                            <p th:text="${pitcher?.homeruns}"></p>
-                            <p th:text="${pitcher?.np}"></p>
-                            <p th:text="${#numbers.formatDecimal(pitcher?.era,1,2)}"></p>
+                            <div>
+                                <p th:if="${pitcher?.decision == 'W'}" class="dec blue-text" th:text="'승'"></p>
+                                <p th:if="${pitcher?.decision == 'L'}" class="dec red-text" th:text="'패'"></p>
+                                <p th:if="${pitcher?.decision == 'HD'}" class="dec" th:text="'홀'"></p>
+                                <p th:if="${pitcher?.decision == 'SV'}" class="dec green-text" th:text="'세'"></p>
+                                <p th:unless="${pitcher?.decision == 'W' or pitcher?.decision == 'L' or pitcher?.decision == 'HD' or pitcher?.decision == 'SV'}" class="dec" th:text="''"></p>
+                            </div>
+                            <p class="player-name" th:text="${pitcher?.playerName}"></p>
+                            <p class="inning" th:text="${pitcher?.innings}"></p>
+                            <p class="phits" th:text="${pitcher?.hits}"></p>
+                            <p class="pruns" th:text="${pitcher?.runs}"></p>
+                            <p class="er" th:text="${pitcher?.earnedRun}"></p>
+                            <p class="bb" th:text="${pitcher?.bb}"></p>
+                            <p class="so" th:text="${pitcher?.so}"></p>
+                            <p class="phr" th:text="${pitcher?.homeruns}"></p>
+                            <p class="np" th:text="${pitcher?.np}"></p>
+                            <p class="era" th:text="${#numbers.formatDecimal(pitcher?.era,1,2)}"></p>
                         </li>
                     </ul>
                 </div>

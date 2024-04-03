@@ -19,12 +19,19 @@
 
 .game-selector {
 
+    display: flex;
+    flex-direction: column;
+
     width: 340px;
     height: 200px;
     padding: 24px;
 
     border-radius: 20px;
     box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
+}
+
+.status {
+    padding-bottom: 10px;
 }
 
 .game-selector p {
@@ -50,8 +57,7 @@
 }
 
 .emblem {
-    width: 65px;
-    height: 50px;
+    width: 50px;
     background-color: #fff;
 }
 
@@ -167,15 +173,58 @@
     margin: 0 30px 30px 30px;
 }
 
-.lineup-header,  .lineup-body li {
+.lineup-header li,  .lineup-body li {
     display: flex;
     align-items: center;
+    text-align: center;
 
-    gap: 10px;
+    padding-bottom: 10px;
 }
 
 .away-batter-lineup, .away-pitcher-lineup, .home-pitcher-lineup, .home-batter-lineup {
 
     border-radius: 20px;
     box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
+}
+
+.batter-lineup .lineup-header p {
+    width:50px;
+}
+
+.player-name {
+    width: 100px;
+    text-align: left;
+}
+
+.avg, .era {
+    text-align: left;
+    width: 65px;
+}
+
+.order, .position, .ab, .runs, .hits, .rbi, .hr, .bb, .so {
+    width: 50px;
+}
+
+.pitcher-lineup .team {
+    width: 130px;
+}
+
+.inning, .er, .dec, .pruns, .np {
+    width: 50px;
+}
+
+.phits, .phr {
+    width: 60px;
+}
+
+.pitcher-lineup .player-name {
+    width: 80px;
+}
+
+.green-text {
+    color: green;
+}
+
+.blue-text {
+    color: blue;
 }
