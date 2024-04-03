@@ -1,0 +1,141 @@
+body {
+    background-image: url("../images/character/삼성.jpg");
+    background-repeat: no-repeat;
+
+    background-position: right bottom;
+    background-attachment: fixed;
+
+    background-size : 800px 600px;
+}
+
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 100px;
+    gap: 50px;
+}
+
+.board-table-section {
+
+    padding: 30px;
+
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
+
+    background-color: #074CA1;
+}
+
+.board-table-section p, .board-table-section a, .board-table-section button {
+    color: white;
+}
+
+.board-controls{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px;
+    border-bottom: solid 1px white;
+}
+
+.ui-button{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: auto;
+    border: none;
+}
+
+.table-title {
+    font-size: 40px;
+    padding: 20px 10px;
+}
+
+.catch-phrase {
+    width: 1000px;
+    padding: 30px 0;
+}
+
+.lions-color {
+    color: #ffffff;
+}
+
+.board-table-header li {
+
+    display: flex;
+    padding: 10px 0;
+    text-align: center;
+
+    border-bottom: solid 1px white;
+}
+
+.board-table-body li {
+
+    display: flex;
+    padding: 10px 0 10px 0px;
+    text-align: center;
+}
+
+.no {
+    width: 60px;
+    margin: 0 10px;
+}
+
+.title {
+    width: 500px;
+    text-align: left;
+}
+
+.author {
+    width: 170px;
+}
+
+.create-time {
+    width: 170px;
+}
+
+.hits {
+    width: 60px;
+    margin: 0 10px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.page-item {
+    margin: 0 2px;
+    list-style: none;
+}
+
+.page-link {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    color: white;
+    background-color: transparent;
+    border: 1px solid var(--gray3);
+    border-radius: 0.25rem;
+    text-decoration: none;
+}
+
+.page-link:hover {
+    background-color: var(--gray1);
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: var(--gray3);
+    background-color: white;
+    border-color: var(--gray2);
+}
+
+.page-item.disabled .page-link {
+    pointer-events: none;
+    color: var(--gray3);
+    background-color: var(--white);
+    border-color: var(--gray2);
+}

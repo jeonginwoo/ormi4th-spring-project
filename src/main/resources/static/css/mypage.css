@@ -1,0 +1,117 @@
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 100px;
+    gap: 50px;
+}
+
+.user-info-section, .board-table-section, .comment-table-section {
+
+    width: 800px;
+    padding: 30px;
+
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
+}
+
+.user-info-section p {
+    font-size: 30px;
+    padding-bottom: 10px;
+}
+
+.btn-div {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+
+    gap: 20px;
+}
+
+.table-title {
+    font-size: 30px;
+
+    padding-bottom: 10px;
+}
+
+.board-table-header, .comment-table-header {
+
+    display: flex;
+    padding: 10px 0;
+    text-align: center;
+
+    border-bottom: solid 1px black;
+}
+
+.board-table-body li, .comment-table-body li {
+
+    display: flex;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.no {
+    width: 60px;
+}
+
+.content {
+    width: 200px;
+}
+
+.title {
+    width: 500px;
+    text-align: left;
+}
+
+.create-time {
+    width: 180px;
+}
+
+.comment {
+    width: 400px;
+    text-align: left;
+}
+
+.move {
+    width: 100px;
+}
+
+.pagination {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.pagination li {
+    display: inline-block;
+    margin-right: 5px;
+}
+.pagination li a:hover,
+.pagination li button.page-number:hover {
+    cursor: pointer;
+}
+
+.pagination button.page-number,
+.pagination a.page-number {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.pagination li.active button.page-number,
+.pagination li.active a.page-number {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.pagination li.disabled button.page-number,
+.pagination li.disabled a.page-number {
+    color: #ddd;
+}
