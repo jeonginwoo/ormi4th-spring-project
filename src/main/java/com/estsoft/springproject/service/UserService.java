@@ -21,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +34,8 @@ public class UserService implements UserDetailsService {
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
     private BCryptPasswordEncoder encoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     public UserService(UserRepository userRepository, BoardRepository boardRepository,
         CommentRepository commentRepository,
@@ -98,4 +101,10 @@ public class UserService implements UserDetailsService {
             .nickname(dto.getNickname())
             .role("user").build());
     }
+    /*
+    public boolean isNicknameAvailable(String nickname) {
+        Optional<User> user = userRepository.findByNickname(nickname);
+        return !user.isPresent(); // 사용 가능한 닉네임이면 true, 이미 사용 중이면 false 반환
+    }
+    */
 }
