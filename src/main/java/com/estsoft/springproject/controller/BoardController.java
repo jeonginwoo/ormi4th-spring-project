@@ -164,7 +164,6 @@ public class BoardController {
         model.addAttribute("like", like);
 
         // 좋아요 수
-
         int likeNum = likeService.findByBoardId(id).size();
         model.addAttribute("likeNum", likeNum);
 
