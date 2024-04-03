@@ -45,4 +45,16 @@
         where date(s.match_date) = #{date}
         order by s.match_date
     </select>
+
+    <select id="getGameInfo" resultType="com.estsoft.springproject.domain.dto.GameInfo">
+        select away_team.name as awayTeamName, away_team.emblem_path as awayEmblemPath,
+               home_team.name as homeTeamName, home_team.emblem_path as homeEmblemPath,
+               s.status as `status`, s.stadium as stadium, DATE_FORMAT(time(s.match_date), '%m.%d') as `date`,
+               DATE_FORMAT(time(s.match_date), '%H:%i') as `time`
+        from `schedule` s
+                 inner join team away_team on away_team.id = s.away_team_id
+                 inner join team home_team on home_team.id = s.home_team_id
+        where s.id = #{gameCode}
+        order by s.match_date;
+    </select>
 </mapper>
