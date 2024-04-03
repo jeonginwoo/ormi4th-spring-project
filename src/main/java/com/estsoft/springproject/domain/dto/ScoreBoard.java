@@ -13,20 +13,11 @@ import java.util.List;
 @AllArgsConstructor
 public class ScoreBoard {
 
-    private String status;
-    private String stadium;
-    private String time;
-
-    private String awayTeamName;
-    private String awayEmblemPath;
     private int awayRuns;
     private String awayStats;
+    private String awayScore;
 
-    private String homeTeamName;
-    private String homeEmblemPath;
     private int homeRuns;
     private String homeStats;
-
-    private String awayScore;
     private String homeScore;
 }

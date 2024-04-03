@@ -32,6 +32,7 @@ public class GameResultService {
 
         GameResult gameResult = GameResult.builder()
                 .dailySchedules(scheduleMapper.getDailySchedules(matchDate))
+                .gameInfo(scheduleMapper.getGameInfo(gameCode))
                 .scoreBoard(scoreBoardMapper.findById(gameCode))
                 .awayBatterLineup(batterLineupMapper.getBatterLineup(gameCode, awayTeamId))
                 .homeBatterLineup(batterLineupMapper.getBatterLineup(gameCode, homeTeamId))
