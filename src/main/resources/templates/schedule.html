@@ -75,7 +75,8 @@
                         <img class="emblem" th:src="${schedule.homeTeamEmblemPath}">
                         <p th:text="${#strings.listSplit(schedule.homeTeamName,' ')[0]}"></p>
                     </div>
-                    <button class="record game-result-button" th:value="${schedule.id}" onclick="goToGameResult(this.value)">기록</button>
+                    <button class="record game-result-button" th:text="'click'"
+                            th:value="${schedule.id}" onclick="goToGameResult(this.value)"></button>
                     <p class="stadium" th:text="${schedule.stadium}"></p>
                 </li>
             </ul>
