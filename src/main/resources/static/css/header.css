@@ -18,7 +18,7 @@ header {
     align-items: center;
     border-bottom: 1px solid #ccc;
 
-    padding: 20px 100px 20px 100px;
+    padding: 20px 80px;
 }
 
 .left {
@@ -57,11 +57,52 @@ header {
     cursor: pointer;
 }
 
-.home-logo {
+.home {
     display: flex;
+    align-items: center;
     gap: 10px;
+}
+
+.logo {
+    width:80px;
 }
 
 .menu {
     gap: 80px
+}
+
+.login {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dropdown-options {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    overflow: auto;
+}
+
+.dropdown:hover .dropdown-options {
+    display: block;
+}
+
+.dropdown {
+    display: inline-block;
+}
+
+.dropdown-options li {
+
+    padding: 12px 16px;
+}
+
+.dropdown-options li:hover {
+    background-color: #ddd;
+}
+
+.menu a, .login a, .dropdown p {
+    font-size: 24px;
 }
