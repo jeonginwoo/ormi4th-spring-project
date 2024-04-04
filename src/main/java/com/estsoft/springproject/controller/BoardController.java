@@ -2,6 +2,7 @@ package com.estsoft.springproject.controller;
 
 
 import com.estsoft.springproject.domain.dto.CommentResponse;
+import com.estsoft.springproject.domain.dto.TeamId;
 import com.estsoft.springproject.domain.entity.Board;
 import com.estsoft.springproject.domain.entity.Comment;
 import com.estsoft.springproject.domain.entity.Like;
@@ -106,13 +107,15 @@ public class BoardController {
     @GetMapping
     public String showBoards(
             Model model,
-            @RequestParam(value = "page", defaultValue = "1") int page,
-            Principal principal
+            @RequestParam(value="page", defaultValue="1") int page,
+            String team
     ) {
-        String username = principal != null ? principal.getName() : null;
-        model.addAttribute("loggedIn", username != null);
+
         Page<Board> paging = this.boardService.findAll(page);
         model.addAttribute("paging", paging);
+        model.addAttribute("team",team);
+        model.addAttribute("teamFullName", TeamId.valueOf(team).getFullName());
+        model.addAttribute("color", TeamId.valueOf(team).getColor());
 
         return "boardList";
     }
@@ -201,8 +204,9 @@ public class BoardController {
             boards = boardService.findByTitle(searchQuery, page);
         }
         model.addAttribute("paging", boards);
-        model.addAttribute("searchType", searchType);
-        model.addAttribute("searchQuery", searchQuery);
-        return "test/boardConditionList";
+
+        model.addAttribute("searchType",searchType);
+        model.addAttribute("searchQuery",searchQuery);
+        return "boardConditionList";
     }
 }

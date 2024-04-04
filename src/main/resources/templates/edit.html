@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<th:block layout:fragment="head">
+    <title>정보 수정</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet"/>
+    <link th:href="@{/css/edit.css}" rel="stylesheet"/>
+</th:block>
+
+<body>
+<header th:replace="~{/fragments/header}"></header>
+<article th:fragment="content">
+    <div class="wrap">
+        <section class="edit-section">
+            <h1>정보 수정</h1>
+            <form th:action="@{/mypage/update/{userId}(userId=${user.id})}" method="post">
+                <input type="hidden" name="_method" value="put" />
+                <div>
+                    <label for="email">이메일:</label>
+                    <input type="email" id="email" name="email" th:value="${user.email}" required/>
+                </div>
+                <div>
+                    <label for="nickname">닉네임:</label>
+                    <input type="text" id="nickname" name="nickname" th:value="${user.nickname}" required/>
+                </div>
+                <div>
+                    <label for="password">새 비밀번호:</label>
+                    <input type="password" id="password" name="password"/>
+                    <span>(변경을 원치 않으면 비워 두세요)</span>
+                </div>
+                <button type="submit">저장</button>
+            </form>
+        </section>
+    </div>
+</article>
+</body>
+</html>
