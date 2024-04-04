@@ -47,8 +47,6 @@
     </div>
 </section>
 
-<!-- JavaScript 코드 -->
-
 <script>
     document.getElementById("signup-form").addEventListener("submit", async function(event) {
         event.preventDefault(); // 폼 제출을 일단 방지
@@ -96,7 +94,7 @@
             }
         }
 
-// 폼 제출 이벤트 리스너 내부에서 checkNicknameAvailability 함수 호출
+        // 폼 제출 이벤트 리스너 내부에서 checkNicknameAvailability 함수 호출
         const isNicknameAvailable = await checkNicknameAvailability();
         if (!isNicknameAvailable) {
             return; // 중복된 닉네임이 있거나 오류가 발생한 경우, 여기서 함수 종료

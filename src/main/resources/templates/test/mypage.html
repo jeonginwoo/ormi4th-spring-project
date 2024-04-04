@@ -50,7 +50,6 @@
                             <span>이전</span>
                         </a>
                     </li>
-
                     <!-- 페이지 번호 표시 -->
                     <li th:each="page : ${#numbers.sequence(1, boardPage.totalPages)}"
                         th:classappend="${boardPage.number + 1 == page} ? 'active'">
@@ -60,7 +59,6 @@
                             <button type="submit" class="page-link" th:text="${page}"></button>
                         </form>
                     </li>
-
                     <!-- 다음 페이지 버튼 -->
                     <li class="page-item" th:classappend="${boardPage.hasNext()} ? '' : 'disabled'">
                     <a class="page-link" th:href="@{/mypage(boardPage=${boardPage.totalPages < boardPage.number + 2 ? boardPage.number + 1 : boardPage.number + 2}, commentPage=${commentPage.number+1})}" th:disabled="${!boardPage.hasNext()}">
@@ -70,8 +68,6 @@
                 </ul>
             </div>
         </section>
-
-
         <section class="comment-table-section">
             <h3 class="table-title">내가 작성한 댓글</h3>
             <ul class="comment-table-header">
@@ -116,7 +112,6 @@
                 </ul>
             </div>
         </section>
-
     </div>
 </article>
 </body>
