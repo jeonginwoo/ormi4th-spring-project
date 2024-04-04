@@ -21,6 +21,8 @@ public class CommentResponse {
     private Long userId;
     private Long boardId;
     private Long parentId;
+    private boolean isLike;
+    private int likeNum;
 
     public CommentResponse(Comment comment) {
         this.commentId = comment.getId();

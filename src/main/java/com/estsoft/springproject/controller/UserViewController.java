@@ -42,13 +42,13 @@ public class UserViewController {
 			bindingResult.rejectValue("email", "error.userRequest", "올바른 이메일 주소를 입력하세요.");
 			return "test/signup";
 		}
-		/*
+
 		boolean isNicknameAvailable = userService.isNicknameAvailable(request.getNickname());
 		if (!isNicknameAvailable) {
 			bindingResult.rejectValue("nickname", "error.userRequest", "이미 사용 중인 닉네임입니다.");
 			return "test/signup";
 		}
-		*/
+
 		Pattern passwordPattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&~]{8,}$");
 		if (!passwordPattern.matcher(request.getPassword()).matches()) {
 			bindingResult.rejectValue("password", "error.userRequest", "비밀번호는 영어소문자, 숫자, 특수문자를 포함하여 8자 이상이어야 합니다.");
@@ -60,13 +60,13 @@ public class UserViewController {
 	}
 
 	// 닉네임 중복 검사를 위한 메서드 추가
-	/*
+
 	@GetMapping("/checkNicknameAvailability")
 	@ResponseBody
 	public ResponseEntity<?> checkNicknameAvailability(@RequestParam String nickname) {
 		boolean isAvailable = userService.isNicknameAvailable(nickname);
 		return ResponseEntity.ok().body(Map.of("available", isAvailable));
 	}
-	*/
+
 
 }

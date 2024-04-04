@@ -65,24 +65,24 @@ public class UserController {
 	// 	return "test/mypage"+userId;
 	// }
 	@GetMapping("/mypage")
-	public String myPage(Model model,@AuthenticationPrincipal UserDetails userDetails) {
+	public String myPage(@RequestParam(defaultValue = "1") int boardPage,@RequestParam(defaultValue = "1") int commentPage, Model model, @AuthenticationPrincipal UserDetails userDetails) {
 
-		if (userDetails!=null) {
+		if (userDetails != null) {
 			Long userId = getUserIdFromUserDetails(userDetails);
-
-			if (userId!=null) {
-					Page<Board> boardPageResult = userService.getUserBoardsPaged(userId, 1);
-					Page<Comment> commentPageResult = userService.getUserCommentsPaged(userId, 1);
-					User user = userService.findById(userId);
-					model.addAttribute("boardPage", boardPageResult);
-					model.addAttribute("commentPage", commentPageResult);
-					model.addAttribute("user", user);
-					return "test/mypage";
+			if (userId != null) {
+				Page<Board> boardPageResult = userService.getUserBoardsPaged(userId, boardPage);
+				Page<Comment> commentPageResult = userService.getUserCommentsPaged(userId, commentPage);
+				User user = userService.findById(userId);
+				model.addAttribute("boardPage", boardPageResult);
+				model.addAttribute("commentPage", commentPageResult);
+				model.addAttribute("user", user);
+				return "test/mypage";
 			}
 		}
 		// 사용자를 찾을 수 없거나 인증되지 않은 경우, 로그인 페이지로 리다이렉트 또는 다른 처리
 		return "redirect:/login";
 	}
+
 
 	private Long getUserIdFromUserDetails(UserDetails userDetails) {
 		if (userDetails instanceof User) {

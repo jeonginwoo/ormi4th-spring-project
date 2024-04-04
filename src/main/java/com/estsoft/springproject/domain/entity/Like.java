@@ -21,7 +21,11 @@ public class Like implements Serializable {
     private User user;
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
-    private Board board;
+    @Column(name = "content_id")
+    private Long contentId;
+
+    @Id
+    @Column(name = "content_type")
+    private String contentType;     // board or comment
 }
+

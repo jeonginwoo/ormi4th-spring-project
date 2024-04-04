@@ -56,11 +56,11 @@ if (createButton) {
         formData.append('title', title);
         formData.append('content', content);
 
-        if (title == "" && content == "") {
+        if (title === "" && content === "") {
             alert('제목과 내용을 적어주세요.');
-        } else if (title == "") {
+        } else if (title === "") {
             alert('제목이 비었습니다.');
-        } else if (content == "") {
+        } else if (content === "") {
             alert('내용이 비었습니다.');
         } else {
             fetch(`/boards`, {
