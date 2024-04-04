@@ -16,15 +16,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/boards/{id}")
 public class LikeController {
     private final LikeService likeService;
-    private final UserService userService;      // TODO: 테스트용. 나중에 지울 것!
+    private final UserService userService;
 
     @PostMapping("/like")
     public ResponseEntity<LikeResponse> addLike(
-            /*@AuthenticationPrincipal User user,    // TODO: 로그인한 사람만 게시글 생성 가능*/
+            @AuthenticationPrincipal User user,
             @RequestBody LikeRequest request
     ) {
-        User user = userService.findById(4L);       // TODO: 테스트용. 나중에 지울 것!
-        Like like = new Like(user, request.getContentId(), request.getContentType());
+        Like like = new Like(userService.findById(user.getId()), request.getContentId(), request.getContentType());
         likeService.addLike(like);
         LikeResponse response = new LikeResponse(like);
         return ResponseEntity.ok(response);
