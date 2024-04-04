@@ -44,38 +44,34 @@
             </ul>
             <div th:if="${boardPage.totalPages > 0}">
                 <ul class="pagination">
-                    <li class="page-item" th:classappend="${not boardPage.hasPrevious()} ? 'disabled'">
-                        <a class="page-link" th:href="@{|/mypage/${userId}?boardPage=0|}">
-                            <span>처음</span>
-                        </a>
-                    </li>
-                    <li class="page-item" th:classappend="${not boardPage.hasPrevious()} ? 'disabled'">
-                        <a class="page-link" th:href="@{|/mypage/${userId}?boardPage=${boardPage.number - 1}|}">
+                    <!-- 이전 페이지 버튼 -->
+                    <li class="page-item" th:classappend="${boardPage.hasPrevious()} ? '' : 'disabled'">
+                    <a class="page-link" th:href="@{/mypage(boardPage=${boardPage.number > 0 ? boardPage.number : 1}, commentPage=${commentPage.number+1})}" th:disabled="${boardPage.number == 0}">
                             <span>이전</span>
                         </a>
                     </li>
+
                     <!-- 페이지 번호 표시 -->
-                    <li th:each="page : ${#numbers.sequence(0, boardPage.totalPages - 1)}"
-                        th:classappend="${boardPage.number == page} ? 'active'">
-                        <form th:action="@{|/mypage/${userId}|}" method="get">
-                            <input type="hidden" name="boardPage" th:value="${page + 1}" />
-                            <button type="submit" class="page-number" th:text="${page + 1}"></button>
+                    <li th:each="page : ${#numbers.sequence(1, boardPage.totalPages)}"
+                        th:classappend="${boardPage.number + 1 == page} ? 'active'">
+                        <form th:action="@{/mypage}" method="get">
+                            <input type="hidden" name="boardPage" th:value="${page}" />
+                            <input type="hidden" name="commentPage" th:value="${commentPage.number}" />
+                            <button type="submit" class="page-link" th:text="${page}"></button>
                         </form>
                     </li>
 
-                    <li class="page-item" th:classappend="${not boardPage.hasNext()} ? 'disabled'">
-                        <a class="page-link" th:href="@{|/mypage/${userId}?boardPage=${boardPage.number + 1}|}">
+                    <!-- 다음 페이지 버튼 -->
+                    <li class="page-item" th:classappend="${boardPage.hasNext()} ? '' : 'disabled'">
+                    <a class="page-link" th:href="@{/mypage(boardPage=${boardPage.totalPages < boardPage.number + 2 ? boardPage.number + 1 : boardPage.number + 2}, commentPage=${commentPage.number+1})}" th:disabled="${!boardPage.hasNext()}">
                             <span>다음</span>
-                        </a>
-                    </li>
-                    <li class="page-item" th:classappend="${not boardPage.hasNext()} ? 'disabled'">
-                        <a class="page-link" th:href="@{|/mypage/${userId}?boardPage=${boardPage.totalPages - 1}|}">
-                            <span>마지막</span>
                         </a>
                     </li>
                 </ul>
             </div>
         </section>
+
+
         <section class="comment-table-section">
             <h3 class="table-title">내가 작성한 댓글</h3>
             <ul class="comment-table-header">
@@ -94,34 +90,33 @@
             </ul>
             <div th:if="${commentPage.totalPages > 0}">
                 <ul class="pagination">
-                    <li class="page-item" th:classappend="${not commentPage.hasPrevious()} ? 'disabled'">
-                        <a class="page-link" th:href="@{|/mypage/${userId}?commentPage=0|}">
-                            <span>처음</span>
-                        </a>
-                    </li>
-                    <li class="page-item" th:classappend="${not commentPage.hasPrevious()} ? 'disabled'">
-                        <a class="page-link" th:href="@{|/mypage/${userId}?commentPage=${commentPage.number - 1}|}">
+                    <!-- 이전 페이지 버튼 -->
+                    <li class="page-item" th:classappend="${commentPage.hasPrevious() ? '' : 'disabled'}">
+                        <a class="page-link" th:href="@{/mypage(boardPage=${boardPage.number+1}, commentPage=${commentPage.number  > 0 ? commentPage.number: 1})}">
                             <span>이전</span>
                         </a>
                     </li>
+
                     <!-- 페이지 번호 표시 -->
-                    <li th:each="page : ${#numbers.sequence(0, commentPage.totalPages - 1)}"
-                        th:classappend="${commentPage.number == page} ? 'active'">
-                        <a class="page-number" th:href="@{|/mypage/${userId}?commentPage=${page}|}" th:text="${page + 1}"></a>
+                    <li th:each="page : ${#numbers.sequence(1, commentPage.totalPages)}"
+                        th:classappend="${commentPage.number + 1 == page ? 'active' : ''}">
+                        <form th:action="@{/mypage}" method="get">
+                            <input type="hidden" name="boardPage" th:value="${boardPage.number}" />
+                            <input type="hidden" name="commentPage" th:value="${page}" />
+                            <button type="submit" class="page-link" th:text="${page}"></button>
+                        </form>
                     </li>
-                    <li class="page-item" th:classappend="${not commentPage.hasNext()} ? 'disabled'">
-                        <a class="page-link" th:href="@{|/mypage/${userId}?commentPage=${commentPage.number + 1}|}">
+
+                    <!-- 다음 페이지 버튼 -->
+                    <li class="page-item" th:classappend="${commentPage.hasNext() ? '' : 'disabled'}">
+                        <a class="page-link" th:href="@{/mypage(boardPage=${boardPage.number+1}, commentPage=${commentPage.totalPages > commentPage.number + 2 ? commentPage.number + 2 : commentPage.totalPages})}">
                             <span>다음</span>
-                        </a>
-                    </li>
-                    <li class="page-item" th:classappend="${not commentPage.hasNext()} ? 'disabled'">
-                        <a class="page-link" th:href="@{|/mypage/${userId}?commentPage=${commentPage.totalPages - 1}|}">
-                            <span>마지막</span>
                         </a>
                     </li>
                 </ul>
             </div>
         </section>
+
     </div>
 </article>
 </body>
