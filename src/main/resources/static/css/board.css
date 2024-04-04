@@ -1,0 +1,175 @@
+body {
+    background-image: url("../images/character/삼성.jpg");
+    background-repeat: no-repeat;
+
+    background-position: right bottom;
+    background-attachment: fixed;
+
+    background-size : 800px 600px;
+}
+
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 100px;
+}
+
+.board-section {
+
+    width: 1060px;
+
+    margin: 5px 0;
+    padding: 10px 20px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+
+}
+
+.board-header li {
+
+    display: flex;
+    padding: 10px 0;
+    align-items: center;
+    justify-content: right;
+    text-align: center;
+}
+
+.board-buttons {
+
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    gap: 20px;
+}
+
+.title{
+    font-size: 20px;
+
+    padding-bottom: 10px;
+    border-bottom: solid 1px lightgray;
+}
+
+.content {
+    padding: 10px 15px;
+    margin: 3px 0 12px;
+    background: #e3eee1;
+    border-radius: 5px;
+    width: 100%;
+}
+
+#viewer {
+    min-height: 300px;
+    margin-bottom: 10px;
+    border-bottom: solid 1px lightgray;
+}
+
+.toastui-editor-contents {
+    font-size: 17px;
+}
+
+.comment-input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+
+.comment-content {
+    padding: 5px 10px;
+    margin-right: 10px;
+    width: 100%;
+    min-height: 40px;
+    max-height: 150px;
+    border: 1px solid #b2b2b2;
+    border-radius: 5px;
+    font-size: 15px;
+    resize: none; /* 리사이즈 비활성화 */
+    overflow-y: auto; /* 내용이 최대 높이를 넘어갈 경우 스크롤 표시 */
+    box-sizing: border-box; /* 패딩 및 테두리 포함하여 크기 계산 */
+}
+
+.comment-btn {
+    width: 70px;
+    height: 40px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.child-container {
+    padding-left: 30px;
+    margin-top: 10px;
+}
+
+.display-none {
+    display: none;
+}
+
+.display-flex {
+    display: flex;
+}
+
+summary {
+    width: fit-content;
+    padding: 3px 10px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    border: 1px solid rgba(0,0,0,0);
+    transition: border-color 0.2s ease;
+}
+
+summary:hover {
+    background: #e1e9ee;
+    border: 1px solid #3192d7;
+    cursor: pointer;    /* 손가락 포인터로 변경 */
+    user-select: none;  /* 드래그 막기 */
+}
+
+.child-input {
+    align-items: center;
+    margin: 15px 0 10px;
+}
+
+.child-content {
+    flex: 1;
+    width: 80%;
+    height: 40px;
+    resize: none;
+    margin-right: 10px;
+    border: 1px solid #b2b2b2;
+    border-radius: 5px;
+}
+
+.comment-info {
+    color: #b2b2b2;
+    font-size: 10px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 40px;
+    border: 1px solid #b2b2b2;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.update-content {
+    padding: 10px 15px;
+    margin-top: 3px;
+}
+
+.comment-content {
+    padding: 5px 10px;
+    margin-right: 10px;
+}
+
+
+.btn-align {
+    text-align: right;
+}

@@ -167,7 +167,7 @@ public class BoardController {
         int likeNum = likeService.findByBoardId(id).size();
         model.addAttribute("likeNum", likeNum);
 
-        return "test/board";
+        return "board";
     }
 
 
