@@ -30,6 +30,14 @@ public class BoardService {
         return this.boardRepository.findAll(pageable);
     }
 
+    public Page<Board> findByTeam(int page, String team) {
+
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("id"));
+        Pageable pageable = PageRequest.of(page - 1, 10, Sort.by(sorts));
+        return this.boardRepository.findByTeam(pageable, team);
+    }
+
     public Board findById(Long id) {
         return boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found id" + id));
     }
