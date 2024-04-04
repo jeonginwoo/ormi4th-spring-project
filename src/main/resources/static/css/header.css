@@ -7,11 +7,6 @@
     --black: black;
 }
 
-body {
-    margin: auto;
-    padding: 0 20px;
-}
-
 header {
     display: flex;
     justify-content: space-between;
@@ -21,40 +16,9 @@ header {
     padding: 20px 80px;
 }
 
-.left {
-    display: flex;
-    align-items: center;
-}
-
-.left button {
-    font-size: 24px;
-    border: none;
-    background: none;
-    cursor: pointer;
-}
-
-.left img {
-    width: 50px;
-    margin-right: 10px;
-}
-
 .menu {
     display: flex;
     margin-left: 10px;
-}
-
-.menu button {
-    margin-right: 5px;
-    font-size: 16px;
-}
-
-.right button {
-    padding: 8px 16px;
-    font-size: 14px;
-    border: none;
-    background-color: white;
-    color: black;
-    cursor: pointer;
 }
 
 .home {
@@ -68,7 +32,7 @@ header {
 }
 
 .menu {
-    gap: 150px
+    gap: 80px
 }
 
 .login {

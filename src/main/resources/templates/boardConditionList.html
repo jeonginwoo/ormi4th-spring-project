@@ -7,16 +7,16 @@
 <th:block layout:fragment="head">
     <title>게시글 목록</title>
     <link th:href="@{/css/common.css}" rel="stylesheet"/>
-    <link rel="stylesheet" href="/css/boardList.css"/>
+    <link th:href="@{/css/common.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/boardConditionList.css"/>
 </th:block>
 
 <body>
 <header th:replace="~{/fragments/header}"></header>
 <article th:fragment="content">
     <div class="wrap">
-        <section class="board-table-section" th:style="'background-color: '+${color}+';'">
-            <h1 class="table-title" th:text="${teamFullName}+' 게시판'"></h1>
-            <img class="catch-phrase" th:src="@{'/images/catch-phrase/'+${team}+'.png'}">
+        <section class="board-table-section">
+            <h1 class="table-title lions-color" th:text="${searchQuery}+' 검색 결과'"></h1>
             <div class="board-controls">
                 <form action="/boards/search" method="get">
                     <select name="searchType">
@@ -38,7 +38,7 @@
                 </li>
             </ul>
             <ul class="board-table-body">
-                <li th:each="item, loop: ${paging}">
+                <li th:each="item, loop: ${paging.content}">
                     <p class="no"
                        th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></p>
                     <a class="title" th:href="@{/boards/{id}(id=${item.id})}" th:text="${item.title}"></a>
@@ -50,7 +50,8 @@
             <div th:if="${!paging.isEmpty()}">
                 <ul class="pagination">
                     <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-                        <a class="page-link" th:href="@{|?page=${paging.number}|}">
+                        <a class="page-link"
+                           th:href="@{/boards/search(searchType=${searchType}, searchQuery=${searchQuery}, page=${paging.number})}">
                             <span>이전</span>
                         </a>
                     </li>
@@ -58,10 +59,12 @@
                         th:if="${((paging.number) - (paging.number)%10) < page and page <= ((paging.number) + (10 - (paging.number)%10))}"
                         th:classappend="${page == paging.number+1} ? 'active'"
                         class="page-item">
-                        <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+                        <a th:text="${page}" class="page-link"
+                           th:href="@{|?searchType=${searchType}&amp;searchQuery=${searchQuery}&amp;page=${page}|}"></a>
                     </li>
                     <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-                        <a class="page-link" th:href="@{|?page=${paging.number+2}|}">
+                        <a class="page-link"
+                           th:href="@{|?searchType=${searchType}&amp;searchQuery=${searchQuery}&amp;page=${paging.number+2}|}">
                             <span>다음</span>
                         </a>
                     </li>

@@ -96,7 +96,7 @@ public class UserController {
 	public String showUpdateForm(@PathVariable("userId") Long userId, Model model) {
 		User user = userService.findById(userId); // 사용자 ID로 사용자 정보 조회
 		model.addAttribute("user", user); // 모델에 사용자 정보 추가
-		return "/test/edit"; // edit.html 페이지로 이동
+		return "edit"; // edit.html 페이지로 이동
 	}
 	@Transactional
 	@PutMapping("/mypage/update/{userId}")

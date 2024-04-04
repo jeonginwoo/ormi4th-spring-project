@@ -34,9 +34,15 @@
                     </li>
                 </ul>
             </div>
-            <a th:href="@{/boards}">
-                게시판
-            </a>
+            <div class="dropdown">
+                <p>게시판</p>
+                <ul class="dropdown-options">
+                    <li th:each="team : ${#strings.arraySplit('LG KT SSG NC 두산 KIA 롯데 삼성 한화 키움',' ')}">
+                        <a th:href="@{'/boards'(team=${team})}" th:text="${team}"></a>
+                    </li>
+                </ul>
+
+            </div>
         </li>
     </ul>
     <ul>
