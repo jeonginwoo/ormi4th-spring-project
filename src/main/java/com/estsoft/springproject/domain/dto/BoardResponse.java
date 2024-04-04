@@ -23,6 +23,8 @@ public class BoardResponse {
     private String nickname;    // 작성자
     private Long userId;
     private Long hits;
+    private boolean isLike;
+    private int likeNum;
 
     public BoardResponse(Board board) {
         this.id = board.getId();

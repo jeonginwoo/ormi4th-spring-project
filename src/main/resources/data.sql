@@ -42,10 +42,10 @@ CREATE TABLE comment
 
 CREATE TABLE likes
 (
-    user_id     BIGINT,
-    board_id    BIGINT,
-    type        VARCHAR(10),
-    PRIMARY KEY (user_id, board_id)
+    user_id         BIGINT,
+    content_id      BIGINT,
+    content_type    VARCHAR(10),
+    PRIMARY KEY (user_id, content_id, content_type)
 );
 
 INSERT INTO users (email, password, nickname) VALUES ('email1', 'password1', 'nickname1');
@@ -71,9 +71,15 @@ INSERT INTO comment (content, created_at, modified_at, board_id, user_id, parent
 INSERT INTO comment (content, created_at, modified_at, board_id, user_id, parent_id) VALUES ('게시글1 댓글1에 유저2 답글', now(), now(), 1, 2, 1);
 INSERT INTO comment (content, created_at, modified_at, board_id, user_id, parent_id) VALUES ('게시글1 댓글1에 유저3 답글', now(), now(), 1, 3, 1);
 
-INSERT INTO likes (user_id, board_id, type) VALUES (2, 2, 'board');
-INSERT INTO likes (user_id, board_id, type) VALUES (2, 3, 'board');
-INSERT INTO likes (user_id, board_id, type) VALUES (2, 4, 'board');
-INSERT INTO likes (user_id, board_id, type) VALUES (3, 3, 'board');
-INSERT INTO likes (user_id, board_id, type) VALUES (3, 4, 'board');
-INSERT INTO likes (user_id, board_id, type) VALUES (3, 5, 'board');
+INSERT INTO likes (user_id, content_id, content_type) VALUES (2, 2, 'board');
+INSERT INTO likes (user_id, content_id, content_type) VALUES (2, 3, 'board');
+INSERT INTO likes (user_id, content_id, content_type) VALUES (2, 4, 'board');
+INSERT INTO likes (user_id, content_id, content_type) VALUES (3, 3, 'board');
+INSERT INTO likes (user_id, content_id, content_type) VALUES (3, 4, 'board');
+INSERT INTO likes (user_id, content_id, content_type) VALUES (3, 5, 'board');
+INSERT INTO likes (user_id, content_id, content_type) VALUES (4, 1, 'comment');
+INSERT INTO likes (user_id, content_id, content_type) VALUES (4, 2, 'comment');
+INSERT INTO likes (user_id, content_id, content_type) VALUES (4, 9, 'comment');
+INSERT INTO likes (user_id, content_id, content_type) VALUES (4, 10, 'comment');
+INSERT INTO likes (user_id, content_id, content_type) VALUES (4, 12, 'comment');
+INSERT INTO likes (user_id, content_id, content_type) VALUES (4, 1, 'board');

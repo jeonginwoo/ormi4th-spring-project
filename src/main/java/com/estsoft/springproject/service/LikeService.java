@@ -1,8 +1,6 @@
 package com.estsoft.springproject.service;
 
-import com.estsoft.springproject.domain.entity.Board;
 import com.estsoft.springproject.domain.entity.Like;
-import com.estsoft.springproject.domain.entity.User;
 import com.estsoft.springproject.repository.LikeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,19 +19,15 @@ public class LikeService {
     }
 
     @Transactional
-    public void deleteLike(Long user_id, Long board_id) {
-        likeRepository.deleteByUser_IdAndBoard_Id(user_id, board_id);
+    public void deleteLike(Long user_id, Long content_id, String content_type) {
+        likeRepository.deleteByUserIdAndContentIdAndContentType(user_id, content_id, content_type);
     }
 
-    public Like findLike(Long user_id, Long board_id) {
-        return likeRepository.findByUser_IdAndBoard_Id(user_id, board_id);
+    public Like findLike(Long user_id, Long content_id, String content_type) {
+        return likeRepository.findByUserIdAndContentIdAndContentType(user_id, content_id, content_type);
     }
 
-    public List<Like> findByBoardId(Long board_id) {
-        return likeRepository.findByBoard_Id(board_id);
-    }
-
-    public List<Like> findAll() {
-        return likeRepository.findAll();
+    public List<Like> findByContent(Long content_id, String content_type) {
+        return likeRepository.findByContentIdAndContentType(content_id, content_type);
     }
 }
