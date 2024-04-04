@@ -117,7 +117,7 @@ public class BoardController {
         Page<Board> paging = this.boardService.findAll(page);
         model.addAttribute("paging", paging);
 
-        return "test/boardList";  // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
+        return "boardList";  // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
     }
 
     @GetMapping("/{id}")
@@ -167,7 +167,7 @@ public class BoardController {
         int likeNum = likeService.findByBoardId(id).size();
         model.addAttribute("likeNum", likeNum);
 
-        return "test/board";
+        return "board";
     }
 
 

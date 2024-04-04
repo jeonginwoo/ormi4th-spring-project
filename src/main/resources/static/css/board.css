@@ -1,24 +1,55 @@
+body {
+    background-image: url("../images/character/삼성.jpg");
+    background-repeat: no-repeat;
 
-.area {
+    background-position: right bottom;
+    background-attachment: fixed;
+
+    background-size : 800px 600px;
+}
+
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 100px;
+}
+
+.board-section {
+
+    width: 1060px;
+
     margin: 5px 0;
     padding: 10px 20px;
     border: 1px solid lightgray;
     border-radius: 10px;
+
 }
 
-.board-buttons{
-    margin-top: 15px;
+.board-header li {
+
     display: flex;
-    justify-content: flex-end;
+    padding: 10px 0;
+    align-items: center;
+    justify-content: right;
+    text-align: center;
 }
 
-.board-buttons button{
-    margin-left: 5px;
+.board-buttons {
+
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    gap: 20px;
 }
 
 .title{
     font-size: 20px;
-    margin-top: 15px;
+
+    padding-bottom: 10px;
+    border-bottom: solid 1px lightgray;
 }
 
 .content {
@@ -31,6 +62,8 @@
 
 #viewer {
     min-height: 300px;
+    margin-bottom: 10px;
+    border-bottom: solid 1px lightgray;
 }
 
 .toastui-editor-contents {

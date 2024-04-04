@@ -11,11 +11,11 @@
 
 <header>
     <ul>
-        <li class="home-logo">
+        <li class="home">
             <a th:href="@{/}">
-                <img th:src="@{/image/baseball.png}">
+                <img class="logo" th:src="@{/images/logo.png}">
+                <h2>일사만루</h2>
             </a>
-            <h2>웹페이지 이름</h2>
         </li>
     </ul>
     <ul>
@@ -23,9 +23,17 @@
             <a th:href="@{/schedule(date = ${#dates.format(#dates.createNow(),'yyyy-MM-dd')})}">
                 일정/결과
             </a>
-            <a th:href="@{/record}">
-                기록/순위
-            </a>
+            <div class="dropdown">
+                <p th:text="'기록/순위'"></p>
+                <ul class="dropdown-options">
+                    <li>
+                        <a th:href="@{/record}">선수 기록/순위</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/teamranking/detail}">팀 순위</a>
+                    </li>
+                </ul>
+            </div>
             <a th:href="@{/boards}">
                 게시판
             </a>
@@ -33,9 +41,19 @@
     </ul>
     <ul>
         <li class="login">
-            <button class="ui-button" th:if="${loggedIn}" th:onclick="|location.href='@{/logout}'|">로그아웃</button>
-            <a class="ui-button" th:unless="${loggedIn}" th:href="@{/login}">로그인</a>
-            <a class="ui-button" th:unless="${loggedIn}" th:href="@{/register}">회원가입</a>
+            <div class="dropdown" th:if="${userName != null}">
+                <p th:text="${userName}+'님 안녕하세요'"></p>
+                <ul class="dropdown-options">
+                    <li>
+                        <a th:href="@{/mypage}">마이페이지</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/logout}">로그아웃</a>
+                    </li>
+                </ul>
+            </div>
+            <a th:if="${userName == null}" th:href="@{/login}">로그인</a>
+            <a th:if="${userName == null}" th:href="@{/register}">회원가입</a>
         </li>
     </ul>
 </header>
