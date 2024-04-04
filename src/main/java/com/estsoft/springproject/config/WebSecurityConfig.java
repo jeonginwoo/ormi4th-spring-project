@@ -30,8 +30,6 @@ public class WebSecurityConfig {
 			.logout(auth -> auth.logoutSuccessUrl("/login") // 로그아웃 설정
 				.invalidateHttpSession(true))
 			.csrf(auth -> auth.disable());                  // csrf 비활성화
-		return httpSecurity.build();
-	}
 
 	// 패스워드 인코더로 사용할 빈 등록
 	@Bean

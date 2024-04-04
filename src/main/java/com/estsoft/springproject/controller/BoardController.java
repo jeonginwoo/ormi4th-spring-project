@@ -74,11 +74,10 @@ public class BoardController {
             @PathVariable Long id
     ) {
         Board board = boardService.findById(id);
-        if(user.getEmail().equals(board.getUser().getEmail())) {
+        if (user.getEmail().equals(board.getUser().getEmail())) {
             boardService.deleteById(id);
             return ResponseEntity.ok().build();
-        }
-        else{
+        } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
     }
@@ -90,7 +89,7 @@ public class BoardController {
             BoardRequest request
     ) {
         Board board = boardService.findById(id);
-        if(board!=null) {
+        if (board != null) {
             if (user.getEmail().equals(board.getUser().getEmail())) {
                 Board updateBoard = boardService.update(id, request);
                 BoardResponse response = new BoardResponse(updateBoard);
@@ -99,17 +98,15 @@ public class BoardController {
             } else {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
             }
-        }
-        else{
+        } else {
             return ResponseEntity.notFound().build();
         }
-
     }
 
     @GetMapping
     public String showBoards(
             Model model,
-            @RequestParam(value="page", defaultValue="1") int page,
+            @RequestParam(value = "page", defaultValue = "1") int page,
             Principal principal
     ) {
         String username = principal != null ? principal.getName() : null;
@@ -117,15 +114,15 @@ public class BoardController {
         Page<Board> paging = this.boardService.findAll(page);
         model.addAttribute("paging", paging);
 
-        return "boardList";  // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
+        return "boardList";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{boardId}")
     public String showBoard(
-        @AuthenticationPrincipal User user,
-        @PathVariable Long id,
-        Model model,
-        Principal principal
+            @AuthenticationPrincipal User user,
+            @PathVariable Long boardId,
+            Model model,
+            Principal principal
     ) {
         // 사용자
         String username = principal != null ? principal.getName() : null;
@@ -134,20 +131,27 @@ public class BoardController {
             // 로그인되지 않은 사용자일 경우 처리
             return "redirect:/login"; // 로그인 페이지로 리다이렉트 혹은 처리할 경로로 변경
         }
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
 
         // 게시판
-        Board board = boardService.findById(id);
+        Board board = boardService.findById(boardId);
         boardService.updateHits(board);
         if (board == null) {
             // 게시글이 없을 경우 처리
             return "error"; // 예시: 에러 페이지로 리다이렉트
         }
-        model.addAttribute("board", new BoardResponse(board));
+        BoardResponse boardResponse = new BoardResponse(board);
+        boardResponse.setLike(likeService.findLike(user.getId(), board.getId(), "board") != null);
+        boardResponse.setLikeNum(likeService.findByContent(boardId, "board").size());
+        model.addAttribute("board", boardResponse);
 
         // 댓글
-        List<Comment> comments = commentService.findByBoardId(id);
+        List<Comment> comments = commentService.findByBoardId(boardId);
         List<CommentResponse> responseList = comments.stream().map(CommentResponse::new).toList();
+        for (CommentResponse response : responseList) {     // 댓글 좋아요
+            response.setLike(likeService.findLike(user.getId(), response.getCommentId(), "comment") != null);
+            response.setLikeNum(likeService.findByContent(response.getCommentId(), "comment").size());
+        }
         model.addAttribute("comments", responseList);
 
         // 답글
@@ -155,17 +159,13 @@ public class BoardController {
         for (Comment comment : comments) {
             List<Comment> children = commentService.findChildren(comment.getId());
             List<CommentResponse> childrenResponse = children.stream().map(CommentResponse::new).toList();
+            for (CommentResponse response : childrenResponse) {     // 댓글 좋아요
+                response.setLike(likeService.findLike(user.getId(), response.getCommentId(), "comment") != null);
+                response.setLikeNum(likeService.findByContent(response.getCommentId(), "comment").size());
+            }
             childrenList.add(childrenResponse);
         }
         model.addAttribute("childrenList", childrenList);
-
-        // 좋아요
-        Like like = likeService.findLike(user.getId(), board.getId());
-        model.addAttribute("like", like);
-
-        // 좋아요 수
-        int likeNum = likeService.findByBoardId(id).size();
-        model.addAttribute("likeNum", likeNum);
 
         return "board";
     }
@@ -187,21 +187,22 @@ public class BoardController {
     }
 
     @GetMapping("/search")
-    public String getBoardBySearchType(Model model,
-        @RequestParam("searchType") String searchType,
-        @RequestParam("searchQuery") String searchQuery,
-        @RequestParam(value="page", defaultValue="1") int page
+    public String getBoardBySearchType(
+            Model model,
+            @RequestParam("searchType") String searchType,
+            @RequestParam("searchQuery") String searchQuery,
+            @RequestParam(value = "page", defaultValue = "1") int page
     ) {
         Page<Board> boards = Page.empty();
-        Pageable pageable = PageRequest.of(page-1, 10);
-        if("nickname".equals(searchType)){
+        Pageable pageable = PageRequest.of(page - 1, 10);
+        if ("nickname".equals(searchType)) {
             boards = boardService.findByUserNickName(searchQuery, page);
-        } else if("title".equals(searchType)){
+        } else if ("title".equals(searchType)) {
             boards = boardService.findByTitle(searchQuery, page);
         }
         model.addAttribute("paging", boards);
-        model.addAttribute("searchType",searchType);
-        model.addAttribute("searchQuery",searchQuery);
+        model.addAttribute("searchType", searchType);
+        model.addAttribute("searchQuery", searchQuery);
         return "test/boardConditionList";
     }
 }

@@ -175,30 +175,56 @@ function toggleChildComment() {
 
 // 좋아요 등록
 function addLike() {
+    const likeArea = event.target.closest(".like-area"); // 좋아요 영역
     const boardId = document.getElementById("board-id").value;
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "/boards/" + boardId + "/like", true);
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            location.reload();
-        } else {
-            console.error(xhr.responseText);
-        }
-    };
-    xhr.send();
+    const contentId = likeArea.querySelector("input[name='contentId']").value;
+    const contentType = likeArea.querySelector("input[name='contentType']").value;
+
+    fetch(`/boards/${boardId}/like`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            contentId: contentId,
+            contentType: contentType,
+        }),
+    }).then(() => {
+        // 좋아요 버튼 모양 변경 및 좋아요 수 증가
+        const likeButton = likeArea.querySelector("button");
+        likeButton.innerHTML = "❤️";
+        likeButton.setAttribute("onclick", "deleteLike()");
+        const likeNumSpan = likeArea.querySelector("span");
+        likeNumSpan.textContent = parseInt(likeNumSpan.textContent) + 1;
+    }).catch(error => {
+        console.error('Error adding like:', error);
+    });
 }
 
 // 좋아요 삭제
 function deleteLike() {
+    const likeArea = event.target.closest(".like-area"); // 좋아요 영역
     const boardId = document.getElementById("board-id").value;
-    const xhr = new XMLHttpRequest();
-    xhr.open("DELETE", "/boards/" + boardId + "/like", true);
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            location.reload();
-        } else {
-            console.error(xhr.responseText);
-        }
-    };
-    xhr.send();
+    const contentId = likeArea.querySelector("input[name='contentId']").value;
+    const contentType = likeArea.querySelector("input[name='contentType']").value;
+
+    fetch(`/boards/${boardId}/like`, {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            contentId: contentId,
+            contentType: contentType,
+        }),
+    }).then(() => {
+        // 좋아요 버튼 모양 변경 및 좋아요 수 감소
+        const likeButton = likeArea.querySelector("button");
+        likeButton.innerHTML = "🖤";
+        likeButton.setAttribute("onclick", "addLike()");
+        const likeNumSpan = likeArea.querySelector("span");
+        likeNumSpan.textContent = parseInt(likeNumSpan.textContent) - 1;
+    }).catch(error => {
+        console.error('Error deleting like:', error);
+    });
 }

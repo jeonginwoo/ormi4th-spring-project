@@ -21,6 +21,10 @@ header {
     padding: 20px 80px;
 }
 
+button {
+    cursor: pointer;
+}
+
 .left {
     display: flex;
     align-items: center;
@@ -30,7 +34,6 @@ header {
     font-size: 24px;
     border: none;
     background: none;
-    cursor: pointer;
 }
 
 .left img {
@@ -54,7 +57,6 @@ header {
     border: none;
     background-color: white;
     color: black;
-    cursor: pointer;
 }
 
 .home {

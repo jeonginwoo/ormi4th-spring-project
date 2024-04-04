@@ -11,11 +11,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LikeResponse {
-    Long user_id;
-    Long board_id;
+    Long userId;
+    Long contentId;
+    String contentType;
 
     public LikeResponse(Like like) {
-        this.user_id = like.getUser().getId();
-        this.board_id = like.getBoard().getId();
+        this.userId = like.getUser().getId();
+        this.contentId = like.getContentId();
+        this.contentType = like.getContentType();
     }
 }

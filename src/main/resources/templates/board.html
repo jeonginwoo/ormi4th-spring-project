@@ -22,11 +22,13 @@
             <ul class="board-header">
                 <li>
                     <button th:onclick="|location.href='@{/boards}'|" class="on">목록</button>
-                    <button type="button" id="board-update-btn"
-                            th:onclick="|location.href='@{/boards/new-board?id={id}(id=${board.id})}'|"
-                            class="btn btn-primary btn-sm">수정
-                    </button>
-                    <button id="board-delete-btn">삭제</button>
+                    <span th:if="${board.userId} == ${user.id}">
+                        <button type="button" id="board-update-btn"
+                                th:onclick="|location.href='@{/boards/new-board?id={id}(id=${board.id})}'|"
+                                class="btn btn-primary btn-sm">수정
+                        </button>
+                        <button id="board-delete-btn">삭제</button>
+                    </span>
                 </li>
             </ul>
             <p class="title" th:text="${board.title}">글 제목이 들어갑니다.</p>
@@ -36,10 +38,16 @@
             <script src="/js/boardViewer.js"></script>
             <span class="create-time" th:text="${'작성일: ' + #dates.format(board.createdAt, 'yyyy.MM.dd HH:mm')}"></span>
             <br>
-            <span class="author" th:text="${'작성자: '+board.nickname}"></span>
-            <button id="add-like-btn" th:if="${like == null}" onclick="addLike()">🖤</button>
-            <button id="delete-like-btn" th:if="${like != null}" onclick="deleteLike()">❤️</button>
-            <span th:text="${likeNum}"></span>
+            <span class="author" th:text="${'작성자: ' + board.nickname}"></span>
+            <div class="like-area">
+                <input type="hidden" name="contentType" value="board">
+                <input type="hidden" name="contentId" th:value="${board.id}"/>
+                <button th:if="${not board.like}" onclick="addLike()">🖤</button>
+                <button th:if="${board.like}" onclick="deleteLike()">❤️</button>
+                <span th:text="${board.likeNum}"></span>
+            </div>
+
+            <!-- 댓글 -->
             <div class="comment-input">
                 <textarea id="content" class="comment-content" placeholder="댓글을 입력하세요"></textarea>
                 <button id="comment-create-btn" class="comment-btn">댓글</button>
@@ -47,12 +55,20 @@
             <div th:each="comment, commentIndex: ${comments}" class="area comment-container">
                 <span th:text="${comment.nickname}">댓글 유저 정보</span>
                 <span class="contentTime comment-info" th:text="${#dates.format(comment.createdAt, 'yy.MM.dd HH:mm')}">댓글 시간 들어갑니다.</span>
-                <span th:if="${comment.userId} == ${user.id}" class="commentControl"></span>
                 <input type="hidden" name="commentId" th:value="${comment.commentId}"/>
-                <button class="edit-comment-button">수정</button>
-                <button onclick="deleteComment();">삭제</button>
+                <span th:if="${comment.userId} == ${user.id}">
+                    <button class="edit-comment-button">수정</button>
+                    <button onclick="deleteComment();">삭제</button>
+                </span>
                 <button onclick="toggleChildComment()">답글</button>
                 <div class="content" th:text="${comment.content}">댓글 내용이 들어갑니다.</div>
+                <div class="like-area">
+                    <input type="hidden" name="contentType" value="comment">
+                    <input type="hidden" name="contentId" th:value="${comment.commentId}"/>
+                    <button th:if="${not comment.like}" onclick="addLike()">🖤</button>
+                    <button th:if="${comment.like}" onclick="deleteLike()">❤️</button>
+                    <span th:text="${comment.likeNum}"></span>
+                </div>
 
                 <!-- 자식 댓글 -->
                 <div class="child-container">
@@ -62,24 +78,30 @@
                         <button class="child-create-btn comment-btn" onclick="createChildComment()">답글</button>
                     </div>
                     <details th:if="${#lists.size(childrenList[__${commentIndex.index}__]) > 0}">
-                        <summary th:text="'답글 ' + ${#lists.size(childrenList[__${commentIndex.index}__]) + '개'}">댓글
-                        </summary>
-                        <div th:each="child : ${childrenList[__${commentIndex.index}__]}"
-                             class="child-comment comment-container">
+                        <summary th:text="'답글 ' + ${#lists.size(childrenList[__${commentIndex.index}__]) + '개'}">댓글</summary>
+                        <div th:each="child : ${childrenList[__${commentIndex.index}__]}" class="child-comment comment-container">
                             <span th:text="${child.nickname}">댓글 유저 정보</span>
                             <span class="contentTime comment-info"
                                   th:text="${#dates.format(child.createdAt, 'yy.MM.dd HH:mm')}">댓글 시간 들어갑니다.</span>
                             <span th:if="${child.userId} == ${user.id}" class="commentControl">
-                    <input type="hidden" name="commentId" th:value="${child.commentId}"/>
-                    <button class="edit-comment-button">수정</button>
-                    <button onclick="deleteComment();">삭제</button>
-                </span>
+                                <input type="hidden" name="commentId" th:value="${child.commentId}"/>
+                                <button class="edit-comment-button">수정</button>
+                                <button onclick="deleteComment();">삭제</button>
+                            </span>
                             <div class="content" th:text="${child.content}">댓글 내용이 들어갑니다.</div>
+                            <div class="like-area">
+                                <input type="hidden" name="contentType" value="comment">
+                                <input type="hidden" name="contentId" th:value="${child.commentId}"/>
+                                <button th:if="${not child.like}" onclick="addLike()">🖤</button>
+                                <button th:if="${child.like}" onclick="deleteLike()">❤️</button>
+                                <span th:text="${child.likeNum}"></span>
+                            </div>
                         </div>
                     </details>
                 </div>
             </div>
         </section>
+    </div>
 </article>
 </body>
 <script src="/js/board.js"></script>

@@ -54,7 +54,7 @@ body {
 
 .content {
     padding: 10px 15px;
-    margin: 3px 0 12px;
+    margin-top: 3px;
     background: #e3eee1;
     border-radius: 5px;
     width: 100%;
@@ -169,7 +169,10 @@ textarea {
     margin-right: 10px;
 }
 
-
 .btn-align {
     text-align: right;
+}
+
+.like-area {
+    margin-bottom: 10px;
 }
