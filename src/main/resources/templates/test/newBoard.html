@@ -24,10 +24,11 @@
     <strong th:if="${board.id} != null">수정하기</strong>
 </div>
 <div>
-    <input type="text" placeholder="제목 입력" id="title" th:value="${board.title}" required/>
+    <input class="input-title" type="text" placeholder="제목 입력" id="title" maxlength='50' th:value="${board.title}" required/>
     <hr>
     <input type="hidden" id="boardContent" th:value="${board.content}">
     <div id="editor"></div>
+    <div id="character-count"></div>
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
     <script>
     </script>
