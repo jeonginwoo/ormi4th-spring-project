@@ -9,7 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.UUID;
@@ -18,13 +17,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/tui-editor")
 public class FileApiController {
-    public FileApiController() throws FileNotFoundException {
-    }
 
     // 파일을 업로드할 디렉터리 경로
-    private final String uploadDir = Paths.get("C:", "tui-editor", "upload").toString();
-//    String projectPath = ResourceUtils.getFile("classpath:").getAbsolutePath();
-//    private final String uploadDir = Paths.get(projectPath, "resources", "static", "images", "upload").toString();
+    private final String uploadDir = Paths.get(System.getProperty("user.dir"), "build", "resources", "main", "static", "images", "upload").toString();
 
     /**
      * 에디터 이미지 업로드
@@ -37,6 +32,9 @@ public class FileApiController {
         if (image.isEmpty()) {
             return "";
         }
+        System.out.println("------------");
+        System.out.println(uploadDir);
+        System.out.println("------------");
 
         String orgFilename = image.getOriginalFilename();                                         // 원본 파일명
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");           // 32자리 랜덤 문자열
