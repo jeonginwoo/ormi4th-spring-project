@@ -115,3 +115,9 @@
 .pagination li.disabled a.page-number {
     color: #ddd;
 }
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}

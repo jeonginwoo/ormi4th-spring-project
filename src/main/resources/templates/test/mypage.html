@@ -52,10 +52,10 @@
                     </li>
                     <!-- 페이지 번호 표시 -->
                     <li th:each="page : ${#numbers.sequence(1, boardPage.totalPages)}"
-                        th:classappend="${boardPage.number + 1 == page} ? 'active'">
+                        th:classappend="${boardPage.number + 2 == page} ? 'active' : ''">
                         <form th:action="@{/mypage}" method="get">
                             <input type="hidden" name="boardPage" th:value="${page}" />
-                            <input type="hidden" name="commentPage" th:value="${commentPage.number}" />
+                            <input type="hidden" name="commentPage" th:value="${commentPage.number+1}" />
                             <button type="submit" class="page-link" th:text="${page}"></button>
                         </form>
                     </li>
@@ -95,9 +95,9 @@
 
                     <!-- 페이지 번호 표시 -->
                     <li th:each="page : ${#numbers.sequence(1, commentPage.totalPages)}"
-                        th:classappend="${commentPage.number + 1 == page ? 'active' : ''}">
+                        th:classappend="${commentPage.number + 2 == page ? 'active' : ''}">
                         <form th:action="@{/mypage}" method="get">
-                            <input type="hidden" name="boardPage" th:value="${boardPage.number}" />
+                            <input type="hidden" name="boardPage" th:value="${boardPage.number+1}" />
                             <input type="hidden" name="commentPage" th:value="${page}" />
                             <button type="submit" class="page-link" th:text="${page}"></button>
                         </form>
