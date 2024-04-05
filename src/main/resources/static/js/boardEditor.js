@@ -12,6 +12,7 @@ function updateBoard() {
     const formData = new FormData();
     const boardId = document.getElementById("board-id").value;
     const title = document.getElementById('title').value
+    const team = document.getElementById('team').value;
     const content = editor.getMarkdown()
     formData.append('title', title);
     formData.append('content', content);
@@ -21,7 +22,7 @@ function updateBoard() {
         body: formData,
     }).then(() => {
         alert('수정이 완료되었습니다');
-        location.replace(`/boards/` + boardId);
+        location.replace(`/boards/` + boardId + '?team=' +team);
     });
 }
 
@@ -32,6 +33,7 @@ if (updateButton) {
         const formData = new FormData();
         const boardId = document.getElementById("board-id").value;
         const title = document.getElementById('title').value
+        const team = document.getElementById('team').value;
         const content = editor.getMarkdown()
         formData.append('title', title);
         formData.append('content', content);
@@ -39,9 +41,9 @@ if (updateButton) {
         fetch(`/boards/${boardId}`, {
             method: 'PUT',
             body: formData,
-        }).then(() => {
+        }).then((data) => {
             alert('수정이 완료되었습니다');
-            location.replace(`/boards/` + boardId);
+            location.replace(`/boards/` + boardId + '?team=' +team);
         });
     });
 }
@@ -52,9 +54,12 @@ if (createButton) {
     createButton.addEventListener('click', event => {
         let formData = new FormData();
         let title = document.getElementById('title').value
-        let content = editor.getMarkdown();
+        const team = document.getElementById('team').value;
+        const content = editor.getMarkdown()
+
         formData.append('title', title);
         formData.append('content', content);
+        formData.append('team',team);
 
         if (title === "" && content === "") {
             alert('제목과 내용을 적어주세요.');
@@ -69,7 +74,7 @@ if (createButton) {
             }).then(response => response.json()
             ).then((data) => {
                 alert('등록 완료되었습니다');
-                location.replace(`/boards/` + data.id);
+                location.replace(`/boards/` + data.id + '?team=' + team);
             });
         }
     });

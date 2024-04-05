@@ -17,6 +17,8 @@
 <header th:replace="~{fragments/header}"></header>
 
 <input type="hidden" id="board-id" th:value="${board.id}">
+<input type="hidden" id="team" th:value="${team}">
+<h1 th:text="${team}"></h1>
 <div class="board-title">
     <strong th:if="${board.id} == null">글쓰기</strong>
     <strong th:if="${board.id} != null">수정하기</strong>

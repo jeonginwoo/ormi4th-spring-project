@@ -44,22 +44,31 @@ public class BoardController {
     private final UserService userService;      // TODO: 테스트용. 나중에 지울 것!
 
     @PostMapping
-    public ResponseEntity<BoardResponse> addBoard(BoardRequest request) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    public ResponseEntity<BoardResponse> addBoard(BoardRequest request,
+                                                  @AuthenticationPrincipal UserDetails userDetails) {
+
+        /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             Long userId = getUserIdFromUserDetails(userDetails);
             if (userId != null) {
                 User user = userService.findById(userId);
                 if (user != null) {
-                    Board board = boardService.save(request, user);
-                    BoardResponse response = new BoardResponse(board);
-                    return ResponseEntity.ok(response);
+
                 }
             }
+        }*/
+
+        try{
+            User user = userService.findById(getUserIdFromUserDetails(userDetails));
+
+            Board board = boardService.save(request, user);
+            BoardResponse response = new BoardResponse(board);
+            return ResponseEntity.ok(response);
+
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        // 인증되지 않은 사용자 또는 사용자 정보를 가져올 수 없는 경우
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     private Long getUserIdFromUserDetails(UserDetails userDetails) {
@@ -111,7 +120,7 @@ public class BoardController {
             String team
     ) {
 
-        Page<Board> paging = this.boardService.findAll(page);
+        Page<Board> paging = this.boardService.findByTeam(page, team);
         model.addAttribute("paging", paging);
         model.addAttribute("team",team);
         model.addAttribute("teamFullName", TeamId.valueOf(team).getFullName());
@@ -124,7 +133,7 @@ public class BoardController {
     public String showBoard(
             @AuthenticationPrincipal User user,
             @PathVariable Long boardId,
-            Model model,
+            Model model, String team,
             Principal principal
     ) {
         // 사용자
@@ -169,6 +178,7 @@ public class BoardController {
             childrenList.add(childrenResponse);
         }
         model.addAttribute("childrenList", childrenList);
+        model.addAttribute("team",team);
 
         return "board";
     }
@@ -176,7 +186,7 @@ public class BoardController {
 
     @GetMapping("/new-board")
     public String newBoard(
-            Model model,
+            Model model, String team,
             @RequestParam(required = false) Long id
     ) {
         if (id == null) {  // 등록
@@ -185,6 +195,9 @@ public class BoardController {
             Board board = boardService.findById(id);
             model.addAttribute("board", new BoardResponse(board));
         }
+
+        model.addAttribute("team", team);
+        model.addAttribute("fullName",TeamId.valueOf(team).getFullName());
 
         return "test/newBoard";   // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
     }
@@ -203,6 +216,7 @@ public class BoardController {
         } else if ("title".equals(searchType)) {
             boards = boardService.findByTitle(searchQuery, page);
         }
+
         model.addAttribute("paging", boards);
 
         model.addAttribute("searchType",searchType);
