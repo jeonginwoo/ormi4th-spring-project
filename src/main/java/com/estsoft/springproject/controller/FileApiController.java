@@ -32,9 +32,6 @@ public class FileApiController {
         if (image.isEmpty()) {
             return "";
         }
-        System.out.println("------------");
-        System.out.println(uploadDir);
-        System.out.println("------------");
 
         String orgFilename = image.getOriginalFilename();                                         // 원본 파일명
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");           // 32자리 랜덤 문자열
