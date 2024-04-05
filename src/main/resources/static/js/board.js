@@ -134,7 +134,7 @@ if (commentCreateButton) {
                 parentId: parentId,
             }),
         }).then(() => {
-            location.reload();
+            reloadWithScrollPositionFixed();
         });
     });
 }
@@ -159,7 +159,7 @@ function createChildComment() {
                 parentId: parentId,
             }),
         }).then(() => {
-            location.reload();
+            reloadWithScrollPositionFixed();
         });
     }
 }
@@ -233,5 +233,23 @@ function deleteLike() {
         likeNumSpan.textContent = parseInt(likeNumSpan.textContent) - 1;
     }).catch(error => {
         console.error('Error deleting like:', error);
+    });
+}
+
+
+function reloadWithScrollPositionFixed() {
+    // 페이지를 떠날 때 스크롤 위치를 세션 스토리지에 저장
+    window.addEventListener('beforeunload', function() {
+        sessionStorage.setItem('scrollPosition', window.scrollY);
+    });
+
+    location.reload();
+
+    // 페이지를 로드할 때 세션 스토리지에서 스크롤 위치를 가져와 설정
+    window.addEventListener('load', function() {
+        var scrollPosition = sessionStorage.getItem('scrollPosition');
+        if (scrollPosition !== null) {
+            window.scrollTo(0, parseInt(scrollPosition));
+        }
     });
 }
