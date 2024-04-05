@@ -17,14 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 @RequiredArgsConstructor
@@ -57,7 +57,8 @@ public class UserService implements UserDetailsService {
 
     public void updateUserInfo(Long userId,UserRequest userRequest){
         User user = userRepository.findById(userId).orElseThrow(()-> new IllegalArgumentException("해당 사용자를 찾을 수 없습니다."));
-        user.update(userRequest.getEmail(), userRequest.getNickname(), userRequest.getPassword());
+        String encodedPassword = passwordEncoder.encode(userRequest.getPassword());
+        user.update(userRequest.getEmail(), userRequest.getNickname(), encodedPassword);
         userRepository.save(user);
     }
     public void deleteUserInfo(Long userId){
@@ -106,5 +107,28 @@ public class UserService implements UserDetailsService {
         Optional<User> user = userRepository.findByNickname(nickname);
         return !user.isPresent(); // 사용 가능한 닉네임이면 true, 이미 사용 중이면 false 반환
     }
+
+    public boolean checkCurrentPassword(String currentPassword) {
+        // 현재 로그인된 사용자의 정보 가져오기
+        Optional<User> currentUserOptional = getCurrentUser();
+
+        // Optional에서 User 객체를 가져와서 비밀번호를 확인
+        if (currentUserOptional.isPresent()) {
+            User currentUser = currentUserOptional.get();
+            System.out.println("현재 입력한 비밀번호: " + currentPassword);
+            System.out.println("현재 사용자의 비밀번호: " + currentUser.getPassword());
+            return passwordEncoder.matches(currentPassword.trim(), currentUser.getPassword());
+        } else {
+            throw new IllegalStateException("현재 사용자 정보를 가져올 수 없습니다.");
+        }
+    }
+
+    private Optional<User> getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String email = userDetails.getUsername(); // 이메일을 사용하여 사용자를 찾음
+        return userRepository.findByEmail(email);
+    }
+
 
 }
