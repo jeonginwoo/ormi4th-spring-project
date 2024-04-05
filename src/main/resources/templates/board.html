@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/board.css">
 
-<header th:replace="~{fragments/header}"></header>
-<article th:fragment="content">
+<div th:replace="~{fragments/header}"></div>
+<main th:fragment="content">
     <div class="wrap">
         <input type="hidden" id="user-id" th:value="${user.id}">
         <input type="hidden" id="board-id" th:value="${board.id}">
@@ -102,6 +102,6 @@
             </div>
         </section>
     </div>
-</article>
-<footer th:replace="~{/fragments/footer}"></footer>
+</main>
+<div th:replace="~{/fragments/footer}"></div>
 <script src="/js/board.js"></script>
