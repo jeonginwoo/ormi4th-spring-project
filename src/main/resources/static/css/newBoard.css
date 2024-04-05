@@ -1,26 +1,15 @@
-.board-title{
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-div strong.board-concept {
-    font-size: 20px;
-}
-
-.area {
-    margin: 5px 0;
-    padding: 10px 20px;
-    border: 1px solid lightgray;
-    border-radius: 10px;
-    padding-left: 50px;
-    padding-right: 50px;
+span {
+    font-size: 40px;
 }
 
 input[type="text"] {
-    margin-top: 15px;
+
+    width: 100%;
+
     border: none;
     outline: none;
     font-size: 20px;
+    margin: 20px 0 10px 0;
 }
 
 textarea {

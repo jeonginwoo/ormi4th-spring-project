@@ -39,5 +39,15 @@ a {
 
 button {
     border: 0;
-    background-color: transparent;
+    background: none;
+}
+
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 80px 0;
+    gap: 50px;
 }

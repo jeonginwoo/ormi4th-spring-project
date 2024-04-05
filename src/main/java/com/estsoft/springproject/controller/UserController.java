@@ -129,7 +129,7 @@ public class UserController {
 		if(user.getRole().equals("admin")){
 			List<UserAdminResponse> users = userService.getAllUser().stream().map(UserAdminResponse::new).toList();
 			model.addAttribute("users",users);
-			return "test/admin";
+			return "admin";
 		}
 		else{
 			return "redirect:/mypage";

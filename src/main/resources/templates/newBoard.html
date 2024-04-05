@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<th:block layout:fragment="head">
+    <title>홈</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
+    <link th:href="@{/css/newBoard.css}" rel="stylesheet"/>
+</th:block>
+
+<body>
+<header th:replace="~{/fragments/header}"></header>
+<input type="hidden" id="board-id" th:value="${board.id}">
+<input type="hidden" id="team" th:value="${team}">
+<article th:fragment="content">
+    <div class="wrap">
+        <section class="board-editor-section">
+            <span th:text="${fullName}+' '"></span>
+            <span th:text="'게시판 '+${board.id == null ? '글 쓰기' : '글 수정하기'}"></span>
+            <div>
+                <input type="text" placeholder="제목 입력" id="title" th:value="${board.title}" required/>
+                <input type="hidden" id="boardContent" th:value="${board.content}">
+                <div id="editor"></div>
+                <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+            </div>
+            <div class="action-buttons">
+                <a th:if="${board.id} == null" href="/boards">취소</a>
+                <a th:if="${board.id} != null" th:href="@{/boards/{id}(id=${board.id})}">취소</a>
+                <button th:if="${board.id} == null" id="board-create-btn" class="on">등록</button>
+                <button th:if="${board.id} != null" onclick="updateBoard()" class="on">수정</button>
+            </div>
+        </section>
+    </div>
+</article>
+</body>
+<script src="/js/boardEditor.js"></script>
+</html>
