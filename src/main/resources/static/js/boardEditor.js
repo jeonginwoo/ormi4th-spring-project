@@ -1,48 +1,54 @@
-const boardContent = document.getElementById('boardContent').value;
-const editor = new toastui.Editor({
-    el: document.querySelector('#editor'),
-    previewStyle: 'vertical',
-    height: '500px',
-    initialValue: boardContent,
-    placeholder: '내용 입력',
-    hooks: {
-        async addImageBlobHook(blob, callback) {
-            try {
-                const formData = new FormData();
-                formData.append('image', blob);
+document.addEventListener("DOMContentLoaded", function () {
+    const boardContent = document.getElementById('boardContent').value; // 초기 상태의 내용 가져오기
+    updateCharacterCount(boardContent); // 초기 상태의 글자 수 표시
 
-                const response = await fetch('/tui-editor/image-upload', {
-                    method: 'POST',
-                    body: formData,
-                });
+    const editor = new toastui.Editor({
+        el: document.querySelector('#editor'),
+        previewStyle: 'vertical',
+        height: '500px',
+        initialValue: boardContent,
+        placeholder: '내용 입력',
+        hooks: {
+            async addImageBlobHook(blob, callback) {
+                try {
+                    const formData = new FormData();
+                    formData.append('image', blob);
 
-                const filename = await response.text();
-                console.log('서버에 저장된 파일명 : ', filename);
+                    const response = await fetch('/tui-editor/image-upload', {
+                        method: 'POST',
+                        body: formData,
+                    });
 
-                const imageUrl = `/tui-editor/image-print?filename=${filename}`;
-                callback(imageUrl, 'image alt attribute');
+                    const filename = await response.text();
+                    console.log('서버에 저장된 파일명 : ', filename);
 
-            } catch (error) {
-                console.error('업로드 실패 : ', error);
-            }
-        },
-        change: function() {
-            const content = editor.getMarkdown(); // 에디터의 Markdown 내용 가져오기
-            const contentLength = content.length;
-            const maxLength = 3000; // 최대 글자 수 설정
+                    const imageUrl = `/tui-editor/image-print?filename=${filename}`;
+                    callback(imageUrl, 'image alt attribute');
 
-            // 에디터 하단에 글자 수 표시
-            const characterCountElement = document.querySelector('#character-count');
-            characterCountElement.textContent = `${contentLength} / ${maxLength}`;
-
-            if (contentLength > maxLength) { // 3000자를 초과하는 경우
-                const trimmedContent = content.slice(0, maxLength); // 초과된 부분 자르기
-                editor.setMarkdown(trimmedContent); // 에디터 내용 설정
-                alert("3000자 이하로 작성해주세요.");
+                } catch (error) {
+                    console.error('업로드 실패 : ', error);
+                }
+            },
+            // 에디터 내용 변경 시 호출되는 훅
+            change: function() {
+                const content = editor.getMarkdown(); // 에디터의 Markdown 내용 가져오기
+                updateCharacterCount(content); // 글자 수 업데이트
             }
         }
+    });
+
+    // 글자 수 업데이트 함수
+    function updateCharacterCount(content) {
+        const contentLength = content.length;
+        const maxLength = 3000; // 최대 글자 수 설정
+
+        // 에디터 하단에 글자 수 표시
+        const characterCountElement = document.querySelector('#character-count');
+        characterCountElement.textContent = `${contentLength} / ${maxLength}`;
     }
 });
+
+
 
 
 // 게시글 수정
