@@ -26,7 +26,7 @@
                     <input type="text" name="searchQuery" placeholder="검색어를 입력하세요">
                     <button type="submit">검색</button>
                 </form>
-                <button th:onclick="|location.href='@{/boards/new-board}'|">글쓰기</button>
+                <button th:onclick="|location.href='@{/boards/new-board?team={team}(team=${team})}'|">글쓰기</button>
             </div>
             <ul class="board-table-header">
                 <li>
@@ -41,7 +41,7 @@
                 <li th:each="item, loop: ${paging}">
                     <p class="no"
                        th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></p>
-                    <a class="title" th:href="@{/boards/{id}(id=${item.id})}" th:text="${item.title}"></a>
+                    <a class="title" th:href="@{/boards/{id}(id=${item.id}, team=${item.team})}" th:text="${item.title}"></a>
                     <p class="author" th:text="${item.user.nickname}"></p>
                     <p class="create-time" th:text="${#dates.format(item.createdAt, 'yyyy.MM.dd HH:mm')}"></p>
                     <p class="hits" th:text="${item.hits}"></p>
@@ -50,7 +50,7 @@
             <div th:if="${!paging.isEmpty()}">
                 <ul class="pagination">
                     <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-                        <a class="page-link" th:href="@{|?page=${paging.number}|}">
+                        <a class="page-link" th:href="@{|?page=${paging.number}&team=${team}|}">
                             <span>이전</span>
                         </a>
                     </li>
@@ -58,10 +58,10 @@
                         th:if="${((paging.number) - (paging.number)%10) < page and page <= ((paging.number) + (10 - (paging.number)%10))}"
                         th:classappend="${page == paging.number+1} ? 'active'"
                         class="page-item">
-                        <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+                        <a th:text="${page}" class="page-link" th:href="@{|?page=${page}&team=${team}|}"></a>
                     </li>
                     <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-                        <a class="page-link" th:href="@{|?page=${paging.number+2}|}">
+                        <a class="page-link" th:href="@{|?page=${paging.number+2}&team=${team}|}">
                             <span>다음</span>
                         </a>
                     </li>

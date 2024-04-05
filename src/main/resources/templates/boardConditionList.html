@@ -26,7 +26,6 @@
                     <input type="text" name="searchQuery" placeholder="검색어를 입력하세요">
                     <button type="submit">검색</button>
                 </form>
-                <button th:onclick="|location.href='@{/boards/new-board}'|">글쓰기</button>
             </div>
             <ul class="board-table-header">
                 <li>
@@ -41,7 +40,7 @@
                 <li th:each="item, loop: ${paging.content}">
                     <p class="no"
                        th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></p>
-                    <a class="title" th:href="@{/boards/{id}(id=${item.id})}" th:text="${item.title}"></a>
+                    <a class="title" th:href="@{/boards/{id}(id=${item.id}, team=${item.team})}" th:text="${item.title}"></a>
                     <p class="author" th:text="${item.user.nickname}"></p>
                     <p class="create-time" th:text="${#dates.format(item.createdAt, 'yyyy.MM.dd HH:mm')}"></p>
                     <p class="hits" th:text="${item.hits}"></p>

@@ -18,13 +18,14 @@
     <div class="wrap">
         <input type="hidden" id="user-id" th:value="${user.id}">
         <input type="hidden" id="board-id" th:value="${board.id}">
+        <input type="hidden" id="team" th:value="${team}">
         <section class="board-section">
             <ul class="board-header">
                 <li>
-                    <button th:onclick="|location.href='@{/boards}'|" class="on">목록</button>
+                    <button th:onclick="|location.href='@{/boards?team={team}(team=${team})}'|" class="on">목록</button>
                     <span th:if="${board.userId} == ${user.id}">
                         <button type="button" id="board-update-btn"
-                                th:onclick="|location.href='@{/boards/new-board?id={id}(id=${board.id})}'|"
+                                th:onclick="|location.href='@{/boards/new-board?id={id}(id=${board.id}, team=${team})}'|"
                                 class="btn btn-primary btn-sm">수정
                         </button>
                         <button id="board-delete-btn">삭제</button>

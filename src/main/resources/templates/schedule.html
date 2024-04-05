@@ -6,12 +6,10 @@
 
 <th:block layout:fragment="head">
     <title>월간 일정</title>
-    <link th:href="@{/css/common.css}" rel="stylesheet"/>
     <link th:href="@{/css/schedule.css}" rel="stylesheet"/>
 </th:block>
-
-<body>
 <header th:replace="~{/fragments/header}"></header>
+<body>
 <article th:fragment="content">
     <div class="wrap">
         <div class="month-selector">

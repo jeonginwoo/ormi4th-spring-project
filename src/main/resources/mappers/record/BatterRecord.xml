@@ -97,7 +97,7 @@
                     select tr.game
                     from team_ranking tr
                     where tr.team_id = br.team_id and tr.season = #{season})
-                * 3 <= (sum(br.ab) + sum(br.bb) + sum(br.hbp) + sum(br.sc) + sum(br.sf))
+                * 3.1 <= (sum(br.ab) + sum(br.bb) + sum(br.hbp) + sum(br.sc) + sum(br.sf))
             ]]>
         </if>
         <if test="query == 'hr'">
@@ -192,7 +192,7 @@
             from team_ranking tr
             where
             <![CDATA[
-                tr.team_id = br.team_id and tr.season = #{season}) * 3
+                tr.team_id = br.team_id and tr.season = #{season}) * 3.1
                 <= (sum(br.ab) + sum(br.bb) + sum(br.hbp) + sum(br.sc) + sum(br.sf));
             ]]>
     </select>

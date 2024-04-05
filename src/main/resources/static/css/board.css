@@ -1,22 +1,3 @@
-body {
-    background-image: url("../images/character/삼성.jpg");
-    background-repeat: no-repeat;
-
-    background-position: right bottom;
-    background-attachment: fixed;
-
-    background-size : 800px 600px;
-}
-
-.wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    padding: 100px;
-}
-
 .board-section {
 
     width: 1060px;

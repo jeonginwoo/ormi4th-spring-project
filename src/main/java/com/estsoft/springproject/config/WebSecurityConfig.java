@@ -18,7 +18,8 @@ public class WebSecurityConfig {
         return web -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
-    // 특정 HTTP 요청에 대한 웹 기반 보안 구성
+
+   
     // 특정 HTTP 요청에 대한 웹 기반 보안 구성
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -26,16 +27,18 @@ public class WebSecurityConfig {
                         auth.requestMatchers("**").permitAll()
                                 .anyRequest().authenticated())
                 .formLogin(auth -> auth.loginPage("/login")     // 폼 기반 로그인 설정
-                        .defaultSuccessUrl("/mypage"))
+                        .defaultSuccessUrl("/"))
                 .logout(auth -> auth.logoutSuccessUrl("/login") // 로그아웃 설정
                         .invalidateHttpSession(true))
                 .csrf(auth -> auth.disable());                  // csrf 비활성화
         return httpSecurity.build();
     }
 
-    // 패스워드 인코더로 사용할 빈 등록
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	
+
+	// 패스워드 인코더로 사용할 빈 등록
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }

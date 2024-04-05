@@ -11,10 +11,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Long> {
-  	Page<Board> findAll(Pageable pageable);
-	Page<Board> findByUserNickname(String nickname,Pageable pageable);
-	@Query("select b from Board b Where b.title LIKE %:title%")
-	Page<Board> findByTitle(String title,Pageable pageable);
+    Page<Board> findAll(Pageable pageable);
 
-	Page<Board> findByUserId(Long userId,Pageable pageable);
+	Page<Board> findByTeam(Pageable pageable, String team);
+    Page<Board> findByUserNickname(String nickname, Pageable pageable);
+
+    @Query("select b from Board b Where b.title LIKE %:title%")
+    Page<Board> findByTitle(String title, Pageable pageable);
+
+    Page<Board> findByUserId(Long userId, Pageable pageable);
 }

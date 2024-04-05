@@ -7,32 +7,31 @@
     --black: black;
 }
 
-header {
+.header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #ccc;
+    justify-content: center;
 
+    gap: 100px;
     padding: 20px 80px;
+
+
+    border-bottom: 1px solid #ccc;
+}
+
+button {
+    cursor: pointer;
 }
 
 .menu {
     display: flex;
-    margin-left: 10px;
+    gap: 80px
 }
 
-.home {
+.home-btn {
     display: flex;
     align-items: center;
     gap: 10px;
-}
-
-.logo {
-    width:80px;
-}
-
-.menu {
-    gap: 80px
 }
 
 .login {
@@ -48,6 +47,7 @@ header {
     min-width: 160px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     overflow: auto;
+    z-index: 10;
 }
 
 .dropdown:hover .dropdown-options {
@@ -69,4 +69,11 @@ header {
 
 .menu a, .login a, .dropdown p {
     font-size: 24px;
+}
+
+.sticky-element {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding: 10px;
 }
