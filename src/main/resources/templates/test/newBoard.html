@@ -34,8 +34,7 @@
 </div>
 
 <div class="action-buttons">
-    <a th:if="${board.id} == null" href="/boards">취소</a>
-    <a th:if="${board.id} != null" th:href="@{/boards/{id}(id=${board.id})}">취소</a>
+    <a href="javascript:window.history.back();">취소</a>
     <button th:if="${board.id} == null" id="board-create-btn" class="on">등록</button>
     <button th:if="${board.id} != null" onclick="updateBoard()" class="on">수정</button>
 </div>
