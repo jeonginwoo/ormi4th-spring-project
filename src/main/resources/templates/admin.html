@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<header th:replace="~{/fragments/header}"></header>
+<th:block layout:fragment="head">
+    <title>관리자 페이지</title>
+    <link th:href="@{/css/admin.css}" rel="stylesheet"/>
+</th:block>
+
+<article th:fragment="content">
+    <div class="wrap">
+        <h1>관리자 페이지</h1>
+        <section class="site-info-section">
+            <p th:text="'총 회원 수 : '+${totalUsers}"></p>
+            <p th:text="'총 게시글 수 : '+${totalPosts}"></p>
+            <p th:text="'총 댓글 수 : '+${totalComments}"></p>
+        </section>
+        <section class="user-list-section">
+            <h3 class="table-title">회원 목록</h3>
+            <ul class="user-list-table-header">
+                <li>
+                    <p class="ID">ID</p>
+                </li>
+                <li>
+                    <p class="e-mail">Email</p>
+                </li>
+                <li>
+                    <p class="nick-name">Nickname</p>
+                </li>
+                <li>
+                    <p class="role">Role</p>
+                </li>
+            </ul>
+            <ul class="user-list-table-body">
+                <li th:each="user : ${users}">
+                    <a class="ID" th:href="@{'/mypage/' + ${user.id}}" th:text="${user.id}"></a>
+                    <p class="e-mail" th:text="${user.email}"></p>
+                    <p class="nick-name" th:text="${user.nickname}"></p>
+                    <form th:action="@{/mypage/{userId}/admin(userId=${user.id})}" method="post">
+                        <select name="role">
+                            <option value="admin" th:selected="${'admin' eq user.role}">Admin</option>
+                            <option value="user" th:selected="${'user' eq user.role}">User</option>
+                        </select>
+                        <button type="submit">변경</button>
+                        <input type="hidden" name="userId" th:value="${user.id}"/> <!-- 사용자 아이디 유지 -->
+                    </form>
+                </li>
+            </ul>
+        </section>
+    </div>
+</article>
+</html>

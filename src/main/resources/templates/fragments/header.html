@@ -8,10 +8,9 @@
     <link rel="stylesheet" href="/css/header.css">
 </head>
 <body>
-
-<header>
+<div class="header sticky-element">
     <ul>
-        <li class="home">
+        <li class="home-btn">
             <a th:href="@{/}">
                 <img class="logo" th:src="@{/images/logo.png}">
                 <h2>일사만루</h2>
@@ -41,7 +40,6 @@
                         <a th:href="@{'/boards'(team=${team})}" th:text="${team}"></a>
                     </li>
                 </ul>
-
             </div>
         </li>
     </ul>
@@ -58,8 +56,13 @@
                     </li>
                 </ul>
             </div>
-            <a th:if="${userName == null}" th:href="@{/login}">로그인</a>
-            <a th:if="${userName == null}" th:href="@{/register}">회원가입</a>
+        </li>
+        <li th:if="${userName == null}">
+            <a th:href="@{/login}">로그인</a>
+        </li>
+        <li th:if="${userName == null}">
+            <a th:href="@{/register}">회원가입</a>
         </li>
     </ul>
-</header>
+</div>
+

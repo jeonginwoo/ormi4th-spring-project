@@ -1,18 +1,10 @@
-.wrap {
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 100px;
-    gap: 50px;
-}
-
 .info-section {
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    height: 320px;
 
     padding: 30px;
 }
@@ -27,7 +19,6 @@
 
 .emblem {
     width: 250px;
-    height: 200px;
 }
 
 .name-div {

@@ -197,9 +197,9 @@ public class BoardController {
         }
 
         model.addAttribute("team", team);
-        model.addAttribute("fullName",TeamId.valueOf(team).getFullName());
+        model.addAttribute("fullName", TeamId.valueOf(team).getFullName());
 
-        return "test/newBoard";   // TODO: 테스트 끝나면 실제 사용할 html로 바꾸기
+        return "newBoard";
     }
 
     @GetMapping("/search")
