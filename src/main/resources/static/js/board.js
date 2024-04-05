@@ -29,10 +29,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const commentContainer = button.closest(".comment-container");
             const commentId = commentContainer.querySelector("input[name='commentId']").value;
             const content = commentContainer.querySelector(".content");
+            const likeArea = commentContainer.querySelector(".like-area");
             const editContent = document.createElement('textarea');
             editContent.classList.add('update-content');
             editContent.value = content.innerText;
             content.style.display = 'none';
+            likeArea.style.display = 'none';
 
             const updateBtnAlign = document.createElement('div');
             updateBtnAlign.classList.add('btn-align');
@@ -57,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     // 원래 내용으로 대체
                     content.innerText = editedContent;
                     content.style.display = 'block';
+                    likeArea.style.display = 'block';
                     commentContainer.removeChild(editContent);
                     commentContainer.removeChild(updateBtnAlign);
                 }
@@ -66,6 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
             cancelBtn.innerText = '취소';
             cancelBtn.addEventListener('click', function() {
                 content.style.display = 'block';
+                likeArea.style.display = 'block';
                 commentContainer.removeChild(editContent);
                 commentContainer.removeChild(updateBtnAlign);
             });
@@ -85,7 +89,9 @@ function closeAllEditDialogs() {
     editContents.forEach(function(content) {
         const commentContainer = content.closest('.comment-container');
         const originalContent = commentContainer.querySelector('.content');
+        const likeArea = commentContainer.querySelector(".like-area");
         originalContent.style.display = 'block';
+        likeArea.style.display = 'block';
         commentContainer.removeChild(content.nextSibling);
         commentContainer.removeChild(content);
     });
@@ -128,7 +134,7 @@ if (commentCreateButton) {
                 parentId: parentId,
             }),
         }).then(() => {
-            location.reload();
+            reloadWithScrollPositionFixed();
         });
     });
 }
@@ -153,7 +159,7 @@ function createChildComment() {
                 parentId: parentId,
             }),
         }).then(() => {
-            location.reload();
+            reloadWithScrollPositionFixed();
         });
     }
 }
@@ -227,5 +233,23 @@ function deleteLike() {
         likeNumSpan.textContent = parseInt(likeNumSpan.textContent) - 1;
     }).catch(error => {
         console.error('Error deleting like:', error);
+    });
+}
+
+
+function reloadWithScrollPositionFixed() {
+    // 페이지를 떠날 때 스크롤 위치를 세션 스토리지에 저장
+    window.addEventListener('beforeunload', function() {
+        sessionStorage.setItem('scrollPosition', window.scrollY);
+    });
+
+    location.reload();
+
+    // 페이지를 로드할 때 세션 스토리지에서 스크롤 위치를 가져와 설정
+    window.addEventListener('load', function() {
+        var scrollPosition = sessionStorage.getItem('scrollPosition');
+        if (scrollPosition !== null) {
+            window.scrollTo(0, parseInt(scrollPosition));
+        }
     });
 }

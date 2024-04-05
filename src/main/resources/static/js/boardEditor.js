@@ -1,11 +1,53 @@
-const boardContent = document.getElementById('boardContent').value;
+const boardContent = document.getElementById('boardContent').value; // 초기 상태의 내용 가져오기
+updateCharacterCount(boardContent); // 초기 상태의 글자 수 표시
+
 const editor = new toastui.Editor({
     el: document.querySelector('#editor'),
     previewStyle: 'vertical',
     height: '500px',
     initialValue: boardContent,
-    placeholder: '내용 입력'
+    placeholder: '내용 입력',
+    hooks: {
+        async addImageBlobHook(blob, callback) {
+            try {
+                const formData = new FormData();
+                formData.append('image', blob);
+
+                const response = await fetch('/tui-editor/image-upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const filename = await response.text();
+                console.log('서버에 저장된 파일명 : ', filename);
+
+                const imageUrl = `/tui-editor/image-print?filename=${filename}`;
+                callback(imageUrl, 'image alt attribute');
+
+            } catch (error) {
+                console.error('업로드 실패 : ', error);
+            }
+        },
+        // 에디터 내용 변경 시 호출되는 훅
+        change: function() {
+            const content = editor.getMarkdown(); // 에디터의 Markdown 내용 가져오기
+            updateCharacterCount(content); // 글자 수 업데이트
+        }
+    }
 });
+
+// 글자 수 업데이트 함수
+function updateCharacterCount(content) {
+    const contentLength = content.length;
+    const maxLength = 3000; // 최대 글자 수 설정
+
+    // 에디터 하단에 글자 수 표시
+    const characterCountElement = document.querySelector('#character-count');
+    characterCountElement.textContent = `${contentLength} / ${maxLength}`;
+}
+
+
+
 
 // 게시글 수정
 function updateBoard() {

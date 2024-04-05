@@ -19,6 +19,10 @@
     border-bottom: 1px solid #ccc;
 }
 
+button {
+    cursor: pointer;
+}
+
 .menu {
     display: flex;
     gap: 80px

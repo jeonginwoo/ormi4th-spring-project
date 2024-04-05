@@ -24,18 +24,18 @@
     <strong th:if="${board.id} != null">수정하기</strong>
 </div>
 <div>
-    <input type="text" placeholder="제목 입력" id="title" th:value="${board.title}" required/>
+    <input class="input-title" type="text" placeholder="제목 입력" id="title" maxlength='50' th:value="${board.title}" required/>
     <hr>
     <input type="hidden" id="boardContent" th:value="${board.content}">
     <div id="editor"></div>
+    <div id="character-count"></div>
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
     <script>
     </script>
 </div>
 
 <div class="action-buttons">
-    <a th:if="${board.id} == null" href="/boards">취소</a>
-    <a th:if="${board.id} != null" th:href="@{/boards/{id}(id=${board.id})}">취소</a>
+    <a href="javascript:window.history.back();">취소</a>
     <button th:if="${board.id} == null" id="board-create-btn" class="on">등록</button>
     <button th:if="${board.id} != null" onclick="updateBoard()" class="on">수정</button>
 </div>
