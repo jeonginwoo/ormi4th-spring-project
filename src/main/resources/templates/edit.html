@@ -10,9 +10,8 @@
     <link th:href="@{/css/edit.css}" rel="stylesheet"/>
 </th:block>
 
-<body>
-<header th:replace="~{/fragments/header}"></header>
-<article th:fragment="content">
+<div th:replace="~{/fragments/header}"></div>
+<main th:fragment="content">
     <div class="wrap">
         <section class="edit-section">
             <h1>정보 수정</h1>
@@ -41,8 +40,8 @@
             </form>
         </section>
     </div>
-</article>
-
+</main>
+<div th:replace="~{/fragments/footer}"></div>
 <script>
     document.getElementById("edit-form").addEventListener("submit", async function(event) {
         event.preventDefault(); // 폼 제출을 일단 방지
@@ -120,5 +119,4 @@
         event.target.submit();
     });
 </script>
-</body>
 </html>

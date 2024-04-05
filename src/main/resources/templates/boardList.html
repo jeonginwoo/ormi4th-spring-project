@@ -10,9 +10,8 @@
     <link rel="stylesheet" href="/css/boardList.css"/>
 </th:block>
 
-<body>
-<header th:replace="~{/fragments/header}"></header>
-<article th:fragment="content">
+<div th:replace="~{/fragments/header}"></div>
+<main th:fragment="content">
     <div class="wrap">
         <section class="board-table-section" th:style="'background-color: '+${color}+';'">
             <h1 class="table-title" th:text="${teamFullName}+' 게시판'"></h1>
@@ -69,6 +68,6 @@
             </div>
         </section>
     </div>
-</article>
-</body>
+</main>
+<div th:replace="~{/fragments/footer}"></div>
 </html>

@@ -12,7 +12,7 @@
     align-items: center;
     justify-content: center;
 
-    gap: 100px;
+    gap: 120px;
     padding: 20px 80px;
 
 
@@ -25,7 +25,8 @@ button {
 
 .menu {
     display: flex;
-    gap: 80px
+    margin: 0 50px;
+    gap: 170px
 }
 
 .home-btn {
@@ -75,7 +76,6 @@ button {
     position: sticky;
     top: 0;
     background-color: white;
-    padding: 10px;
 
     z-index: 1000;
 }

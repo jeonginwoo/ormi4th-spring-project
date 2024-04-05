@@ -12,16 +12,18 @@
     box-sizing: border-box;
 }
 
+body {
+    min-height: 100vh;
+
+    margin: 0 auto;
+}
+
 .header {
     height: 10%
 }
 
 .content {
     height:100%;
-}
-
-.footer {
-    height: 0%
 }
 
 ul,li {
@@ -48,6 +50,6 @@ button {
     align-items: center;
     flex-direction: column;
 
-    padding: 80px 0;
+    padding: 100px 0;
     gap: 50px;
 }
