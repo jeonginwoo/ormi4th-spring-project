@@ -5,6 +5,8 @@ import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -23,9 +25,12 @@ public class UserViewController {
 
 	@GetMapping("/login")
 	public String login(){
-		return "test/login";
+		return "/test/login";
 	}
-
+	@PostMapping("/login")
+	public String successlogin(){
+		return "redirect:/mypage";
+	}
 	@GetMapping("/signup")
 	public String showSignupForm() {
 		return "test/signup";

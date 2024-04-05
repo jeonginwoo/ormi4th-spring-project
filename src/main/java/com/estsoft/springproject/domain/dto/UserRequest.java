@@ -12,6 +12,7 @@ public class UserRequest {
 	private String nickname;
 	private String password;
 	private String role;
+	private String currentPassword;
 	public void encodePassword(PasswordEncoder passwordEncoder) {
 		if (password != null && !password.isEmpty()) {
 			this.password = passwordEncoder.encode(password);

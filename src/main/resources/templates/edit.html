@@ -16,19 +16,25 @@
     <div class="wrap">
         <section class="edit-section">
             <h1>정보 수정</h1>
-            <form th:action="@{/mypage/update/{userId}(userId=${user.id})}" method="post">
+            <form id="edit-form" th:action="@{/mypage/update/{userId}(userId=${user.id})}" method="post">
                 <input type="hidden" name="_method" value="put" />
                 <div>
                     <label for="email">이메일:</label>
-                    <input type="email" id="email" name="email" th:value="${user.email}" required/>
+                    <input type="email" id="email" name="email" th:value="${user.email}" readonly required/>
                 </div>
                 <div>
                     <label for="nickname">닉네임:</label>
                     <input type="text" id="nickname" name="nickname" th:value="${user.nickname}" required/>
                 </div>
+                <input type="hidden" id="originalNickname" name="originalNickname" th:value="${user.nickname}" />
+
+                <div>
+                    <label for="currentPassword">현재 비밀번호:</label>
+                    <input type="password" id="currentPassword" name="currentPassword" required/>
+                </div>
                 <div>
                     <label for="password">새 비밀번호:</label>
-                    <input type="password" id="password" name="password"/>
+                    <input type="password" id="password" name="password" required/>
                     <span>(변경을 원치 않으면 비워 두세요)</span>
                 </div>
                 <button type="submit">저장</button>
@@ -36,5 +42,83 @@
         </section>
     </div>
 </article>
+
+<script>
+    document.getElementById("edit-form").addEventListener("submit", async function(event) {
+        event.preventDefault(); // 폼 제출을 일단 방지
+
+        var password = document.getElementById('password').value;
+        var currentPassword = document.getElementById('currentPassword').value;
+        var nickname = document.getElementById('nickname').value;
+        var originalNickname = document.getElementById('originalNickname').value;
+
+        // 비밀번호 강도 검사
+        var passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&,~]{8,}$/;
+        if (!passwordPattern.test(password)) {
+            alert("비밀번호는 영어소문자, 숫자, 특수문자를 포함하여 8자 이상이어야 합니다.");
+            return; // 여기서 함수 종료
+        }
+
+        // 현재 비밀번호가 맞는지 확인하는 검사
+        async function checkCurrentPassword() {
+            try {
+                const response = await fetch("/checkCurrentPassword", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `currentPassword=${encodeURIComponent(currentPassword)}`
+                });
+                const data = await response.json();
+                if (!data.available) {
+                    alert("현재 비밀번호가 일치하지 않습니다.");
+                    return false; // 현재 비밀번호가 일치하지 않으므로 false 반환
+                } else {
+                    return true; // 현재 비밀번호가 일치하므로 true 반환
+                }
+            } catch (error) {
+                console.error('현재 비밀번호 확인 중 오류 발생:', error);
+                return false; // 오류가 발생했으므로 false 반환
+            }
+        }
+
+        // 폼 제출 이벤트 리스너 내부에서 checkCurrentPassword 함수 호출
+        const isCurrentPasswordCorrect = await checkCurrentPassword();
+        if (!isCurrentPasswordCorrect) {
+            return; // 현재 비밀번호가 일치하지 않는 경우, 여기서 함수 종료
+        }
+
+        // 닉네임 중복 검사
+
+
+        async function checkNicknameAvailability() {
+            try {
+                const response = await fetch("/checkNicknameAvailability?nickname=" + encodeURIComponent(nickname));
+                const data = await response.json();
+                if (!data.available) {
+                    alert("이미 사용 중인 닉네임입니다.");
+                    return false; // 중복된 닉네임이 있으므로 false 반환
+                } else {
+                    alert("사용 가능한 닉네임입니다.");
+                    return true; // 사용 가능한 닉네임이므로 true 반환
+                }
+            } catch (error) {
+                console.error('닉네임 중복 검사 중 오류 발생:', error);
+                return false; // 오류가 발생했으므로 false 반환
+            }
+        }
+
+        if (nickname != originalNickname) {
+
+            // 폼 제출 이벤트 리스너 내부에서 checkNicknameAvailability 함수 호출
+            const isNicknameAvailable = await checkNicknameAvailability();
+            if (!isNicknameAvailable) {
+                return; // 중복된 닉네임이 있거나 오류가 발생한 경우, 여기서 함수 종료
+            }
+        }
+        alert("정보 수정이 완료되었습니다.");
+        event.target.submit();
+    });
+</script>
 </body>
 </html>

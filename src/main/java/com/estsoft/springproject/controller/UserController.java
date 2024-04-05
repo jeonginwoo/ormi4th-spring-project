@@ -1,6 +1,8 @@
 package com.estsoft.springproject.controller;
 
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -76,6 +79,7 @@ public class UserController {
 				model.addAttribute("boardPage", boardPageResult);
 				model.addAttribute("commentPage", commentPageResult);
 				model.addAttribute("user", user);
+				model.addAttribute("userName",user.getNickname());
 				return "test/mypage";
 			}
 		}
@@ -100,10 +104,38 @@ public class UserController {
 	}
 	@Transactional
 	@PutMapping("/mypage/update/{userId}")
-	public String updateMypageInfo(@PathVariable Long userId,@ModelAttribute UserRequest userRequest,Model model){
+	public String updateMypageInfo(@PathVariable Long userId,@ModelAttribute UserRequest userRequest,Model model,
+		BindingResult bindingResult){
+		if (bindingResult.hasErrors()) {
+			return "edit";
+		}
 		User user = userService.findById(userId);
+
+
+		//닉네임 처리
+		if (!user.getNickname().equals(userRequest.getNickname())) {
+			boolean nicknameExists = userService.isNicknameAvailable(userRequest.getNickname());
+			if (!nicknameExists) {
+				bindingResult.rejectValue("nickname", "error.userRequest", "이미 사용 중인 닉네임입니다.");
+				return "edit";
+			}
+		}
+
+		//현재 비밀번호 처리
 		String encodedPassword = passwordEncoder.encode(userRequest.getPassword());
-		userRequest.setPassword(encodedPassword);
+		if(!passwordEncoder.matches(userRequest.getCurrentPassword(),user.getPassword())){
+			bindingResult.rejectValue("currentPassword","error.userRequest","비밀번호가 맞지 않습니다.");
+			return "edit";
+		}
+		//새로운 비밀번호 입력 처리
+		else{
+			Pattern passwordPattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&~]{8,}$");
+			if (!passwordPattern.matcher(userRequest.getPassword()).matches()) {
+				bindingResult.rejectValue("password", "error.userRequest", "비밀번호는 영어소문자, 숫자, 특수문자를 포함하여 8자 이상이어야 합니다.");
+				return "edit";
+			}
+		}
+
 		userService.updateUserInfo(userId,userRequest);
 		model.addAttribute("user",user);
 		return "redirect:/mypage";
@@ -157,4 +189,9 @@ public class UserController {
 		return "redirect:/login";
 	}
 
+	@PostMapping("/checkCurrentPassword")
+	public ResponseEntity<?> checkCurrentPassword(@RequestParam String currentPassword) {
+		boolean isAvailable = userService.checkCurrentPassword(currentPassword); // 비밀번호 일치 여부 확인
+		return ResponseEntity.ok().body(Map.of("available", isAvailable)); // 결과를 JSON 형태로 반환
+	}
 }

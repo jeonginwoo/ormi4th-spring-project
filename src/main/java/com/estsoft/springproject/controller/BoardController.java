@@ -117,7 +117,8 @@ public class BoardController {
     public String showBoards(
             Model model,
             @RequestParam(value="page", defaultValue="1") int page,
-            String team
+            String team,
+            @AuthenticationPrincipal User user
     ) {
 
         Page<Board> paging = this.boardService.findByTeam(page, team);
@@ -125,7 +126,7 @@ public class BoardController {
         model.addAttribute("team",team);
         model.addAttribute("teamFullName", TeamId.valueOf(team).getFullName());
         model.addAttribute("color", TeamId.valueOf(team).getColor());
-
+        //model.addAttribute("userName",user.getNickname());
         return "boardList";
     }
 
@@ -144,6 +145,7 @@ public class BoardController {
             return "redirect:/login"; // 로그인 페이지로 리다이렉트 혹은 처리할 경로로 변경
         }
         model.addAttribute("user", user);
+        //model.addAttribute("userName",user.getNickname());
 
         // 게시판
         Board board = boardService.findById(boardId);
@@ -186,8 +188,10 @@ public class BoardController {
 
     @GetMapping("/new-board")
     public String newBoard(
+
             Model model, String team,
             @RequestParam(required = false) Long id
+
     ) {
         if (id == null) {  // 등록
             model.addAttribute("board", new BoardResponse());
@@ -200,6 +204,7 @@ public class BoardController {
         model.addAttribute("fullName", TeamId.valueOf(team).getFullName());
 
         return "newBoard";
+
     }
 
     @GetMapping("/search")
