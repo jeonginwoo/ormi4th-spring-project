@@ -29,10 +29,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const commentContainer = button.closest(".comment-container");
             const commentId = commentContainer.querySelector("input[name='commentId']").value;
             const content = commentContainer.querySelector(".content");
+            const likeArea = commentContainer.querySelector(".like-area");
             const editContent = document.createElement('textarea');
             editContent.classList.add('update-content');
             editContent.value = content.innerText;
             content.style.display = 'none';
+            likeArea.style.display = 'none';
 
             const updateBtnAlign = document.createElement('div');
             updateBtnAlign.classList.add('btn-align');
@@ -57,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     // 원래 내용으로 대체
                     content.innerText = editedContent;
                     content.style.display = 'block';
+                    likeArea.style.display = 'block';
                     commentContainer.removeChild(editContent);
                     commentContainer.removeChild(updateBtnAlign);
                 }
@@ -66,6 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
             cancelBtn.innerText = '취소';
             cancelBtn.addEventListener('click', function() {
                 content.style.display = 'block';
+                likeArea.style.display = 'block';
                 commentContainer.removeChild(editContent);
                 commentContainer.removeChild(updateBtnAlign);
             });
@@ -85,7 +89,9 @@ function closeAllEditDialogs() {
     editContents.forEach(function(content) {
         const commentContainer = content.closest('.comment-container');
         const originalContent = commentContainer.querySelector('.content');
+        const likeArea = commentContainer.querySelector(".like-area");
         originalContent.style.display = 'block';
+        likeArea.style.display = 'block';
         commentContainer.removeChild(content.nextSibling);
         commentContainer.removeChild(content);
     });
