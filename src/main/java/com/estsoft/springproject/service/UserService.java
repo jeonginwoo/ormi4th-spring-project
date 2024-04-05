@@ -115,8 +115,8 @@ public class UserService implements UserDetailsService {
         // Optional에서 User 객체를 가져와서 비밀번호를 확인
         if (currentUserOptional.isPresent()) {
             User currentUser = currentUserOptional.get();
-            System.out.println("현재 입력한 비밀번호: " + currentPassword);
-            System.out.println("현재 사용자의 비밀번호: " + currentUser.getPassword());
+            // System.out.println("현재 입력한 비밀번호: " + currentPassword);
+            // System.out.println("현재 사용자의 비밀번호: " + currentUser.getPassword());
             return passwordEncoder.matches(currentPassword.trim(), currentUser.getPassword());
         } else {
             throw new IllegalStateException("현재 사용자 정보를 가져올 수 없습니다.");

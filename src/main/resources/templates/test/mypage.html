@@ -21,7 +21,7 @@
             <div class="btn-div">
                 <button class="ui-button" th:onclick="|location.href='@{/mypage/update/{userId}(userId=${user.id})}'|">정보 수정</button>
                 <!-- 계정 삭제 처리 -->
-                <form th:action="@{/mypage/{userId}(userId=${user.id})}" method="post">
+                <form id="delete-form" th:action="@{/mypage/{userId}(userId=${user.id})}" method="post">
                     <input type="hidden" name="_method" value="delete" />
                     <button type="submit">계정 삭제</button>
                 </form>
@@ -114,5 +114,62 @@
         </section>
     </div>
 </article>
+
+<script>
+    document.getElementById("delete-form").addEventListener("submit", async function(event) {
+        event.preventDefault(); // 폼 제출을 일단 방지
+
+        // 비밀번호 입력을 받는 프롬프트 대화상자 표시
+        var deletePassword = prompt("계정 삭제를 위해 비밀번호를 입력하세요:");
+
+        if (deletePassword === null || deletePassword === "") {
+            alert("비밀번호를 입력해야 계정 삭제를 진행할 수 있습니다.");
+            return; // 입력이 없는 경우 함수 종료
+        }
+
+        // 입력된 비밀번호와 현재 로그인된 사용자의 비밀번호 비교
+        async function checkDeletePassword() {
+            try {
+                const response = await fetch("/checkCurrentPassword", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `currentPassword=${encodeURIComponent(deletePassword)}`
+                });
+                const data = await response.json();
+                if (!data.available) {
+                    alert("비밀번호가 일치하지 않습니다. 계정 삭제를 진행할 수 없습니다.");
+                    return false; // 비밀번호가 일치하지 않으므로 false 반환
+                } else {
+                    return true; // 비밀번호가 일치하므로 true 반환
+                }
+            } catch (error) {
+                console.error('비밀번호 확인 중 오류 발생:', error);
+                return false; // 오류가 발생했으므로 false 반환
+            }
+        }
+
+        // 비밀번호 확인 함수 호출
+        const isPasswordCorrect = await checkDeletePassword();
+        if (!isPasswordCorrect) {
+            return; // 비밀번호가 일치하지 않으면 함수 종료
+        }
+
+        // 비밀번호가 확인되면 계정 삭제 수행
+        if (confirm("정말로 계정을 삭제하시겠습니까? 계정을 삭제하면 모든 정보가 영구적으로 삭제됩니다.")) {
+
+            alert("계정이 성공적으로 삭제되었습니다.");
+            event.target.submit();
+
+        } else {
+            alert("계정 삭제가 취소되었습니다.");
+        }
+
+    });
+
+</script>
+
+
 </body>
 </html>
