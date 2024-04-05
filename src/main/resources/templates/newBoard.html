@@ -18,8 +18,8 @@
 <article th:fragment="content">
     <div class="wrap">
         <section class="board-editor-section">
-            <span th:text="${fullName}+' '"></span>
-            <span th:text="'게시판 '+${board.id == null ? '글 쓰기' : '글 수정하기'}"></span>
+            <span class="title" th:text="${fullName}+' '"></span>
+            <span class="title" th:text="'게시판 '+${board.id == null ? '글 쓰기' : '글 수정하기'}"></span>
             <div>
                 <input class="input-title" type="text" placeholder="제목 입력" id="title" maxlength="50" th:value="${board.title}" required/>
                 <input type="hidden" id="boardContent" th:value="${board.content}">

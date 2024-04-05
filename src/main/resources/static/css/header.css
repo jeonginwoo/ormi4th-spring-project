@@ -76,4 +76,6 @@ button {
     top: 0;
     background-color: white;
     padding: 10px;
+
+    z-index: 1000;
 }

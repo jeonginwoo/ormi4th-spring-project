@@ -1,4 +1,4 @@
-span {
+.title {
     font-size: 40px;
 }
 
@@ -39,4 +39,8 @@ textarea {
     background-color: #28a745;
     color: white;
     border-radius: 10px;
+}
+
+body {
+    z-index: 1;
 }
