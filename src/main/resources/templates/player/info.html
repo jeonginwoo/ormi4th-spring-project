@@ -9,9 +9,8 @@
     <link th:href="@{/css/player/info.css}" rel="stylesheet"/>
 </th:block>
 
-<body>
-<header th:replace="~{/fragments/header}"></header>
-<article th:fragment="content">
+<div th:replace="~{/fragments/header}"></div>
+<main th:fragment="content">
     <div class="wrap">
         <section class="info-section" th:classappend="${positionId == 1} ? 'gap-pitcher' : 'gap-batter'"
                  th:style="'background-color: ' + ${player.playerInfo.teamColor}">
@@ -182,8 +181,7 @@
             </div>
         </section>
     </div>
-</article>
-</body>
-<footer th:replace="~{/fragments/footer}"></footer>
+</main>
+<div th:replace="~{/fragments/footer}"></div>
 <script th:src="@{/js/divClick.js}"></script>
 </html>
