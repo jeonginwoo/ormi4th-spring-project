@@ -85,8 +85,6 @@ INSERT INTO likes (user_id, content_id, content_type) VALUES (4, 12, 'comment');
 INSERT INTO likes (user_id, content_id, content_type) VALUES (4, 1, 'board');
 
 
-use baseball;
-
 DROP TABLE if exists team;
 CREATE TABLE `team` (
                         `id`	bigint(11)	NOT NULL AUTO_INCREMENT,

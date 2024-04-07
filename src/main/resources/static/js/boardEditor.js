@@ -1,6 +1,5 @@
-const boardContent = document.getElementById('boardContent').value; // 초기 상태의 내용 가져오기
-updateCharacterCount(boardContent); // 초기 상태의 글자 수 표시
-
+const boardContent = document.getElementById('boardContent').value;
+updateCharacterCount(boardContent);
 const editor = new toastui.Editor({
     el: document.querySelector('#editor'),
     previewStyle: 'vertical',
@@ -28,10 +27,9 @@ const editor = new toastui.Editor({
                 console.error('업로드 실패 : ', error);
             }
         },
-        // 에디터 내용 변경 시 호출되는 훅
         change: function() {
             const content = editor.getMarkdown(); // 에디터의 Markdown 내용 가져오기
-            updateCharacterCount(content); // 글자 수 업데이트
+            updateCharacterCount(content);
         }
     }
 });
@@ -44,6 +42,12 @@ function updateCharacterCount(content) {
     // 에디터 하단에 글자 수 표시
     const characterCountElement = document.querySelector('#character-count');
     characterCountElement.textContent = `${contentLength} / ${maxLength}`;
+
+    if (contentLength > maxLength) { // 3000자를 초과하는 경우
+        const trimmedContent = content.slice(0, maxLength); // 초과된 부분 자르기
+        editor.setMarkdown(trimmedContent); // 에디터 내용 설정
+        alert("3000자 이하로 작성해주세요.");
+    }
 }
 
 
