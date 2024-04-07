@@ -8,7 +8,7 @@
     <title>월간 일정</title>
     <link th:href="@{/css/schedule.css}" rel="stylesheet"/>
 </th:block>
-<div th:replace="~{/fragments/header.html}"></div>
+<div th:replace="~{fragments/header.html::header}"></div>
 <main th:fragment="content">
     <div class="wrap">
         <div class="month-selector">
@@ -79,6 +79,6 @@
         </section>
     </div>
 </main>
-<div th:replace="~{/fragments/footer.html}"></div>
+<div th:replace="~{fragments/footer.html::footer}"></div>
 <script th:src="@{/js/divClick.js}"></script>
 </html>

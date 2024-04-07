@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
 
-<div th:replace="~{/fragments/header.html}"></div>
+<div th:replace="~{fragments/header.html::header}"></div>
 <th:block layout:fragment="head">
     <title>관리자 페이지</title>
     <link th:href="@{/css/admin.css}" rel="stylesheet"/>
@@ -51,5 +51,5 @@
         </section>
     </div>
 </main>
-<div th:replace="~{/fragments/footer.html}"></div>
+<div th:replace="~{fragments/footer.html::footer}"></div>
 </html>
