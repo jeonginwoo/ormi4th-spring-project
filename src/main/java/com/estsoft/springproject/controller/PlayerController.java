@@ -24,12 +24,6 @@ public class PlayerController {
         return playerService.getPlayerInfo(id);
     }
 
-    @GetMapping("")
-    public List<PlayerInfo> getPlayersInfoByTeam(Long teamId) {
-
-        return playerService.getPlayersInfoByTeam(teamId);
-    }
-
     @GetMapping("/info")
     public String getPlayerInfoWithSeasonRecord(Long id, Long positionId, Model model) {
 

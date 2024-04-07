@@ -22,6 +22,7 @@ public class GameResultController {
         GameResult gameResult = gameResultService.getGameResult(gameCode);
 
         model.addAttribute("result", gameResult);
+        model.addAttribute("gameCode", gameCode);
 
         return "gameResult";
     }

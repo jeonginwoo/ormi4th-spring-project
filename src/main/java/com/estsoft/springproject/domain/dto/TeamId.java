@@ -2,6 +2,9 @@ package com.estsoft.springproject.domain.dto;
 
 import org.antlr.v4.runtime.atn.SemanticContext;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum TeamId {
 
     두산(1, "#131230","두산 베어스"),
@@ -14,7 +17,6 @@ public enum TeamId {
     롯데(8, "#041E42", "롯데 자이언츠"),
     NC(9, "#315288", "NC 다이노스"),
     SSG(10, "#CE0E2D", "SSG 랜더스");
-
     private int id;
     private String color;
     private String fullName;
@@ -38,5 +40,17 @@ public enum TeamId {
     public String getFullName() {
 
         return fullName;
+    }
+
+    public String getTeamNameById(int id) {
+
+        for(TeamId teamId : TeamId.values()) {
+
+            if(teamId.getId() == id) {
+                return teamId.name();
+            }
+        }
+
+        return null;
     }
 }

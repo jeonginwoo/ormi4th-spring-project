@@ -12,10 +12,25 @@
         WHERE p.id = #{id};
     </select>
 
-    <select id="findByTeamId" resultType="com.estsoft.springproject.domain.dto.PlayerInfo">
-        SELECT p.id, p.name, date_format(p.birth,'%Y-%m-%d') as birth, p.position,
-               p.hand, p.uniform_number as uniformNumber, p.photo_path as photoPath
+    <select id="findByTeamId" resultType="com.estsoft.springproject.domain.dto.Player">
+        SELECT p.id as id, p.name as name, date_format(p.birth,'%Y-%m-%d') as birth, p.position as `position`, p.team_id as teamId,
+               p.hand as hand, p.uniform_number as uniformNumber, p.photo_path as photoPath
         FROM player p
         WHERE p.team_id = #{teamId};
     </select>
+
+    <select id="findByTeamIdExcludingRegisteredLineup" resultType="com.estsoft.springproject.domain.dto.Player">
+        SELECT p.id as id, p.name as name, DATE_FORMAT(p.birth,'%Y-%m-%d') as birth, p.position as `position`,
+               p.team_id as teamId, p.hand as hand, p.uniform_number as uniformNumber, p.photo_path as photoPath
+        FROM player p
+        WHERE p.team_id = #{teamId}
+        AND NOT EXISTS (
+                SELECT 1
+                FROM batter_lineup bl
+                WHERE bl.match_info_id = #{matchInfoId}
+                  AND bl.player_id = p.id
+         );
+    </select>
+
+
 </mapper>

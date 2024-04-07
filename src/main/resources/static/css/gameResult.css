@@ -156,11 +156,10 @@
 
 .lineup-header {
     border-bottom: solid 3px black;
-    margin: 30px 30px 10px 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
-.lineup-body {
-    margin: 0 30px 30px 30px;
-}
+
 
 .lineup-header li,  .lineup-body li {
     display: flex;
@@ -171,6 +170,8 @@
 }
 
 .away-batter-lineup, .away-pitcher-lineup, .home-pitcher-lineup, .home-batter-lineup {
+
+    padding: 30px;
 
     border-radius: 20px;
     box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);

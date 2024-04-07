@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"
+        integrity="sha512-zYXldzJsDrNKV+odAwFYiDXV2Cy37cwizT+NkuiPGsa9X1dOz04eHvUWVuxaJ299GvcJT31ug2zO4itXBjFx4w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<div th:replace="~{/fragments/header}"></div>
+<th:block layout:fragment="head">
+    <title>라인업 작성하기</title>
+    <link th:href="@{/css/startingLineup.css}" rel="stylesheet"/>
+</th:block>
+<main th:fragment="content">
+    <input class="type" type="hidden" th:value="${type}">
+    <input class="team" type="hidden" th:value="${team}">
+    <input class="game-code" type="hidden" th:value="${gameCode}">
+    <div class="wrap">
+        <div class="container">
+            <section class="lineup">
+                <h1 class="title" th:text="${type == 'pitcher'} ? ${fullName}+' 투수 라인업' : ${fullName}+' 타자 라인업'"></h1>
+                <ul class="lineup-column column" th:style="'background-color: '+${color}+';'">
+                    <li class="list-group-item" draggable="true" th:each="regist: ${registered}">
+                        <input class="id" type="hidden" th:value="${regist.id}">
+                        <input class="player-id" type="hidden" th:value="${regist.playerId}">
+                        <input class="team-id" type="hidden" th:value="${regist.teamId}">
+                        <input class="match-info-id" type="hidden" th:value="${gameCode}">
+                        <div>
+                            <select class="order">
+                                <option th:text="${number}" th:value="${number}" th:selected="${regist.order == number}"
+                                        th:each="number : ${#numbers.sequence(1, 9)}">
+                                </option>
+                            </select>
+                            <select class="position">
+                                <option th:text="${position}" th:value="${positionStat.count}"
+                                        th:each="position, positionStat : ${#strings.arraySplit('P C 1B 2B 3B SS LF CF RF DH PH1 PH2 PH3 PH4 PH5 PH6',' ')}">
+                                </option>
+                            </select>
+                            <span class="uniform-no" th:text="${regist.uniformNumber}+' '"></span>
+                            <span class="player-name" th:text="${regist.name}+' '"></span>
+                        </div>
+                        <span class="hand" th:text="${regist.hand}"></span>
+                    </li>
+                </ul>
+            </section>
+            <section class="player-list">
+                <h1 class="title" th:text="${fullName}+' 선수 목록'"></h1>
+                <ul class="player-column column" th:style="'background-color: '+${color}+';'">
+                    <li class="list-group-item" draggable="true" th:each="player: ${players}">
+                        <input class="player-id" type="hidden" th:value="${player.id}">
+                        <input class="team-id" type="hidden" th:value="${player.teamId}">
+                        <input class="match-info-id" type="hidden" th:value="${gameCode}">
+                        <div>
+                            <select class="order">
+                                <option th:text="${number}" th:value="${number}"
+                                        th:each="number : ${#numbers.sequence(1, 9)}">
+                                </option>
+                            </select>
+                            <select class="position">
+                                <option th:text="${position}" th:value="${positionStat.count}"
+                                        th:each="position, positionStat : ${#strings.arraySplit('P C 1B 2B 3B SS LF CF RF DH PH1 PH2 PH3 PH4 PH5 PH6',' ')}">
+                                </option>
+                            </select>
+                            <span class="uniform-no" th:text="${player.uniformNumber}+' '"></span>
+                            <span class="player-name" th:text="${player.name}+' '"></span>
+                        </div>
+                        <span class="hand" th:text="${player.hand}"></span>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <form id="lineupForm" th:action="@{/lineup/submit}" method="post">
+            <button class="submit-btn" type="submit" th:style="'background-color: '+${color}+';'">라인업 등록</button>
+        </form>
+    </div>
+</main>
+<div th:replace="~{/fragments/footer}"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script th:src="@{/js/dragNdropCreate.js}"></script>
+</html>
