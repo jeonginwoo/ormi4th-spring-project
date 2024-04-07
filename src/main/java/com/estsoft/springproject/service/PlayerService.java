@@ -1,8 +1,6 @@
 package com.estsoft.springproject.service;
 
-import com.estsoft.springproject.domain.dto.Batter;
-import com.estsoft.springproject.domain.dto.Pitcher;
-import com.estsoft.springproject.domain.dto.PlayerInfo;
+import com.estsoft.springproject.domain.dto.*;
 import com.estsoft.springproject.repository.BatterRecordMapper;
 import com.estsoft.springproject.repository.PitcherRecordMapper;
 import com.estsoft.springproject.repository.PlayerMapper;
@@ -23,9 +21,14 @@ public class PlayerService {
         return playerMapper.findById(id);
     }
 
-    public List<PlayerInfo> getPlayersInfoByTeam(Long teamId) {
+    public List<Player> getPlayersInfoByTeam(Long teamId) {
 
         return playerMapper.findByTeamId(teamId);
+    }
+
+    public List<Player> getPlayersExcludeRegisteredLineup(Long teamId, String matchInfoId) {
+
+        return playerMapper.findByTeamIdExcludingRegisteredLineup(teamId, matchInfoId);
     }
 
     public Batter getBatterInfoWithAllSeasonRecord(Long id) {
