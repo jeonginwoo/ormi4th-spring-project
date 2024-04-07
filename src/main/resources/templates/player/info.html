@@ -9,7 +9,7 @@
     <link th:href="@{/css/player/info.css}" rel="stylesheet"/>
 </th:block>
 
-<div th:replace="~{/fragments/header}"></div>
+<div th:replace="~{/fragments/header.html}"></div>
 <main th:fragment="content">
     <div class="wrap">
         <section class="info-section" th:classappend="${positionId == 1} ? 'gap-pitcher' : 'gap-batter'"
@@ -182,6 +182,6 @@
         </section>
     </div>
 </main>
-<div th:replace="~{/fragments/footer}"></div>
+<div th:replace="~{/fragments/footer.html}"></div>
 <script th:src="@{/js/divClick.js}"></script>
 </html>
