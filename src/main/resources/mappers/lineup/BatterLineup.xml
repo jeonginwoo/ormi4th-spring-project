@@ -16,10 +16,10 @@
     <select id="getPlayersRegisteredLineup" resultType="com.estsoft.springproject.domain.dto.StartingPlayer">
         SELECT bl.order as `order`, bl.position_id as positionId, p.id as playerId, p.name as name,
                p.team_id as teamId, p.uniform_number as uniformNumber, p.hand as hand, bl.id as id
-        FROM baseball.batter_lineup bl
+        FROM batter_lineup bl
         left join player p
         on p.id = bl.player_id
-        where bl.match_info_id = #{matchInfoId} and p.team_id = #{teamId};
+        where bl.match_info_id = #{matchInfoId} and p.team_id = #{teamId} and bl.position_id != 1;
     </select>
 
    <insert id="registerLineup" parameterType="java.util.List">

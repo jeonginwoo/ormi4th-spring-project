@@ -35,7 +35,7 @@ public class LineupController {
     @GetMapping("/create")
     public String createLineup(Model model, String gameCode, String team, String type) {
 
-        List<StartingPlayer> registeredPlayers = lineupService.getPlayersRegisteredLineup(gameCode, TeamId.valueOf(team).getId());
+        List<StartingPlayer> registeredPlayers = lineupService.getPlayersRegisteredLineup(gameCode, TeamId.valueOf(team).getId(), type);
         List<Player> players = playerService.getPlayersExcludeRegisteredLineup((long) TeamId.valueOf(team).getId(), gameCode);
 
         model.addAttribute("registered", registeredPlayers);

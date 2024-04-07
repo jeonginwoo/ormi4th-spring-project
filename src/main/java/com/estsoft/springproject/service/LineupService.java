@@ -27,9 +27,10 @@ public class LineupService {
         return pitcherLineupMapper.getPitcherLineup(matchInfoId, teamId);
     }
 
-    public List<StartingPlayer> getPlayersRegisteredLineup(String matchInfoId, int teamId) {
+    public List<StartingPlayer> getPlayersRegisteredLineup(String matchInfoId, int teamId, String type) {
 
-        return batterLineupMapper.getPlayersRegisteredLineup(matchInfoId, teamId);
+        return isPitcher(type) ? pitcherLineupMapper.getPlayersRegisteredLineup(matchInfoId, teamId):
+                batterLineupMapper.getPlayersRegisteredLineup(matchInfoId, teamId);
     }
 
     public int submitBatterLineup(List<StartingPlayer> lineup, String team) {
@@ -38,8 +39,9 @@ public class LineupService {
     }
 
 
-    public void submitPitcherLineup(List<StartingPlayer> lineup, String team) {
+    public int submitPitcherLineup(List<StartingPlayer> lineup, String team) {
 
+        return pitcherLineupMapper.registerLineup(lineup, team);
     }
 
     private List<StartingPlayer> checkPrimaryKey(List<StartingPlayer> lineup, String team) {
@@ -63,6 +65,11 @@ public class LineupService {
         }
 
         return lineup;
+    }
+
+    private boolean isPitcher(String type) {
+
+        return "pitcher".equals(type);
     }
 
     private boolean isPinchHitter(int positionId) {

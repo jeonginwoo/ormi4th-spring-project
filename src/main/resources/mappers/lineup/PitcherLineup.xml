@@ -12,4 +12,21 @@
                  inner join pitcher_record pr on pr.id = pl.id
         where pl.match_info_id = #{matchInfoId} and pl.team_id = #{teamId};
     </select>
+
+    <select id="getPlayersRegisteredLineup" resultType="com.estsoft.springproject.domain.dto.StartingPlayer">
+        SELECT pl.order as `order`, pl.position_id as positionId, p.id as playerId, p.name as name,
+               p.team_id as teamId, p.uniform_number as uniformNumber, p.hand as hand, pl.id as id
+        FROM pitcher_lineup pl
+        left join player p
+        on p.id = pl.player_id
+        where pl.match_info_id = #{matchInfoId} and p.team_id = #{teamId} and pl.position_id = 1;
+    </select>
+
+    <insert id="registerLineup" parameterType="java.util.List">
+        INSERT INTO pitcher_lineup (id, match_info_id, `order`, position_id, player_id, player_name, team_id)
+        VALUES
+        <foreach collection="list" item="player" separator=",">
+            (#{player.id}, #{player.matchInfoId}, #{player.order}, #{player.positionId}, #{player.playerId}, #{player.name}, #{player.teamId})
+        </foreach>
+    </insert>
 </mapper>
