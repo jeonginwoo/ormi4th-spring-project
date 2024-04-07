@@ -44,6 +44,7 @@
 
 .emblem {
     width: 50px;
+    height: 40px;
     background-color: #fff;
 }
 
@@ -180,6 +181,7 @@
 }
 
 .player-name {
+    font-size: 24px;
     width: 100px;
     text-align: left;
 }

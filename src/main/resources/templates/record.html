@@ -10,9 +10,8 @@
     <link href="/css/record.css" rel="stylesheet"/>
 </th:block>
 
-<body>
-<header th:replace="~{/fragments/header}"></header>
-<article th:fragment="content">
+<div th:replace="~{/fragments/header}"></div>
+<main th:fragment="content">
     <div class="wrap">
         <div class="year-selector">
             <a th:href="@{/record(season = ${previous}, type = ${type})}">&lt;</a>
@@ -129,6 +128,6 @@
             </div>
         </section>
     </div>
-</article>
-</body>
+</main>
+<div th:replace="~{/fragments/footer}"></div>
 </html>

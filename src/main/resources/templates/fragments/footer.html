@@ -1,12 +1,26 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-</head>
-<div class="footer">
-</div>
-</html>
+<footer th:fragment="footer" class="footer">
+    <div class="footer-wrapper">
+        <div class="team-info">
+            <img th:src="@{/images/logo.png}" alt="1사만루 로고" class="footer-img">
+            <span>© 2024 일사만루, Team.</span>
+        </div>
+        <ul class="git-hub">
+            <li> 일사만루, Team's Github.</li>
+            <li class="tool-tip" title="강성훈 깃허브">
+                <a href="https://github.com/fernandokkang" class="link-github-page">
+                    <img th:src="@{/images/github-icon.png}" alt="깃허브" class="footer-img">
+                </a>
+            </li>
+            <li class="tool-tip" title="김의찬 깃허브">
+                <a href="https://github.com/euichan0927" class="link-github-page">
+                    <img th:src="@{/images/github-icon.png}" alt="깃허브" class="footer-img">
+                </a>
+            </li>
+            <li class="tool-tip" title="정인우 깃허브">
+                <a href="https://github.com/jeonginwoo" class="link-github-page">
+                    <img th:src="@{/images/github-icon.png}" alt="깃허브" class="footer-img">
+                </a>
+            </li>
+        </ul>
+    </div>
+</footer>

@@ -9,10 +9,8 @@
     <link th:href="@{/css/common.css}" rel="stylesheet"/>
     <link th:href="@{/css/team-ranking/detail.css}" rel="stylesheet"/>
 </th:block>
-
-<body>
-<header th:replace="~{/fragments/header}"></header>
-<article th:fragment="content">
+<div th:replace="~{/fragments/header}"></div>
+<main th:fragment="content">
     <div class="wrap">
         <div class="year-selector">
             <a th:href="@{/teamranking/detail(season = ${previous})}">&lt;</a>
@@ -57,5 +55,5 @@
             </div>
         </section>
     </div>
-</article>
-</body>
+</main>
+<div th:replace="~{/fragments/footer}"></div>

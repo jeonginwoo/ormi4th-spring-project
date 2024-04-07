@@ -10,9 +10,8 @@
     <link th:href="@{/css/gameResult.css}" rel="stylesheet"/>
 </th:block>
 
-<body>
-<header th:replace="~{/fragments/header}"></header>
-<article th:fragment="content">
+<div th:replace="~{/fragments/header}"></div>
+<main th:fragment="content">
     <div class="wrap">
         <section class="game-selector-group">
             <ul th:each="schedule : ${result.dailySchedules}">
@@ -137,7 +136,8 @@
                     <ul class="lineup-body">
                         <li th:each="batter : ${result?.awayBatterLineup}">
                             <p class="order" th:text="${batter?.gs} != 1 ? '교' : ${batter?.order}"></p>
-                            <p class="player-name" th:text="${batter?.playerName}"></p>
+                            <a class="player-name" th:href="@{/player/info(id = ${batter.playerId}, positionId = 2)}"
+                               th:text="${batter?.playerName}"></a>
                             <p class="position" th:text="${batter?.position}"></p>
                             <p class="ab" th:text="${batter?.ab}"></p>
                             <p class="runs" th:text="${batter?.runs}"></p>
@@ -164,7 +164,8 @@
                     <ul class="lineup-body">
                         <li th:each="batter : ${result?.homeBatterLineup}">
                             <p class="order" th:text="${batter?.gs} != 1 ? '교' : ${batter?.order}"></p>
-                            <p class="player-name" th:text="${batter?.playerName}"></p>
+                            <a class="player-name" th:href="@{/player/info(id = ${batter.playerId}, positionId = 2)}"
+                               th:text="${batter?.playerName}"></a>
                             <p class="position" th:text="${batter?.position}"></p>
                             <p class="ab" th:text="${batter?.ab}"></p>
                             <p class="runs" th:text="${batter?.runs}"></p>
@@ -207,7 +208,8 @@
                                 <p th:if="${pitcher?.decision == 'SV'}" class="dec green-text" th:text="'세'"></p>
                                 <p th:unless="${pitcher?.decision == 'W' or pitcher?.decision == 'L' or pitcher?.decision == 'HD' or pitcher?.decision == 'SV'}" class="dec" th:text="''"></p>
                             </div>
-                            <p class="player-name" th:text="${pitcher?.playerName}"></p>
+                            <a class="player-name" th:href="@{/player/info(id = ${pitcher.playerId}, positionId = 1)}"
+                               th:text="${pitcher?.playerName}"></a>
                             <p class="inning" th:text="${pitcher?.innings}"></p>
                             <p class="phits" th:text="${pitcher?.hits}"></p>
                             <p class="pruns" th:text="${pitcher?.runs}"></p>
@@ -247,7 +249,8 @@
                                 <p th:if="${pitcher?.decision == 'SV'}" class="dec green-text" th:text="'세'"></p>
                                 <p th:unless="${pitcher?.decision == 'W' or pitcher?.decision == 'L' or pitcher?.decision == 'HD' or pitcher?.decision == 'SV'}" class="dec" th:text="''"></p>
                             </div>
-                            <p class="player-name" th:text="${pitcher?.playerName}"></p>
+                            <a class="player-name" th:href="@{/player/info(id = ${pitcher.playerId}, positionId = 1)}"
+                               th:text="${pitcher?.playerName}"></a>
                             <p class="inning" th:text="${pitcher?.innings}"></p>
                             <p class="phits" th:text="${pitcher?.hits}"></p>
                             <p class="pruns" th:text="${pitcher?.runs}"></p>
@@ -263,7 +266,7 @@
             </div>
         </section>
     </div>
-</article>
-</body>
+</main>
+<div th:replace="~{/fragments/footer}"></div>
 <script th:src="@{/js/divClick.js}"></script>
 </html>

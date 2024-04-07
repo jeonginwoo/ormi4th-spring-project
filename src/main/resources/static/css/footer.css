@@ -1,0 +1,40 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    width: 100%;
+}
+
+footer {
+    width: 100%;
+    padding: 60px 0 40px 0;
+    /*border-top: 1px solid #C4C4C4;*/
+}
+
+.footer-wrapper {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.team-info {
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.footer-img {
+    width: 40px;
+}
+
+.git-hub {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

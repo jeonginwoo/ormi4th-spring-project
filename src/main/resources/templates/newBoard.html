@@ -11,11 +11,10 @@
     <link th:href="@{/css/newBoard.css}" rel="stylesheet"/>
 </th:block>
 
-<body>
-<header th:replace="~{/fragments/header}"></header>
+<div th:replace="~{/fragments/header}"></div>
 <input type="hidden" id="board-id" th:value="${board.id}">
 <input type="hidden" id="team" th:value="${team}">
-<article th:fragment="content">
+<main th:fragment="content">
     <div class="wrap">
         <section class="board-editor-section">
             <span class="title" th:text="${fullName}+' '"></span>
@@ -34,7 +33,7 @@
             </div>
         </section>
     </div>
-</article>
-</body>
+</main>
+<div th:replace="~{/fragments/footer}"></div>
 <script src="/js/boardEditor.js"></script>
 </html>

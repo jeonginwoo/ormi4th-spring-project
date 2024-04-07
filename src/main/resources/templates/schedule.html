@@ -8,9 +8,8 @@
     <title>월간 일정</title>
     <link th:href="@{/css/schedule.css}" rel="stylesheet"/>
 </th:block>
-<header th:replace="~{/fragments/header}"></header>
-<body>
-<article th:fragment="content">
+<div th:replace="~{/fragments/header}"></div>
+<main th:fragment="content">
     <div class="wrap">
         <div class="month-selector">
             <a th:if="${team}" th:href="@{'/schedule?date='+${previous}+'&team='+${team}}">&lt;</a>
@@ -79,7 +78,7 @@
             </ul>
         </section>
     </div>
-</article>
-</body>
+</main>
+<div th:replace="~{/fragments/footer}"></div>
 <script th:src="@{/js/divClick.js}"></script>
 </html>

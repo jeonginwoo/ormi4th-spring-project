@@ -8,9 +8,8 @@
     <title>홈</title>
     <link th:href="@{/css/index.css}" rel="stylesheet"/>
 </th:block>
-<header th:replace="~{/fragments/header}"></header>
-<body>
-<article th:fragment="content">
+<div th:replace="~{/fragments/header}"></div>
+<main th:fragment="content">
     <div class="wrap-index">
         <section class="team-ranking-table">
             <div class="more">
@@ -78,8 +77,9 @@
                         </div>
                         <div class="info-div">
                             <p class="away-score" th:text="${schedule.status == '종료'} ? ${schedule.awayTeamRuns}"></p>
-                            <p class="status" th:classappend="${schedule.status == '취소'} ? 'red-text'" th:text="${schedule.status}"></p>
-                            <p class="home-score"th:text="${schedule.status == '종료'} ? ${schedule.homeTeamRuns}"></p>
+                            <p class="status" th:classappend="${schedule.status == '취소'} ? 'red-text'"
+                               th:text="${schedule.status}"></p>
+                            <p class="home-score" th:text="${schedule.status == '종료'} ? ${schedule.homeTeamRuns}"></p>
                         </div>
                         <div class="home-div">
                             <img class="emblem" th:src="${schedule.homeTeamEmblemPath}">
@@ -98,7 +98,7 @@
 
         <section class="player-ranking-table">
             <div class="more">
-                <a th:href="@{/record}"}>
+                <a th:href="@{/record}" }>
                     더보기
                 </a>
             </div>
@@ -107,14 +107,22 @@
             <div class="player-ranking-table-header">
                 <ul>
                     <li>
-                        <p th:text="'타율'" onclick="getPlayerRanking('avg', 'batter')" th:classappend="${query} == 'avg' ? 'red-text' : ''"></p>
-                        <p th:text="'안타'" onclick="getPlayerRanking('hits', 'batter')" th:classappend="${query} == 'hits' ? 'red-text' : ''"></p>
-                        <p th:text="'타점'" onclick="getPlayerRanking('rbi', 'batter')" th:classappend="${query} == 'rbi' ? 'red-text' : ''"></p>
-                        <p th:text="'홈런'" onclick="getPlayerRanking('hr', 'batter')" th:classappend="${query} == 'hr' ? 'red-text' : ''"></p>
-                        <p th:text="'다승'" onclick="getPlayerRanking('win', 'pitcher')" th:classappend="${query} == 'win' ? 'red-text' : ''"></p>
-                        <p th:text="'평자'" onclick="getPlayerRanking('era', 'pitcher')" th:classappend="${query} == 'era' ? 'red-text' : ''"></p>
-                        <p th:text="'삼진'" onclick="getPlayerRanking('so', 'pitcher')" th:classappend="${query} == 'so' ? 'red-text' : ''"></p>
-                        <p th:text="'구원'" onclick="getPlayerRanking('save', 'pitcher')" th:classappend="${query} == 'save' ? 'red-text' : ''"></p>
+                        <p th:text="'타율'" onclick="getPlayerRanking('avg', 'batter')"
+                           th:classappend="${query} == 'avg' ? 'red-text' : ''"></p>
+                        <p th:text="'안타'" onclick="getPlayerRanking('hits', 'batter')"
+                           th:classappend="${query} == 'hits' ? 'red-text' : ''"></p>
+                        <p th:text="'타점'" onclick="getPlayerRanking('rbi', 'batter')"
+                           th:classappend="${query} == 'rbi' ? 'red-text' : ''"></p>
+                        <p th:text="'홈런'" onclick="getPlayerRanking('hr', 'batter')"
+                           th:classappend="${query} == 'hr' ? 'red-text' : ''"></p>
+                        <p th:text="'다승'" onclick="getPlayerRanking('win', 'pitcher')"
+                           th:classappend="${query} == 'win' ? 'red-text' : ''"></p>
+                        <p th:text="'평자'" onclick="getPlayerRanking('era', 'pitcher')"
+                           th:classappend="${query} == 'era' ? 'red-text' : ''"></p>
+                        <p th:text="'삼진'" onclick="getPlayerRanking('so', 'pitcher')"
+                           th:classappend="${query} == 'so' ? 'red-text' : ''"></p>
+                        <p th:text="'구원'" onclick="getPlayerRanking('save', 'pitcher')"
+                           th:classappend="${query} == 'save' ? 'red-text' : ''"></p>
                     </li>
                 </ul>
             </div>
@@ -133,8 +141,8 @@
             </div>
         </section>
     </div>
-</article>
-</body>
+</main>
+<div th:replace="~{/fragments/footer}"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script th:src="@{/js/divClick.js}"></script>
 <script th:src="@{/js/index_ajax.js}"></script>
