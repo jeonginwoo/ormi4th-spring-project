@@ -58,7 +58,7 @@ public class LineupController {
             if(isPitcher(type)) {
                 lineupService.submitPitcherLineup(lineup, team);
             } else {
-                lineupService.updateBatterLineup(lineup, team);
+                lineupService.submitBatterLineup(lineup, team);
             }
 
             return ResponseEntity.ok("라인업 등록 성공");
