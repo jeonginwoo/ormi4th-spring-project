@@ -10,6 +10,7 @@ import java.util.List;
 public interface PitcherLineupMapper {
 
     List<PitcherLineup> getPitcherLineup(String matchInfoId, int teamId);
-    int registerLineup(List<StartingPlayer> lineup, String team);
+    int registerLineup(List<StartingPlayer> lineup);
     List<StartingPlayer> getPlayersRegisteredLineup(String matchInfoId, int teamId);
+    int registerLineupForSingle(StartingPlayer startingPlayer);
 }

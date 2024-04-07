@@ -41,7 +41,7 @@ public class LineupService {
 
     public int submitPitcherLineup(List<StartingPlayer> lineup, String team) {
 
-        return pitcherLineupMapper.registerLineup(lineup, team);
+        return pitcherLineupMapper.registerLineup(checkPrimaryKey(lineup, team));
     }
 
     private List<StartingPlayer> checkPrimaryKey(List<StartingPlayer> lineup, String team) {

@@ -66,6 +66,7 @@ public class LineupController {
         }catch (Exception e) {
 
             String errorMessage = "라인업 등록 실패: " + e.getMessage();
+            System.out.println(errorMessage);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
         }
     }

@@ -9,7 +9,7 @@
                (SELECT round((sum(earned_run) * 27)/sum((truncate(innings,0) * 3 + round(MOD(innings,1),1) * 10)), 2)
                 FROM pitcher_record where player_id = pl.player_id group by player_id) as era
         from pitcher_lineup pl
-                 inner join pitcher_record pr on pr.id = pl.id
+                 left join pitcher_record pr on pr.id = pl.id
         where pl.match_info_id = #{matchInfoId} and pl.team_id = #{teamId};
     </select>
 
@@ -21,6 +21,12 @@
         on p.id = pl.player_id
         where pl.match_info_id = #{matchInfoId} and p.team_id = #{teamId} and pl.position_id = 1;
     </select>
+
+    <insert id="registerLineupForSingle" parameterType="com.estsoft.springproject.domain.dto.StartingPlayer">
+        INSERT INTO pitcher_lineup (id, match_info_id, `order`, position_id, player_id, player_name, team_id)
+        VALUES
+            (#{id}, #{matchInfoId}, #{order}, #{positionId}, #{playerId}, #{name}, #{teamId})
+    </insert>
 
     <insert id="registerLineup" parameterType="java.util.List">
         INSERT INTO pitcher_lineup (id, match_info_id, `order`, position_id, player_id, player_name, team_id)

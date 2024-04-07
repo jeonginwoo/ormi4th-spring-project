@@ -188,7 +188,7 @@
             </div>
             <h1>투수 기록</h1>
             <div class="pitcher-lineup">
-                <div class="away-pitcher-lineup" th:if="${result.awayPitcherLineup != null}">
+                <div class="away-pitcher-lineup">
                     <a class="create-lineup" th:text="'원정팀 라인업 추가'" th:href="@{/lineup/create
                     (team = ${#strings.listSplit(result?.gameInfo?.awayTeamName,' ')[0]}, type = 'pitcher',
                     gameCode = ${gameCode})}"></a>
@@ -232,7 +232,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="home-pitcher-lineup" th:if="${result.homePitcherLineup != null}">
+                <div class="home-pitcher-lineup">
                     <a class="create-lineup" th:text="'홈팀 라인업 추가'" th:href="@{/lineup/create
                     (team = ${#strings.listSplit(result?.gameInfo?.homeTeamName,' ')[0]}, type = 'pitcher',
                     gameCode = ${gameCode})}"></a>
