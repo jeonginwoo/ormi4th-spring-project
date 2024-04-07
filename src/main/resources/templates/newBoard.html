@@ -11,7 +11,7 @@
     <link th:href="@{/css/newBoard.css}" rel="stylesheet"/>
 </th:block>
 
-<div th:replace="~{fragments/header.html::header}"></div>
+<div th:replace="~{fragments/header.html}"></div>
 <input type="hidden" id="board-id" th:value="${board.id}">
 <input type="hidden" id="team" th:value="${team}">
 <main th:fragment="content">
@@ -34,6 +34,6 @@
         </section>
     </div>
 </main>
-<div th:replace="~{fragments/footer.html::footer}"></div>
+<div th:replace="~{fragments/footer.html}"></div>
 <script src="/js/boardEditor.js"></script>
 </html>
