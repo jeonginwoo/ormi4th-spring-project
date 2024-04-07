@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>게시글 상세</title>
 
-    <!-- TOAST UI Editor CDN URL(CSS)-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
-    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>게시글 상세</title>
 
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/board.css">
+<!-- TOAST UI Editor CDN URL(CSS)-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
+
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/board.css">
 
 <div th:replace="~{fragments/header}"></div>
 <main th:fragment="content">
@@ -18,25 +18,28 @@
         <input type="hidden" id="user-id" th:value="${user.id}">
         <input type="hidden" id="board-id" th:value="${board.id}">
         <input type="hidden" id="team" th:value="${team}">
-        <section class="board-section">
+        <section class="board-section" th:style="'background-color: '+${color}+';'">
+            <h1 class="classification" th:text="${fullName}+' 게시판'"></h1>
             <ul class="board-header">
                 <li>
-                    <button th:onclick="|location.href='@{/boards?team={team}(team=${team})}'|" class="on">목록</button>
-                    <span th:if="${board.userId} == ${user.id}">
-                        <button type="button" id="board-update-btn"
+                    <p class="title" th:text="${board.title}">글 제목이 들어갑니다.</p>
+                    <div class="btn-div">
+                        <button th:onclick="|location.href='@{/boards?team={team}(team=${team})}'|" class="on">목록
+                        </button>
+                        <button th:if="${board.userId} == ${user.id}" type="button" id="board-update-btn"
                                 th:onclick="|location.href='@{/boards/new-board?id={id}(id=${board.id}, team=${team})}'|"
                                 class="btn btn-primary btn-sm">수정
                         </button>
-                        <button id="board-delete-btn">삭제</button>
-                    </span>
+                        <button th:if="${board.userId} == ${user.id}" id="board-delete-btn">삭제</button>
+                    </div>
                 </li>
             </ul>
-            <p class="title" th:text="${board.title}">글 제목이 들어갑니다.</p>
             <input type="hidden" id="boardContent" th:value="${board.content}">
             <div id="viewer"></div>
             <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
             <script src="/js/boardViewer.js"></script>
-            <span class="create-time" th:text="${'작성일: ' + #dates.format(board.createdAt, 'yyyy.MM.dd HH:mm')}"></span>
+            <span class="create-time"
+                  th:text="${'작성일: ' + #dates.format(board.createdAt, 'yyyy.MM.dd HH:mm')}"></span>
             <br>
             <span class="author" th:text="${'작성자: ' + board.nickname}"></span>
             <div class="like-area">
@@ -54,7 +57,8 @@
             </div>
             <div th:each="comment, commentIndex: ${comments}" class="area comment-container">
                 <span th:text="${comment.nickname}">댓글 유저 정보</span>
-                <span class="contentTime comment-info" th:text="${#dates.format(comment.createdAt, 'yy.MM.dd HH:mm')}">댓글 시간 들어갑니다.</span>
+                <span class="contentTime comment-info"
+                      th:text="${#dates.format(comment.createdAt, 'yy.MM.dd HH:mm')}">댓글 시간 들어갑니다.</span>
                 <input type="hidden" name="commentId" th:value="${comment.commentId}"/>
                 <span th:if="${comment.userId} == ${user.id}">
                     <button class="edit-comment-button">수정</button>
@@ -78,8 +82,11 @@
                         <button class="child-create-btn comment-btn" onclick="createChildComment()">답글</button>
                     </div>
                     <details th:if="${#lists.size(childrenList[__${commentIndex.index}__]) > 0}">
-                        <summary th:text="'답글 ' + ${#lists.size(childrenList[__${commentIndex.index}__]) + '개'}">댓글</summary>
-                        <div th:each="child : ${childrenList[__${commentIndex.index}__]}" class="child-comment comment-container">
+                        <summary th:text="'답글 ' + ${#lists.size(childrenList[__${commentIndex.index}__]) + '개'}">
+                            댓글
+                        </summary>
+                        <div th:each="child : ${childrenList[__${commentIndex.index}__]}"
+                             class="child-comment comment-container">
                             <span th:text="${child.nickname}">댓글 유저 정보</span>
                             <span class="contentTime comment-info"
                                   th:text="${#dates.format(child.createdAt, 'yy.MM.dd HH:mm')}">댓글 시간 들어갑니다.</span>

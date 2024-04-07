@@ -1,12 +1,19 @@
+.classification {
+    font-size: 40px;
+    margin: 10px 0 20px 0;
+}
+
 .board-section {
 
     width: 1060px;
 
     margin: 5px 0;
-    padding: 10px 20px;
+    padding: 30px;
     border: 1px solid lightgray;
-    border-radius: 10px;
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px 1px rgba(0, 0, 0, 0.5);
 
+    color: white;
 }
 
 .board-header li {
@@ -14,23 +21,24 @@
     display: flex;
     padding: 10px 0;
     align-items: center;
-    justify-content: right;
+    justify-content: space-between;
     text-align: center;
+
+    border-bottom: solid 1px lightgray;
 }
 
-.board-buttons {
+button {
+    color: white;
+}
 
-    display: flex;
-    align-items: center;
-    justify-content: right;
-    gap: 20px;
+#viewer p {
+    color: white;
 }
 
 .title{
-    font-size: 20px;
 
-    padding-bottom: 10px;
-    border-bottom: solid 1px lightgray;
+    font-size: 40px;
+    padding: 20px 10px;
 }
 
 .content {

@@ -181,6 +181,10 @@ public class BoardController {
         }
         model.addAttribute("childrenList", childrenList);
         model.addAttribute("team",team);
+        model.addAttribute("fullName", TeamId.valueOf(team).getFullName());
+        model.addAttribute("color", TeamId.valueOf(team).getColor());
+
+        System.out.println(team+"/"+TeamId.valueOf(team).getFullName());
 
         return "board";
     }
@@ -202,6 +206,7 @@ public class BoardController {
 
         model.addAttribute("team", team);
         model.addAttribute("fullName", TeamId.valueOf(team).getFullName());
+        model.addAttribute("color", TeamId.valueOf(team).getColor());
 
         return "newBoard";
 
