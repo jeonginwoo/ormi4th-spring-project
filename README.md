@@ -7,7 +7,7 @@
 - [프로젝트 진행기간](#프로젝트-진행-기간)
 - [개발 인원 및 역할](#개발-인원-및-역할)
 - [배포 주소](#배포-주소)
-- [사용 기술](#Skills)
+- [사용 기술](#Tools)
 - [개발 일정](#개발-일정)
 - [플로우차트](#플로우차트flow-chart)
 - [데이터베이스 모델링](#데이터베이스-모델링er-diagram)
@@ -42,8 +42,17 @@
 |                                                     <a href="https://github.com/euichan0927">🔗 김의찬</a>                                                     |                                                                                                                     <a href="https://github.com/fernandokkang">🔗 강성훈</a>                                                                                                                      |                                                     <a href="https://github.com/jeonginwoo">🔗 정인우</a>                                                     |
 |               ‣ 요구사항 및 기능 명세<br>‣ API 설계 (API 명세서)<br>‣회원가입 및 로그인 기능 개발<br>‣ 사용자 마이페이지 및 관리자페이지 기능 개발<br>‣ 게시글 조건 검색 기능 개발<br>‣마이페이지 페이징처리 적용               | ‣ 프로야구 관련 ERD 설계 <br>‣프로야구 기록 관련 데이터 수집, 가공 및 처리 <br>‣ UI/UX 디자인 <br>‣ 메인 페이지 <br>‣ 팀 순위 페이지 <br> ‣경기 일정/결과 페이지 <br> ‣선수 기록 및 순위 페이지 <br>‣선수 상세 정보 페이지 <br>  ‣선수 정보 API <br> ‣선수 기록 API <br> ‣팀 정보 API <br> ‣팀 순위 API <br> ‣일정/결과 API <br> ‣투수/타자 라인업 API <br> ‣경기 라인업 등록 페이지 및 라인업 등록 기능 <br> |      ‣ 게시판 api 개발<br>‣ 댓글 api 개발<br>‣ 게시글에 댓글 & 답글 적용<br>‣ 게시글, 댓글 좋아요 기능 개발<br>‣ toast ui editor 적용<br>‣ 게시판 페이징처리 적용<br>‣Flow Chart 설계<br>‣개발 일정 기록      |
 
-## 배포 주소
 
+## 배포 주소
+http://52.78.30.79:8080/
+## 배포 아키텍쳐
+### CI/CD
+![배포](https://github.com/jeonginwoo/ormi4th-spring-project/assets/128672362/cb894123-8ec4-4d62-818b-de5b0bfc7b19)
+-----------
+<br>
+
+### Architecture
+![아키텍처](https://github.com/jeonginwoo/ormi4th-spring-project/assets/128672362/639ea1c7-5369-408c-be52-6f3efa340eb6)
 ## Skills
 
 ### Languages
