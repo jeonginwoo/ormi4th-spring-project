@@ -33,7 +33,7 @@ public class PlayerController {
         model.addAttribute("positionId", positionId);
         model.addAttribute("player", player);
 
-        return "/player/info";
+        return "player/info";
     }
 
     private boolean isPitcher(Long positionId) {

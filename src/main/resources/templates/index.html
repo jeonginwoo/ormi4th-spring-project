@@ -6,9 +6,9 @@
 
 <th:block layout:fragment="head">
     <title>홈</title>
-    <link th:href="@{/css/index.css}" rel="stylesheet"/>
+    <link th:href="@{/css/index.css}" href="../static/css/index.css" rel="stylesheet"/>
 </th:block>
-<div th:replace="~{/fragments/header}"></div>
+<div th:replace="~{fragments/header.html}"></div>
 <main th:fragment="content">
     <div class="wrap-index">
         <section class="team-ranking-table">
@@ -142,7 +142,7 @@
         </section>
     </div>
 </main>
-<div th:replace="~{/fragments/footer}"></div>
+<div th:replace="~{fragments/footer.html}"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script th:src="@{/js/divClick.js}"></script>
 <script th:src="@{/js/index_ajax.js}"></script>
