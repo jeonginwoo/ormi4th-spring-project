@@ -53,6 +53,12 @@
 
 - toast UI API
 
+## 개발 일정
+![Untitled (2)](https://github.com/ormi3-final-project-team/nolreo_wassup_BE/assets/96004205/c352f447-eb01-4f46-b2e1-7a05ad3a4617)
+
+## 플로우차트 (Flow Chart)
+![플로우차트](https://github.com/jeonginwoo/ormi4th-spring-project/assets/96004205/df56fb67-dc5f-4f9b-8127-0b7fd13d11b8)
+
 ## 데이터베이스 모델링(ER Diagram)
 ![ERD](https://github.com/jeonginwoo/ormi4th-spring-project/assets/128672362/2d230dff-0378-40fd-bce7-42fa8d298312)
 ## API 명세서
