@@ -44,7 +44,7 @@ button {
 .content {
     padding: 10px 15px;
     margin-top: 3px;
-    background: #e3eee1;
+    background: rgba(0, 0, 0, 0.3);
     border-radius: 5px;
     width: 100%;
 }
@@ -114,8 +114,7 @@ summary {
 }
 
 summary:hover {
-    background: #e1e9ee;
-    border: 1px solid #3192d7;
+    border: 1px solid white;
     cursor: pointer;    /* 손가락 포인터로 변경 */
     user-select: none;  /* 드래그 막기 */
 }
