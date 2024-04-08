@@ -61,7 +61,7 @@ public class UserViewController {
 		}
 
 		userService.save(request);
-		return "redirect:/login";
+		return "redirect:login";
 	}
 
 	// 닉네임 중복 검사를 위한 메서드 추가
