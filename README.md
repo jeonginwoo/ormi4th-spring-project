@@ -46,7 +46,8 @@
 
 
 ## 5.배포 주소
-http://52.78.30.79:8080/
+
+
 ## 6.배포 아키텍쳐
 ### CI/CD
 ![배포](https://github.com/jeonginwoo/ormi4th-spring-project/assets/128672362/cb894123-8ec4-4d62-818b-de5b0bfc7b19)
