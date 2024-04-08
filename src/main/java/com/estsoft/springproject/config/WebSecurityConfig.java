@@ -25,14 +25,16 @@ public class WebSecurityConfig {
     // 특정 HTTP 요청에 대한 웹 기반 보안 구성
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+
         httpSecurity.authorizeHttpRequests(auth ->
-                        auth.requestMatchers("**").permitAll() // 인증, 인가 설정
-                                /*auth.requestMatchers("/login","/signup",
-                                                "/adduser","/checkNicknameAvailability").permitAll()*/
+                                auth.requestMatchers("/login","/signup",
+                                                "/adduser","/checkNicknameAvailability").permitAll()
+                                        .requestMatchers("/mypage/admin").hasAnyAuthority("admin")
+                                        .requestMatchers("/lineup/submit").hasAuthority("manager")
                                 .anyRequest().authenticated())
                 .formLogin(auth -> auth.loginPage("/login")     // 폼 기반 로그인 설정
-                        .defaultSuccessUrl("/"))
-                .logout(auth -> auth.logoutSuccessUrl("/") // 로그아웃 설정
+                        .defaultSuccessUrl("/index"))
+                .logout(auth -> auth.logoutSuccessUrl("/login") // 로그아웃 설정
                         .invalidateHttpSession(true))
                 .csrf(auth -> auth.disable());                  // csrf 비활성화
         return httpSecurity.build();

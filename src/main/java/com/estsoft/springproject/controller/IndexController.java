@@ -25,7 +25,7 @@ public class IndexController {
     private final ScheduleService scheduleService;
     private final RecordService recordService;
 
-    @GetMapping("")
+    @GetMapping("/index")
     public String index(Model model) {
 
         LocalDate currentDate = LocalDate.now();

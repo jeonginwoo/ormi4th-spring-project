@@ -41,6 +41,7 @@
                     <form th:action="@{/mypage/{userId}/admin(userId=${user.id})}" method="post">
                         <select name="role">
                             <option value="admin" th:selected="${'admin' eq user.role}">Admin</option>
+                            <option value="manager" th:selected="${'manager' eq user.role}">Manager</option>
                             <option value="user" th:selected="${'user' eq user.role}">User</option>
                         </select>
                         <button type="submit">변경</button>

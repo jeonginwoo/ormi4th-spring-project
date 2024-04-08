@@ -158,14 +158,14 @@ public class UserController {
 		model.addAttribute("totalPosts",totalPosts);
 		int totalComments = commentService.getTotalComments();
 		model.addAttribute("totalComments",totalComments);
-		if(user.getRole().equals("admin")){
+		//if(user.getRole().equals("admin")){
 			List<UserAdminResponse> users = userService.getAllUser().stream().map(UserAdminResponse::new).toList();
 			model.addAttribute("users",users);
 			return "admin";
-		}
+		/*}
 		else{
 			return "redirect:mypage";
-		}
+		}*/
 
 	}
 	@Transactional
