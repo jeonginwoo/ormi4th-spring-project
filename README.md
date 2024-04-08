@@ -197,3 +197,226 @@
 
 ## 요구사항 및 기능명세
 ![요구사항 및 기능명세](https://github.com/jeonginwoo/ormi4th-spring-project/assets/128672362/edf4602c-e2ed-4dfe-a734-b787b396d47d)
+
+## 프로젝트 구조
+```text
+└─📁src
+    ├─📁main
+    │  ├─📁java
+    │  │  └─📁com
+    │  │      └─📁estsoft
+    │  │          └─📁springproject
+    │  │              │  📄SpringProjectApplication.java
+    │  │              │
+    │  │              ├─📁aspect
+    │  │              │      📄AuthenticationAspect.java
+    │  │              │
+    │  │              ├─📁config
+    │  │              │      📄WebSecurityConfig.java
+    │  │              │
+    │  │              ├─📁controller
+    │  │              │      📄BoardController.java
+    │  │              │      📄CommentController.java
+    │  │              │      📄FileApiController.java
+    │  │              │      📄GameResultController.java
+    │  │              │      📄IndexController.java
+    │  │              │      📄LikeController.java
+    │  │              │      📄LineupController.java
+    │  │              │      📄PlayerController.java
+    │  │              │      📄RecordController.java
+    │  │              │      📄ScheduleController.java
+    │  │              │      📄ScoreBoardController.java
+    │  │              │      📄TeamController.java
+    │  │              │      📄TeamRankingController.java
+    │  │              │      📄UserController.java
+    │  │              │      📄UserViewController.java
+    │  │              │
+    │  │              ├─📁domain
+    │  │              │  ├─📁dto
+    │  │              │  │      📄Batter.java
+    │  │              │  │      📄BatterLineup.java
+    │  │              │  │      📄BatterRecord.java
+    │  │              │  │      📄BatterRecordDetail.java
+    │  │              │  │      📄BoardRequest.java
+    │  │              │  │      📄BoardResponse.java
+    │  │              │  │      📄CommentRequest.java
+    │  │              │  │      📄CommentResponse.java
+    │  │              │  │      📄GameInfo.java
+    │  │              │  │      📄GameResult.java
+    │  │              │  │      📄LikeRequest.java
+    │  │              │  │      📄LikeResponse.java
+    │  │              │  │      📄Pitcher.java
+    │  │              │  │      📄PitcherLineup.java
+    │  │              │  │      📄PitcherRecord.java
+    │  │              │  │      📄PitcherRecordDetail.java
+    │  │              │  │      📄PlayerInfo.java
+    │  │              │  │      📄Schedule.java
+    │  │              │  │      📄ScoreBoard.java
+    │  │              │  │      📄Team.java
+    │  │              │  │      📄TeamId.java
+    │  │              │  │      📄TeamRanking.java
+    │  │              │  │      📄TeamRankingDetail.java
+    │  │              │  │      📄UserAdminResponse.java
+    │  │              │  │      📄UserRequest.java
+    │  │              │  │      📄UserResponse.java
+    │  │              │  │
+    │  │              │  └─📁entity
+    │  │              │         📄Board.java
+    │  │              │         📄Comment.java
+    │  │              │         📄Like.java
+    │  │              │         📄LikeId.java
+    │  │              │         📄User.java
+    │  │              │
+    │  │              ├─📁repository
+    │  │              │      📄BatterLineupMapper.java
+    │  │              │      📄BatterRecordMapper.java
+    │  │              │      📄BoardRepository.java
+    │  │              │      📄CommentRepository.java
+    │  │              │      📄LikeRepository.java
+    │  │              │      📄PitcherLineupMapper.java
+    │  │              │      📄PitcherRecordMapper.java
+    │  │              │      📄PlayerMapper.java
+    │  │              │      📄ScheduleMapper.java
+    │  │              │      📄ScoreBoardMapper.java
+    │  │              │      📄TeamMapper.java
+    │  │              │      📄TeamRankingMapper.java
+    │  │              │      📄UserRepository.java
+    │  │              │
+    │  │              └─📁service
+    │  │                     📄BoardService.java
+    │  │                     📄CommentService.java
+    │  │                     📄CustomUserDetails.java
+    │  │                     📄GameResultService.java
+    │  │                     📄LikeService.java
+    │  │                     📄LineupService.java
+    │  │                     📄PlayerService.java
+    │  │                     📄RecordService.java
+    │  │                     📄ScheduleService.java
+    │  │                     📄ScoreBoardService.java
+    │  │                     📄TeamRankingService.java
+    │  │                     📄TeamService.java
+    │  │                     📄UserService.java
+    │  │
+    │  └─📁resources
+    │      │  📄application.properties
+    │      │  📄data.sql
+    │      │  📄mybatis-config.xml
+    │      │
+    │      ├─📁mappers
+    │      │  ├─📁lineup
+    │      │  │      📄BatterLineup.xml
+    │      │  │      📄PitcherLineup.xml
+    │      │  │
+    │      │  ├─📁player
+    │      │  │      📄Player.xml
+    │      │  │
+    │      │  ├─📁record
+    │      │  │      📄BatterRecord.xml
+    │      │  │      📄PitcherRecord.xml
+    │      │  │
+    │      │  ├─📁schedule
+    │      │  │      📄Schedule.xml
+    │      │  │
+    │      │  ├─📁scoreBoard
+    │      │  │      📄scoreBoard.xml
+    │      │  │
+    │      │  ├─📁team
+    │      │  │      📄Team.xml
+    │      │  │
+    │      │  └─📁teamRanking
+    │      │         📄TeamRanking.xml
+    │      │
+    │      ├─📁static
+    │      │  ├─📁css
+    │      │  │  │  📄admin.css
+    │      │  │  │  📄board.css
+    │      │  │  │  📄boardConditionList.css
+    │      │  │  │  📄boardCSS.css
+    │      │  │  │  📄boardList.css
+    │      │  │  │  📄common.css
+    │      │  │  │  📄edit.css
+    │      │  │  │  📄gameResult.css
+    │      │  │  │  📄header.css
+    │      │  │  │  📄index.css
+    │      │  │  │  📄mypage.css
+    │      │  │  │  📄newBoard.css
+    │      │  │  │  📄newBoardCSS.css
+    │      │  │  │  └─📁player
+    │      │  │  │          📄info.css
+    │      │  │  └─📁images
+    │      │  │      │  📄fenway_park.jpg
+    │      │  │      │  📄logo.png
+    │      │  │      │  📄santaclara.jpg
+    │      │  │      ├─📁catch-phrase
+    │      │  │      │      📄KIA.png
+    │      │  │      │      📄KT.png
+    │      │  │      │      📄LG.png
+    │      │  │      │      📄NC.png
+    │      │  │      │      📄SSG.png
+    │      │  │      │      📄두산.png
+    │      │  │      │      📄롯데.png
+    │      │  │      │      📄삼성.png
+    │      │  │      │      📄키움.png
+    │      │  │      │      📄한화.png
+    │      │  │      ├─📁character
+    │      │  │      │      📄삼성.jpg
+    │      │  │      └─📁emblems
+    │      │  │          📄kbo.png
+    │      │  │          📄KIA.png
+    │      │  │          📄KT.png
+    │      │  │          📄LG.png
+    │      │  │          📄NC.png
+    │      │  │          📄SSG.png
+    │      │  │          📄두산.png
+    │      │  │          📄롯데.png
+    │      │  │          📄삼성.png
+    │      │  │          📄키움.PNG
+    │      │  │          📄한화.png
+    │      │  └─📁js
+    │      │         📄board.js
+    │      │         📄boardEditor.js
+    │      │         📄boardViewer.js
+    │      │         📄divClick.js
+    │      │         📄index_ajax.js
+    │      │         📄user.js
+    │      │
+    │      └─📁templates
+    │          │  📄admin.html
+    │          │  📄board.html
+    │          │  📄boardConditionList.html
+    │          │  📄boardList.html
+    │          │  📄edit.html
+    │          │  📄gameResult.html
+    │          │  📄index.html
+    │          │  📄newBoard.html
+    │          │  📄record.html
+    │          │  📄schedule.html
+    │          │
+    │          ├─📁fragments
+    │          │      📄config.html
+    │          │      📄footer.html
+    │          │      📄head.html
+    │          │      📄header.html
+    │          │
+    │          ├─📁layout
+    │          │      📄layout.html
+    │          │
+    │          ├─📁player
+    │          │      📄info.html
+    │          │
+    │          ├─📁record
+    │          │      📄ranking.html
+    │          │
+    │          ├─📁schedule
+    │          │      📄daily.html
+    │          │
+    │          ├─📁teamRanking
+    │                 📄detail.html
+    │
+    └─📁test
+        └─📁java
+            └─📁com
+                └─📁estsoft
+                    └─📁springproject
+                            📄SpringProjectApplicationTests.java
+```
