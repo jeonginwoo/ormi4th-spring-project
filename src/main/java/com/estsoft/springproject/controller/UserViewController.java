@@ -25,12 +25,12 @@ public class UserViewController {
 
 	@GetMapping("/login")
 	public String login(){
-		return "/test/login";
+		return "test/login";
 	}
-	@PostMapping("/login")
+	/*@PostMapping("/login")
 	public String successlogin(){
 		return "redirect:/mypage";
-	}
+	}*/
 	@GetMapping("/signup")
 	public String showSignupForm() {
 		return "test/signup";
