@@ -46,19 +46,6 @@ public class BoardController {
     @PostMapping
     public ResponseEntity<BoardResponse> addBoard(BoardRequest request,
                                                   @AuthenticationPrincipal UserDetails userDetails) {
-
-        /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails) {
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            Long userId = getUserIdFromUserDetails(userDetails);
-            if (userId != null) {
-                User user = userService.findById(userId);
-                if (user != null) {
-
-                }
-            }
-        }*/
-
         try{
             User user = userService.findById(getUserIdFromUserDetails(userDetails));
 
@@ -142,7 +129,7 @@ public class BoardController {
         model.addAttribute("loggedIn", username != null);
         if (user == null) {
             // 로그인되지 않은 사용자일 경우 처리
-            return "redirect:/login"; // 로그인 페이지로 리다이렉트 혹은 처리할 경로로 변경
+            return "redirect:login"; // 로그인 페이지로 리다이렉트 혹은 처리할 경로로 변경
         }
         model.addAttribute("user", user);
         //model.addAttribute("userName",user.getNickname());

@@ -36,7 +36,7 @@
             <ul class="board-table-body">
                 <li th:each="board : ${boardPage.content}">
                     <p class="no" th:text="${board.id}"></p>
-                    <a class="title" th:href="@{/boards/{id}(id=${board.id})}" th:text="${board.title}"></a>
+                    <a class="title" th:href="@{/boards/{id}(id=${board.id}, team=${board.team})}" th:text="${board.title}"></a>
                     <p class="create-time" th:text="${#dates.format(board.createdAt, 'yyyy-MM-dd HH:mm')}"></p>
                 </li>
             </ul>

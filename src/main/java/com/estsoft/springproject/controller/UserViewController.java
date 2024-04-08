@@ -25,12 +25,12 @@ public class UserViewController {
 
 	@GetMapping("/login")
 	public String login(){
-		return "/test/login";
+		return "test/login";
 	}
-	@PostMapping("/login")
+	/*@PostMapping("/login")
 	public String successlogin(){
 		return "redirect:/mypage";
-	}
+	}*/
 	@GetMapping("/signup")
 	public String showSignupForm() {
 		return "test/signup";
@@ -61,7 +61,7 @@ public class UserViewController {
 		}
 
 		userService.save(request);
-		return "redirect:/login";
+		return "redirect:login";
 	}
 
 	// 닉네임 중복 검사를 위한 메서드 추가

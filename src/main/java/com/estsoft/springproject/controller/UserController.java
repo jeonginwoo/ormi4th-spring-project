@@ -84,7 +84,7 @@ public class UserController {
 			}
 		}
 		// 사용자를 찾을 수 없거나 인증되지 않은 경우, 로그인 페이지로 리다이렉트 또는 다른 처리
-		return "redirect:/login";
+		return "redirect:login";
 	}
 
 
@@ -138,13 +138,13 @@ public class UserController {
 
 		userService.updateUserInfo(userId,userRequest);
 		model.addAttribute("user",user);
-		return "redirect:/mypage";
+		return "redirect:mypage";
 	}
 
 	@DeleteMapping("/mypage/{userId}")
 	public String deleteUserInfo(@PathVariable Long userId){
 		userService.deleteUserInfo(userId);
-		return "redirect:/login";
+		return "redirect:login";
 	}
 
 	@GetMapping("mypage/admin")
@@ -158,21 +158,21 @@ public class UserController {
 		model.addAttribute("totalPosts",totalPosts);
 		int totalComments = commentService.getTotalComments();
 		model.addAttribute("totalComments",totalComments);
-		if(user.getRole().equals("admin")){
+		//if(user.getRole().equals("admin")){
 			List<UserAdminResponse> users = userService.getAllUser().stream().map(UserAdminResponse::new).toList();
 			model.addAttribute("users",users);
 			return "admin";
-		}
+		/*}
 		else{
-			return "redirect:/mypage";
-		}
+			return "redirect:mypage";
+		}*/
 
 	}
 	@Transactional
 	@PostMapping("mypage/{userId}/admin")
 	public String updateRole(@PathVariable Long userId,@RequestParam String role){
 		userService.updateRole(userId,role);
-		return "redirect:/mypage/admin";
+		return "redirect:mypage/admin";
 	}
 
 	// spring security 관련 코드
@@ -186,7 +186,7 @@ public class UserController {
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response){
 		new SecurityContextLogoutHandler().logout(request,response, SecurityContextHolder.getContext().getAuthentication());
-		return "redirect:/login";
+		return "redirect:login";
 	}
 
 	@PostMapping("/checkCurrentPassword")
