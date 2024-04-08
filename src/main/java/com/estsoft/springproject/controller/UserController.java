@@ -80,7 +80,7 @@ public class UserController {
 				model.addAttribute("commentPage", commentPageResult);
 				model.addAttribute("user", user);
 				model.addAttribute("userName",user.getNickname());
-				return "test/mypage";
+				return "mypage";
 			}
 		}
 		// 사용자를 찾을 수 없거나 인증되지 않은 경우, 로그인 페이지로 리다이렉트 또는 다른 처리
@@ -147,7 +147,7 @@ public class UserController {
 		return "redirect:login";
 	}
 
-	@GetMapping("mypage/admin")
+	@GetMapping("/mypage/admin")
 	public String getAllUsers(Model model,@AuthenticationPrincipal UserDetails userDetails){
 
 		Long id = getUserIdFromUserDetails(userDetails);
@@ -169,7 +169,7 @@ public class UserController {
 
 	}
 	@Transactional
-	@PostMapping("mypage/{userId}/admin")
+	@PostMapping("/mypage/{userId}/admin")
 	public String updateRole(@PathVariable Long userId,@RequestParam String role){
 		userService.updateRole(userId,role);
 		return "redirect:mypage/admin";
