@@ -1,5 +1,7 @@
 package com.estsoft.springproject.controller;
 
+import com.estsoft.springproject.service.FileService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.util.ResourceUtils;
@@ -15,18 +17,34 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/tui-editor")
 public class FileApiController {
 
-    // 파일을 업로드할 디렉터리 경로
+    private final FileService fileService;
+
+    @PostMapping("/image-upload")
+    public String fileWrite(@RequestParam MultipartFile image) throws IOException {
+
+        return fileService.fileWrite(image);
+    }
+
+    @GetMapping("/image-print")
+    public byte[] printEditorImage(@RequestParam String filename) throws FileNotFoundException {
+
+        return fileService.fileLoad(filename);
+
+    }
+
+    /*// 파일을 업로드할 디렉터리 경로
     private final String uploadDir = Paths.get(System.getProperty("user.dir"), "build", "resources", "main", "static", "images", "upload").toString();
 
-    /**
+    *//**
      * 에디터 이미지 업로드
      *
      * @param image 파일 객체
      * @return 업로드된 파일명
-     */
+     *//*
     @PostMapping("/image-upload")
     public String uploadEditorImage(@RequestParam final MultipartFile image) throws FileNotFoundException {
         if (image.isEmpty()) {
@@ -57,12 +75,12 @@ public class FileApiController {
         }
     }
 
-    /**
+    *//**
      * 디스크에 업로드된 파일을 byte[]로 반환
      *
      * @param filename 디스크에 업로드된 파일명
      * @return image byte array
-     */
+     *//*
     @GetMapping(value = "/image-print", produces = {MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
     public byte[] printEditorImage(@RequestParam final String filename) {
         // 업로드된 파일의 전체 경로
@@ -83,5 +101,5 @@ public class FileApiController {
             // 예외 처리는 따로 해주는 게 좋습니다.
             throw new RuntimeException(e);
         }
-    }
+    }*/
 }
