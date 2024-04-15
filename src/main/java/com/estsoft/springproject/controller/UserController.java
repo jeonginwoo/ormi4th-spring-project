@@ -138,7 +138,7 @@ public class UserController {
 
 		userService.updateUserInfo(userId,userRequest);
 		model.addAttribute("user",user);
-		return "redirect:mypage";
+		return "redirect:/mypage";
 	}
 
 	@DeleteMapping("/mypage/{userId}")
@@ -172,7 +172,7 @@ public class UserController {
 	@PostMapping("/mypage/{userId}/admin")
 	public String updateRole(@PathVariable Long userId,@RequestParam String role){
 		userService.updateRole(userId,role);
-		return "redirect:mypage/admin";
+		return "redirect:/mypage/admin";
 	}
 
 	// spring security 관련 코드
@@ -183,11 +183,11 @@ public class UserController {
 		//return "redirect:/login";
 	//}
 	//로그아웃 컨트롤러
-	@GetMapping("/logout")
+	/*@GetMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response){
 		new SecurityContextLogoutHandler().logout(request,response, SecurityContextHolder.getContext().getAuthentication());
 		return "redirect:login";
-	}
+	}*/
 
 	@PostMapping("/checkCurrentPassword")
 	public ResponseEntity<?> checkCurrentPassword(@RequestParam String currentPassword) {

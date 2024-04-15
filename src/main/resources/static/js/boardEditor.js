@@ -12,13 +12,14 @@ const editor = new toastui.Editor({
                 const formData = new FormData();
                 formData.append('image', blob);
 
+                console.log(formData);
+
                 const response = await fetch('/tui-editor/image-upload', {
                     method: 'POST',
                     body: formData,
                 });
 
                 const filename = await response.text();
-                console.log('서버에 저장된 파일명 : ', filename);
 
                 const imageUrl = `/tui-editor/image-print?filename=${filename}`;
                 callback(imageUrl, 'image alt attribute');
